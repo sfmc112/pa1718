@@ -12,8 +12,46 @@ import pkg9cs.model.GameData;
  * @author sarah
  */
 //TODO
-public interface Event {
+public abstract class Event {
 
-    public void executeEvent(GameData game);
-    
+    public void executeEvent(GameData game){
+        
+    }
+
+    public int getSabotageDRM() {
+        return 0;
+    }
+
+    public int getMoraleDRM() {
+        return 0;
+    }
+
+    public int getCircleSpaceDRM() {
+        return 0;
+    }
+
+    public int getCloseCombatSpaceDRM() {
+        return 0;
+    }
+
+    public int getSupplyRaidDRM() {
+        return 0;
+    }
+
+    public int getCoupureDRM() {
+        return 0;
+    }
+
+    public int getLadderDRM() {
+        return 0;
+    }
+
+    public int getRamDRM() {
+        return 0;
+    }
+
+    public int getSiegeTowerDRM() {
+        return 0;
+    }
+
 }

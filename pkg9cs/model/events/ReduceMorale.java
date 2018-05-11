@@ -11,7 +11,7 @@ import pkg9cs.model.GameData;
  *
  * @author sarah
  */
-public class ReduceMorale implements Event{
+public class ReduceMorale extends Event{
 
     @Override
     public void executeEvent(GameData game) {

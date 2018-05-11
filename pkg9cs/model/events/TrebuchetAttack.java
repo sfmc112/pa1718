@@ -11,7 +11,7 @@ import pkg9cs.model.GameData;
  *
  * @author sarah
  */
-public class TrebuchetAttack implements Event {
+public class TrebuchetAttack extends Event {
 
     @Override
     public void executeEvent(GameData game) {

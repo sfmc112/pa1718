@@ -19,19 +19,17 @@ public class CardDay {
 
     private List<WeaponAttack> enemyAttacks;
     private final int numActions;
-    private List<Event> events;
+    private CardDayEvent cardEvent;
 
     public CardDay(ArrayList<WeaponAttack> enemyAttacks, int numActions, ArrayList<Event> events) {
         this.enemyAttacks = new ArrayList<>(enemyAttacks);
         this.numActions = numActions;
-        this.events = new ArrayList<>(events);
+        cardEvent = new CardDayEvent(events);
     }
 
     public void executeDayActions(GameData game) {
 
-        for (Event evento : events) {
-            evento.executeEvent(game);
-        }
+        cardEvent.executeCardDayEvents(game);
 
         for (WeaponAttack enemyAttack : enemyAttacks) {
             enemyAttack.attack(game.getEnemyB());
@@ -50,10 +48,11 @@ public class CardDay {
         for (int i = 0; i < enemyAttacks.size(); i++) {
             str.append(enemyAttacks.get(i)).append("\n");
         }
-        str.append("Event:\n");
-        for (int i = 0; i < events.size(); i++) {
-            str.append(events.get(i)).append("\n");
-        }
+
+//        str.append("Event:\n");
+//        for (int i = 0; i < events.size(); i++) {
+//            str.append(events.get(i)).append("\n");
+//        }
         return str.toString();
         
     }

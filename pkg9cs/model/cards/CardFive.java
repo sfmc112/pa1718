@@ -10,15 +10,19 @@ import pkg9cs.model.enemyAttacks.LadderAttack;
 import pkg9cs.model.enemyAttacks.RamAttack;
 import pkg9cs.model.enemyAttacks.WeaponAttack;
 import pkg9cs.model.events.AddTrebuchet;
+import pkg9cs.model.events.CoupurePlusOneDRM;
 import pkg9cs.model.events.Event;
+import pkg9cs.model.events.LadderPlusOneDRM;
+import pkg9cs.model.events.RamPlusOneDRM;
 import pkg9cs.model.events.RemoveSiegeTower;
+import pkg9cs.model.events.SiegeTowerPlusOneDRM;
 
 /**
  *
  * @author sarah
  */
 public class CardFive extends Card {
-    
+
     public CardFive() {
         cardNumber = 5;
 
@@ -26,7 +30,9 @@ public class CardFive extends Card {
         w.add(new RamAttack());
 
         ArrayList<Event> e = new ArrayList<>();
-        //TODO +1 DRM all attacks
+        e.add(new LadderPlusOneDRM());
+        e.add(new RamPlusOneDRM());
+        e.add(new SiegeTowerPlusOneDRM());
 
         days.add(new CardDay(w, 3, e));
 
@@ -35,7 +41,9 @@ public class CardFive extends Card {
 
         w.add(new LadderAttack());
         w.add(new RamAttack());
+
         e.add(new RemoveSiegeTower());
+
         days.add(new CardDay(w, 2, e));
 
         w.clear();
@@ -44,7 +52,8 @@ public class CardFive extends Card {
         w.add(new LadderAttack());
 
         e.add(new AddTrebuchet());
-        // add +1 DRM Coupure
+        e.add(new CoupurePlusOneDRM());
+
         days.add(new CardDay(w, 2, e));
     }
 }

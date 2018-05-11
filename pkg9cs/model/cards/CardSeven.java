@@ -12,13 +12,18 @@ import pkg9cs.model.enemyAttacks.SiegeTowerAttack;
 import pkg9cs.model.enemyAttacks.SwordAttack;
 import pkg9cs.model.enemyAttacks.WeaponAttack;
 import pkg9cs.model.events.Event;
+import pkg9cs.model.events.LadderPlusOneDRM;
+import pkg9cs.model.events.MoralePlusOneDRM;
+import pkg9cs.model.events.RamMinusOneDRM;
+import pkg9cs.model.events.RamPlusOneDRM;
+import pkg9cs.model.events.SiegeTowerMinusOneDRM;
 
 /**
  *
  * @author sarah
  */
-public class CardSeven extends Card{
-    
+public class CardSeven extends Card {
+
     public CardSeven() {
         cardNumber = 7;
 
@@ -26,7 +31,7 @@ public class CardSeven extends Card{
         w.add(new RamAttack());
 
         ArrayList<Event> e = new ArrayList<>();
-        //TODO -1 DRM Ram
+        e.add(new RamMinusOneDRM());
 
         days.add(new CardDay(w, 2, e));
 
@@ -34,7 +39,9 @@ public class CardSeven extends Card{
         e.clear();
 
         w.add(new SiegeTowerAttack());
-        //TODO -1 DRM Siege Tower
+
+        e.add(new SiegeTowerMinusOneDRM());
+
         days.add(new CardDay(w, 2, e));
 
         w.clear();
@@ -44,7 +51,10 @@ public class CardSeven extends Card{
         w.add(new RamAttack());
         w.add(new SiegeTowerAttack());
 
-        //TODO add +1 DRM Ram, Ladder and Morale
+        e.add(new RamPlusOneDRM());
+        e.add(new LadderPlusOneDRM());
+        e.add(new MoralePlusOneDRM());
+
         days.add(new CardDay(w, 3, e));
     }
 }

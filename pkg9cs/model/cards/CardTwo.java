@@ -15,6 +15,8 @@ import pkg9cs.model.events.TrebuchetAttack;
 import pkg9cs.model.events.ReduceMorale;
 import pkg9cs.model.events.Event;
 import java.util.ArrayList;
+import pkg9cs.model.events.MoralePlusOneDRM;
+import pkg9cs.model.events.SabotagePlusOneDRM;
 
 /**
  *
@@ -33,22 +35,22 @@ public class CardTwo extends Card {
         e.add(new ReduceSupplies());
 
         days.add(new CardDay(w, 2, e));
-        
+
         w.clear();
         e.clear();
 
         w.add(new SwordAttack());
-        //TODO acrescentar eventos
+
+        e.add(new SabotagePlusOneDRM());
+        e.add(new MoralePlusOneDRM());
+
         days.add(new CardDay(w, 2, e));
-        
+
         w.clear();
         e.clear();
-        
-        w.add(new LadderAttack());
-        w.add(new RamAttack());
-        
+
         e.add(new TrebuchetAttack());
-        
+
         days.add(new CardDay(w, 1, e));
     }
 

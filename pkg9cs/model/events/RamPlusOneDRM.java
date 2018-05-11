@@ -11,11 +11,11 @@ import pkg9cs.model.GameData;
  *
  * @author sarah
  */
-public class RemoveSiegeTower extends Event{
+public class RamPlusOneDRM extends Event {
 
     @Override
-    public void executeEvent(GameData game) {
-        game.removeSiegeTower();
+    public int getRamDRM() {
+        return 1;
     }
-    
+
 }

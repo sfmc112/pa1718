@@ -5,17 +5,15 @@
  */
 package pkg9cs.model.events;
 
-import pkg9cs.model.GameData;
-
 /**
  *
  * @author sarah
  */
-public class RemoveSiegeTower extends Event{
+public class RaidPlusOneDRM extends Event {
 
     @Override
-    public void executeEvent(GameData game) {
-        game.removeSiegeTower();
+    public int getSupplyRaidDRM() {
+        return 1;
     }
-    
+
 }

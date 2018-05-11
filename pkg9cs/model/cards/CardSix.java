@@ -11,7 +11,12 @@ import pkg9cs.model.enemyAttacks.RamAttack;
 import pkg9cs.model.enemyAttacks.SiegeTowerAttack;
 import pkg9cs.model.enemyAttacks.SwordAttack;
 import pkg9cs.model.enemyAttacks.WeaponAttack;
+import pkg9cs.model.events.CircleSpacePlusOneDRM;
+import pkg9cs.model.events.CloseCombatSpacePlusOneDRM;
+import pkg9cs.model.events.CoupurePlusOneDRM;
 import pkg9cs.model.events.Event;
+import pkg9cs.model.events.RaidPlusOneDRM;
+import pkg9cs.model.events.SabotagePlusOneDRM;
 
 /**
  *
@@ -26,7 +31,8 @@ public class CardSix extends Card{
         w.add(new SwordAttack());
 
         ArrayList<Event> e = new ArrayList<>();
-        //TODO +1 DRM Raid e Sabotage
+        e.add(new RaidPlusOneDRM());
+        e.add(new SabotagePlusOneDRM());
 
         days.add(new CardDay(w, 3, e));
 
@@ -34,7 +40,11 @@ public class CardSix extends Card{
         e.clear();
 
         w.add(new LadderAttack());
-        //TODO +1 DRM Coupure, Raid e Sabotage
+        
+        e.add(new CoupurePlusOneDRM());
+        e.add(new RaidPlusOneDRM());
+        e.add(new SabotagePlusOneDRM());
+
         days.add(new CardDay(w, 3, e));
 
         w.clear();
@@ -43,8 +53,9 @@ public class CardSix extends Card{
         w.add(new RamAttack());
         w.add(new SiegeTowerAttack());
 
+        e.add(new CloseCombatSpacePlusOneDRM());
+        e.add(new CircleSpacePlusOneDRM());
 
-        // add +1 DRM CloseCombat and Circle Spaces
         days.add(new CardDay(w, 3, e));
     }
 }

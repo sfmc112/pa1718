@@ -12,8 +12,10 @@ import pkg9cs.model.enemyAttacks.SiegeTowerAttack;
 import pkg9cs.model.enemyAttacks.SwordAttack;
 import pkg9cs.model.enemyAttacks.WeaponAttack;
 import pkg9cs.model.events.Event;
+import pkg9cs.model.events.RamPlusOneDRM;
 import pkg9cs.model.events.ReduceMorale;
 import pkg9cs.model.events.ReduceSupplies;
+import pkg9cs.model.events.SiegeTowerPlusOneDRM;
 
 /**
  *
@@ -38,7 +40,9 @@ public class CardFour extends Card {
 
         w.add(new LadderAttack());
         w.add(new RamAttack());
-        //TODO add +1 DRM Ram
+
+        e.add(new RamPlusOneDRM());
+
         days.add(new CardDay(w, 2, e));
 
         w.clear();
@@ -46,7 +50,8 @@ public class CardFour extends Card {
 
         w.add(new SiegeTowerAttack());
 
-        //TODO add +1 DRM Siege Engine
+        e.add(new SiegeTowerPlusOneDRM());
+        
         days.add(new CardDay(w, 3, e));
     }
 }
