@@ -34,5 +34,11 @@ public class InvadingTrack extends Track{
     public boolean areSoldiersOnEnemyLines(){
         return getBoardspaceType() instanceof EnemyLine;
     }
+
+    @Override
+    public boolean onStartingSpace() {
+        return getBoardspaceType() instanceof Castle;
+    }
+    
     
 }

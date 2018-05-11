@@ -143,7 +143,7 @@ public class EnemyBoard {
     }
 
     public boolean isTowerOnStartingSpace() {
-        return towers.getEnemyOnStartingSpace();
+        return towers.onStartingSpace();
     }
 
     public void removeSiegeTower() {
@@ -184,13 +184,13 @@ public class EnemyBoard {
     public int countEnemiesOnStartingPosition(){
         int numEnemies = 0;
         
-        if (ladders.getEnemyOnStartingSpace()) {
+        if (ladders.onStartingSpace()) {
             numEnemies++;
         }
-        if (rams.getEnemyOnStartingSpace()) {
+        if (rams.onStartingSpace()) {
             numEnemies++;
         }
-        if (towerPresent && towers.getEnemyOnStartingSpace()) {
+        if (towerPresent && towers.onStartingSpace()) {
             numEnemies++;
         }
 
@@ -217,5 +217,14 @@ public class EnemyBoard {
         str.append("Trebuchet = ").append(trebuchetCount);
         return str.toString();
     }
-    
+
+    public boolean isLadderOnStartingSpace() {
+        return ladders.onStartingSpace();
+    }
+    public boolean isBatteringRamOnStartingSpace(){
+        return rams.onStartingSpace();
+    }
+    public boolean isSiegeTowerOnStartingSpace(){
+        return towers.onStartingSpace();
+    } 
 }

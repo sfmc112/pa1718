@@ -6,6 +6,7 @@
 package pkg9cs.controller;
 
 import pkg9cs.model.GameData;
+import pkg9cs.model.elements.*;
 import pkg9cs.states.IState;
 import pkg9cs.states.StartGame;
 
@@ -135,5 +136,28 @@ public class GameController {
 
     public void drawCard() {
         setState(state.executeCard());
+    }
+
+    public void checkEnemiesArchers() {
+        setState(state.checkEnemiesArchers());
+    }
+
+    public void checkEnemiesBoilingWater() {
+        //TODO
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public String archersMenu() {
+        StringBuilder str = new StringBuilder();
+        str.append(getGame().getEnemyB()).append("\n");
+        str.append(getGame().getEnemyB().isLadderOnStartingSpace()?"":"\t1- Ladder\n");
+        str.append(getGame().getEnemyB().isBatteringRamOnStartingSpace()?"":"\t2- Battering Ram\n");
+        str.append(getGame().getEnemyB().isSiegeTowerOnStartingSpace()?"":"\t3- Siege Tower\n");
+        str.append("\t4- Return to menu\n");
+        return str.toString();
+    }
+
+    public void archersAttack(Weapon weapon) {
+        setState(state.archersAttack(weapon));
     }
 }
