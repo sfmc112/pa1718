@@ -5,7 +5,7 @@
  */
 package pkg9cs.states;
 
-import pkg9cs.model.GameData;
+import pkg9cs.model.elements.Weapon;
 
 /**
  *
@@ -23,7 +23,7 @@ public interface IState {
 
     public IState checkEnemiesBoilingWater();
 
-    public IState archersAttack();
+    public IState archersAttack(Weapon weapon);
 
     public IState closeCombatAttack();
 

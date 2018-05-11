@@ -6,6 +6,7 @@
 package pkg9cs.states;
 
 import pkg9cs.model.GameData;
+import pkg9cs.model.elements.Weapon;
 
 /**
  *
@@ -53,7 +54,7 @@ public class StateAdapter implements IState {
     }
 
     @Override
-    public IState archersAttack() {
+    public IState archersAttack(Weapon weapon) {
         return this;
     }
 

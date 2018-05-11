@@ -141,7 +141,7 @@ public class GameData {
     }
 
     public boolean towerIsOnStartingSpace() {
-        return enemyB.isTowerOnStartingSpace();
+        return enemyB.isSiegeTowerOnStartingSpace();
     }
 
     public void removeSiegeTower() {

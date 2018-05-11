@@ -25,11 +25,7 @@ public class EnemyTrack extends Track {
         track.add(new Square());
         track.add(new Square(w));
     }
-
-    public boolean getEnemyOnStartingSpace() {
-        return whereIsElement() == NUM_SPACES - 1;
-    }
-    
+  
     public boolean getEnemyOnCircleSpace(){
         return getBoardspaceType() instanceof Circle;
     }

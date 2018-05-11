@@ -5,12 +5,11 @@
  */
 package pkg9cs.ui;
 
+import java.io.*;
 import java.util.Scanner;
 import pkg9cs.controller.GameController;
-import pkg9cs.states.AwaitAction;
-import pkg9cs.states.AwaitDrawCard;
-import pkg9cs.states.IState;
-import pkg9cs.states.StartGame;
+import pkg9cs.model.elements.*;
+import pkg9cs.states.*;
 
 /**
  *
@@ -24,6 +23,11 @@ public class TextUI {
         controller = gameController;
         this.run = true;
     }
+
+    public void setController(GameController controller) {
+        this.controller = controller;
+    }
+    
     
     public void run(){
         IState state=null;
@@ -35,12 +39,13 @@ public class TextUI {
                 drawCardUi();
             }else if(state instanceof AwaitAction){
                 awaitActionUi();
+            }else if(state instanceof AwaitEnemySelectionArchersAttack){
+                enemySelectionArchersUi();
             }
         }
     }
 
     private void startGameUi() {
-        //TODO
         System.out.println(controller.startGameMenu());
         int opt = readOption();
         switch(opt){
@@ -48,10 +53,10 @@ public class TextUI {
                 controller.startGame();
                 break;
             case 2:
-                load();
+                load_text();
                 break;
             case 3:
-                save();
+                save_text();
                 break;
             case 4:
                 run=false;
@@ -59,7 +64,6 @@ public class TextUI {
     }
 
     private void drawCardUi() {
-        //TODO
         System.out.println(controller.drawCardMenu());
         int opt = readOption();
         switch(opt){
@@ -67,10 +71,10 @@ public class TextUI {
                 controller.drawCard();
                 break;
             case 2:
-                save();
+                save_text();
                 break;
             case 3:
-                load();
+                load_text();
                 break;
             case 4:
                 run=false;
@@ -81,6 +85,30 @@ public class TextUI {
         System.out.println(controller.awaitActionMenu());
         int opt = readOption();
         switch(opt){
+            case 1:
+                controller.checkEnemiesArchers();
+                break;
+            case 2:
+                controller.checkEnemiesBoilingWater();
+                break;
+        }
+    }
+    private void enemySelectionArchersUi() {
+        //TODO
+        System.out.println(controller.archersMenu());
+        int opt = readOption();
+        switch(opt){
+            case 1:
+                controller.archersAttack(new Ladder());
+                break;
+            case 2:
+                controller.archersAttack(new Ram());
+                break;
+            case 3:
+                controller.archersAttack(new SiegeTower());
+                break;
+            case 4:
+                break;
         }
     }
 
@@ -92,16 +120,70 @@ public class TextUI {
         return in.nextInt();
     }
 
-    private void load() {
-        //TODO
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void load_text() {
+        System.out.print("\nName of the file to load:  ");
+        String filename = readFileName();
+        if(filename == null || filename.isEmpty())
+            return;
+        try{
+            setController(load_game(filename));
+        }catch (FileNotFoundException ex){
+        } catch (IOException ex) {
+        }
+        System.out.println("\nGame loaded\n");
     }
 
-    private void save() {
-        //TODO
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private GameController load_game(String filename) throws FileNotFoundException, IOException{
+        ObjectInputStream objectIStream = null;
+        GameController control = null;
+        try {
+            objectIStream = new ObjectInputStream(new FileInputStream(filename));
+            control = (GameController) objectIStream.readObject();
+        } catch (FileNotFoundException exception) {
+            System.err.println("Erro: ficheiro inexistente\n" + exception.getMessage());
+            throw  new FileNotFoundException();    
+        } catch (IOException | ClassNotFoundException exception) {}
+        finally{
+            if(objectIStream != null){
+                try {
+                    objectIStream.close();
+                } catch (IOException exception) {}
+            }
+        }
+        return control;
     }
     
+    private void save_text(){
+        System.out.println("\nName of the file to save: ");
+        String filename = readFileName();
+        if(filename == null || filename.isEmpty())
+            return;
+        save_game(filename);
+        System.out.println("\nGame saved\n");
+    }
     
+    private void save_game(String filename) {
+        ObjectOutputStream objectOStream = null;
+        try {
+            objectOStream = new ObjectOutputStream(new FileOutputStream(filename));
+            objectOStream.writeObject(this.controller);
+        } catch (FileNotFoundException exception) {
+            System.err.println("Erro: ficheiro inexistente\n" + exception.getMessage());
+        } catch (IOException exception) {}
+        finally{
+            if(objectOStream != null){
+                try {
+                    objectOStream.close();
+                } catch (IOException exception) {}
+            }
+        }
+    }
+
+    private String readFileName() {
+        Scanner in = new Scanner(System.in);
+        return in.nextLine();
+    } 
+
     
+
 }
