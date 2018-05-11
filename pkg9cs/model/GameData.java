@@ -240,4 +240,17 @@ public class GameData {
 
     }
 
+    @Override
+    public String toString() {
+        //TODO
+        // Tracks = NomeElemento + posição + nome da posição
+        // Mostrar o Dia
+        StringBuilder str = new StringBuilder();
+        str.append(getEnemyB());
+        str.append(getStatusB());
+        str.append("You have ").append(getNumberOfActions()).append(" actions.");
+        return str.toString();
+    }
+
+    
 }
