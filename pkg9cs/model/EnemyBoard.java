@@ -5,8 +5,6 @@
  */
 package pkg9cs.model;
 
-import pkg9cs.model.boardspaces.BoardSpace;
-import pkg9cs.model.boardspaces.CloseCombat;
 import pkg9cs.model.elements.SiegeTower;
 import pkg9cs.model.elements.Ladder;
 import pkg9cs.model.elements.Ram;
@@ -209,4 +207,15 @@ public class EnemyBoard {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        str.append(ladders);
+        str.append(rams);
+        str.append(towerPresent?towers:"");
+        str.append("Trebuchet = ").append(trebuchetCount);
+        return str.toString();
+    }
+    
 }

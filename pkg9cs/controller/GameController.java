@@ -57,10 +57,15 @@ public class GameController {
      * Draw Card Menu
      * @return String com o menu preparado para ser apresentado ao utilizador
      */
-    public boolean drawCardMenu() {
+    public String drawCardMenu() {
         //TODO
         // Draw() ; Save(); Load(); Quit()
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        StringBuilder str = new StringBuilder();
+        str.append("\t1- Draw Card\n");
+        str.append("\t2- Save Game\n");
+        str.append("\t3- Load Game\n");
+        str.append("\t4- Quit Game\n");
+        return str.toString();
     }
 
     /**
@@ -82,13 +87,15 @@ public class GameController {
             str.append("\t4- Coupure\n");
         if(canDoRallyTroops())
             str.append("\t5- Rally Troops\n");
-        if(canDoTunnelMovement())
-            str.append("\t6- Tunnel Movement\n");
+        str.append("\t6- Tunnel Movement\n");
         if(canDoSupplyRaid())
             str.append("\t7- Supply Raid\n");
         if(canDoSabotage())
             str.append("\t8- Sabotage\n");
-        // 9- EndTurn(); 10- SaveGame() ; 11- LoadGame(); 12- Quit()
+        str.append("\t9- End Turn\n");
+        str.append("\t10- Save Game\n");
+        str.append("\t11- Load Game\n");
+        str.append("\t12- Quit Game\n");
         
         return str.toString();
         
@@ -107,27 +114,26 @@ public class GameController {
     }
 
     private boolean canDoCoupure() {
-        //TODO
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (getGame().checkAP()) && (!(getGame().getStatusB().wallOnStartingSpace()));
     }
 
     private boolean canDoRallyTroops() {
-        //TODO
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private boolean canDoTunnelMovement() {
-        //TODO
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (getGame().checkAP()) && (!(getGame().getStatusB().moraleOnStartingSpace()));
     }
 
     private boolean canDoSupplyRaid() {
-        //TODO
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (getGame().checkAP()) && (getGame().getStatusB().checkSoldiersOnEnemyLine());
     }
 
     private boolean canDoSabotage() {
-        //TODO
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (getGame().checkAP()) && (getGame().getStatusB().checkSoldiersOnEnemyLine());
+    }
+
+    public void startGame() {
+        setState(state.startGame());
+    }
+
+    public void drawCard() {
+        setState(state.executeCard());
     }
 }

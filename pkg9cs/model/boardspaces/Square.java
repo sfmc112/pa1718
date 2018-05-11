@@ -14,20 +14,11 @@ import pkg9cs.model.elements.Element;
 public class Square extends BoardSpace{
     
     public Square() {
-        super(null);
+        super(null,"Square");
     }
 
     public Square(Element el) {
-        super(el);
-    }
-    
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("Square Space!\n");
-
-        return sb.toString();
+        super(el,"Square");
     }
     
 }

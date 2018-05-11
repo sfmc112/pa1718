@@ -12,16 +12,8 @@ package pkg9cs.model.boardspaces;
 public class Circle extends BoardSpace{
     
     public Circle() {
-        super(null);
+        super(null,"Circle");
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("Circle Space!\n");
-
-        return sb.toString();
-    }
     
 }

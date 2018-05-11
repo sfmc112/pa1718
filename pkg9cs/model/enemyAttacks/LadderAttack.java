@@ -19,4 +19,10 @@ public class LadderAttack implements WeaponAttack{
         //System.out.println("Atacou a escada.");
         eb.advanceLadder();
     }
+
+    @Override
+    public String toString() {
+        return "Ladder has advanced!";
+    }
+    
 }

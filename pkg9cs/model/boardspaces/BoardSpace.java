@@ -14,13 +14,18 @@ import pkg9cs.model.elements.Element;
 public abstract class BoardSpace {
 
     private Element el = null;
+    private String name;
 
-    public BoardSpace(Element el) {
+    public BoardSpace(Element el,String name) {
         this.el = el;
+        this.name=name;
     }
 
     public Element getElement() {
         return el;
+    }
+    public String getName(){
+        return name;
     }
 
     public void setElement(Element el) {
@@ -35,7 +40,7 @@ public abstract class BoardSpace {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("This is a BoardSpace!\n");
+        sb.append(getName());
 
         return sb.toString();
     }

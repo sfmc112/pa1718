@@ -19,5 +19,9 @@ public class RamAttack implements WeaponAttack {
         //System.out.println("Atacou a Ram.");
         eb.advanceRam();
     }
+     @Override
+    public String toString() {
+        return "Battering ram has advanced!";
+    }
 
 }

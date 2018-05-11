@@ -11,6 +11,7 @@ import pkg9cs.model.GameData;
  *
  * @author sarah
  */
+//TODO
 public interface Event {
 
     public void executeEvent(GameData game);

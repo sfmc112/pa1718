@@ -18,4 +18,8 @@ public class SiegeTowerAttack implements WeaponAttack {
         //System.out.println("Atacou a torre");
         eb.advanceTower();
     }
+     @Override
+    public String toString() {
+        return "Siege tower has advanced!";
+    }
 }

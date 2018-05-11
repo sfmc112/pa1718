@@ -49,28 +49,28 @@ public class Main {
         System.out.println("The ram is on the position " + e.getRamPos());
         System.out.println("The tower is on the position " + e.getTowerPos());
          */
-        GameData g = new GameData();
+//        GameData g = new GameData();
         
         //g.getCard(1).executeCard(g, g.getDayNumber());
         //g.getCardFromDeck(1).executeCard(g, 1);
         
-        System.out.println("");
-        System.out.println("The ladder is on the position " + g.getEnemyB().getLadderPos());
-        System.out.println("The ram is on the position " + g.getEnemyB().getRamPos());
-        System.out.println("The tower is on the position " + g.getEnemyB().getTowerPos());
-        System.out.println("Wall is on the position " + g.getStatusB().getWallPos());
-        System.out.println("Morale is on the position " + g.getStatusB().getMoralePos());
-        System.out.println("Supply is on the position " + g.getStatusB().getSupplyPos());
-        
-        g.getCardFromDeck(0).executeCard(g, 1);
-
-        System.out.println("");
-        System.out.println("The ladder is on the position " + g.getEnemyB().getLadderPos());
-        System.out.println("The ram is on the position " + g.getEnemyB().getRamPos());
-        System.out.println("The tower is on the position " + g.getEnemyB().getTowerPos());
-        System.out.println("Wall is on the position " + g.getStatusB().getWallPos());
-        System.out.println("Morale is on the position " + g.getStatusB().getMoralePos());
-        System.out.println("Supply is on the position " + g.getStatusB().getSupplyPos());
+//        System.out.println("");
+//        System.out.println("The ladder is on the position " + g.getEnemyB().getLadderPos());
+//        System.out.println("The ram is on the position " + g.getEnemyB().getRamPos());
+//        System.out.println("The tower is on the position " + g.getEnemyB().getTowerPos());
+//        System.out.println("Wall is on the position " + g.getStatusB().getWallPos());
+//        System.out.println("Morale is on the position " + g.getStatusB().getMoralePos());
+//        System.out.println("Supply is on the position " + g.getStatusB().getSupplyPos());
+//        
+//        g.getCardFromDeck(0).executeCard(g, 1);
+//
+//        System.out.println("");
+//        System.out.println("The ladder is on the position " + g.getEnemyB().getLadderPos());
+//        System.out.println("The ram is on the position " + g.getEnemyB().getRamPos());
+//        System.out.println("The tower is on the position " + g.getEnemyB().getTowerPos());
+//        System.out.println("Wall is on the position " + g.getStatusB().getWallPos());
+//        System.out.println("Morale is on the position " + g.getStatusB().getMoralePos());
+//        System.out.println("Supply is on the position " + g.getStatusB().getSupplyPos());
 
 //        g.setDayNumber(2);
 //        g.getCard(1).executeCard(g, g.getDayNumber());

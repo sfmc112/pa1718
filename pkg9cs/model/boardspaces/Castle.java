@@ -14,7 +14,7 @@ import pkg9cs.model.elements.Element;
 public class Castle extends BoardSpace{
     
     public Castle(Element el) {
-        super(el);
+        super(el,"Castle");
     }
     
 }

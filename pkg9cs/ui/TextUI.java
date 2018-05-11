@@ -5,6 +5,7 @@
  */
 package pkg9cs.ui;
 
+import java.util.Scanner;
 import pkg9cs.controller.GameController;
 import pkg9cs.states.AwaitAction;
 import pkg9cs.states.AwaitDrawCard;
@@ -26,7 +27,7 @@ public class TextUI {
     
     public void run(){
         IState state=null;
-        while(!run){
+        while(run){
             state= controller.getState();
             if(state instanceof StartGame){
                 startGameUi();
@@ -46,6 +47,14 @@ public class TextUI {
             case 1:
                 controller.startGame();
                 break;
+            case 2:
+                load();
+                break;
+            case 3:
+                save();
+                break;
+            case 4:
+                run=false;
         }
     }
 
@@ -57,12 +66,40 @@ public class TextUI {
             case 1:
                 controller.drawCard();
                 break;
+            case 2:
+                save();
+                break;
+            case 3:
+                load();
+                break;
+            case 4:
+                run=false;
         }
     }
 
     private void awaitActionUi() {
-        //TODO
         System.out.println(controller.awaitActionMenu());
+        int opt = readOption();
+        switch(opt){
+        }
+    }
+
+    private int readOption() {
+        Scanner in = new Scanner(System.in);
+        while(!in.hasNextInt()){
+            in.next();
+        }
+        return in.nextInt();
+    }
+
+    private void load() {
+        //TODO
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void save() {
+        //TODO
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

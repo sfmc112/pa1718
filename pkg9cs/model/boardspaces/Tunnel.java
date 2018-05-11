@@ -14,7 +14,7 @@ import pkg9cs.model.elements.Element;
 public class Tunnel extends BoardSpace {
     
     public Tunnel() {
-        super(null);
+        super(null,"Tunnel");
     }
     
 }

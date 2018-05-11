@@ -30,6 +30,13 @@ public abstract class Card {
     public String toString() {
         return "Card{" + "cardNumber=" + cardNumber + '}';
     }
+
+    public String printDay(int dayNumber) {
+        StringBuilder str = new StringBuilder();
+        str.append("CARD ").append( cardNumber).append("\n");
+        str.append(days.get(dayNumber));
+        return str.toString();
+    }
     
     
 

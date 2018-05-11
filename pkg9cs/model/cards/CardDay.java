@@ -41,4 +41,22 @@ public class CardDay {
 
     }
 
+    @Override
+    public String toString() {
+        //TODO
+        StringBuilder str= new StringBuilder();
+        str.append("Number of Actions = ").append(numActions).append("\n");
+        str.append(enemyAttacks.isEmpty()?"Enemy Attacks: NONE\n":"Enemy Attacks:\n");
+        for (int i = 0; i < enemyAttacks.size(); i++) {
+            str.append(enemyAttacks.get(i)).append("\n");
+        }
+        str.append("Event:\n");
+        for (int i = 0; i < events.size(); i++) {
+            str.append(events.get(i)).append("\n");
+        }
+        return str.toString();
+        
+    }
+    
+
 }

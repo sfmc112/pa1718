@@ -104,5 +104,18 @@ public abstract class Track {
             }
         }
     }
+    public boolean onStartingSpace(){
+        return (whereIsElement() == (track.size()-1));
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        str.append(getElementType());
+        str.append(" is on position ").append( whereIsElement());
+        str.append("\t(").append(getBoardspaceType()).append(")\n");
+        return str.toString();
+    }
+    
 
 }

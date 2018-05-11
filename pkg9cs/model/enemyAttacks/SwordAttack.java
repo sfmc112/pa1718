@@ -18,5 +18,9 @@ public class SwordAttack implements WeaponAttack{
         //System.out.println("Atacaram os mais atrasados.");
         eb.advanceSlowestEnemies();
     }
+     @Override
+    public String toString() {
+        return "Slowest enemies advanced!";
+    }
     
 }

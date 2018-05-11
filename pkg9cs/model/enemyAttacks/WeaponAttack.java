@@ -13,4 +13,5 @@ import pkg9cs.model.EnemyBoard;
  */
 public interface WeaponAttack {
     public void attack(EnemyBoard eb);
+    
 }

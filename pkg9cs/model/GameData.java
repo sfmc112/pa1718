@@ -242,13 +242,12 @@ public class GameData {
 
     @Override
     public String toString() {
-        //TODO
-        // Tracks = NomeElemento + posição + nome da posição
-        // Mostrar o Dia
         StringBuilder str = new StringBuilder();
-        str.append(getEnemyB());
-        str.append(getStatusB());
+        str.append("Day ").append(dayNumber).append("\n");
+        str.append(getEnemyB()).append("\n\n");
+        str.append(getStatusB()).append("\n");
         str.append("You have ").append(getNumberOfActions()).append(" actions.");
+        str.append(discarded.getCard(discarded.getCardPileSize()-1).printDay(dayNumber)).append("\n");
         return str.toString();
     }
 

@@ -14,7 +14,7 @@ import pkg9cs.model.elements.Element;
 public class EnemyLine extends BoardSpace{
     
     public EnemyLine() {
-        super(null);
+        super(null, "Enemy Line");
     }
     
 }

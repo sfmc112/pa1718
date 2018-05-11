@@ -5,6 +5,7 @@
  */
 package pkg9cs.model;
 
+import com.sun.java.util.jar.pack.DriverResource;
 import pkg9cs.model.elements.Supply;
 import pkg9cs.model.elements.Morale;
 import pkg9cs.model.elements.Soldiers;
@@ -109,5 +110,29 @@ public class StatusBoard {
     public boolean checkSoldiersOnEnemyLine(){
         return soldierLine.areSoldiersOnEnemyLines();
     }
+    
+    public boolean wallOnStartingSpace() {
+        return wall.onStartingSpace();
+    }
+
+    public boolean moraleOnStartingSpace() {
+       return morale.onStartingSpace();
+    }
+    public boolean suppliesOnStartingSpace(){
+        return supplies.onStartingSpace();
+    }
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        str.append(wall);
+        str.append(morale);
+        str.append(supplies);
+        str.append(soldierLine);
+        return str.toString();
+    }
+
+    
+
+    
 
 }

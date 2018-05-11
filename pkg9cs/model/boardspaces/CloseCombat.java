@@ -13,15 +13,8 @@ public class CloseCombat extends BoardSpace{
     private int fixedStrength = 4;
     
     public CloseCombat() {
-        super(null);
+        super(null,"Close Combat");
     }
     
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
 
-        sb.append("Close Combat Space!\n");
-
-        return sb.toString();
-    }
 }
