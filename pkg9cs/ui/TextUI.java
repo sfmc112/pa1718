@@ -15,13 +15,13 @@ import pkg9cs.states.StartGame;
  *
  * @author sarah
  */
-public class TextIU {
+public class TextUI {
     GameController controller;
     boolean run;
 
-    public TextIU() {
-        controller = new GameController();
-        this.run=true;
+    public TextUI(GameController gameController) {
+        controller = gameController;
+        this.run = true;
     }
     
     public void run(){

@@ -5,8 +5,10 @@
  */
 package pkg9cs;
 
+import pkg9cs.controller.GameController;
 import pkg9cs.model.EnemyBoard;
 import pkg9cs.model.GameData;
+import pkg9cs.ui.TextUI;
 
 /**
  *
@@ -18,6 +20,9 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        TextUI textUI = new TextUI(new GameController());
+        textUI.run();
 
         /*
         System.out.println("Hello! Where are the elements?");
