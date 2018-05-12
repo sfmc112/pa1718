@@ -41,6 +41,12 @@ public class TextUI {
                 awaitActionUi();
             } else if (state instanceof AwaitEnemySelectionArchersAttack) {
                 enemySelectionArchersUi();
+            } else if (state instanceof AwaitEnemySelectionBoilingWaterAttack){
+                enemySelectionBoilingAttackUi();
+            }else if (state instanceof AwaitTunnelMovementSelection){
+                tunnelMenuUi();
+            }else if (state instanceof AwaitEnemySelectionCloseCombatAttack){
+                enemySelectionCloseCombatUi();
             }
         }
     }
@@ -53,7 +59,7 @@ public class TextUI {
                 controller.startGame();
                 break;
             case 2:
-                load_text();
+                loadText();
                 break;
             case 3:
                 run = false;
@@ -68,12 +74,15 @@ public class TextUI {
                 controller.drawCard();
                 break;
             case 2:
-                save_text();
+                saveText();
                 break;
             case 3:
-                load_text();
+                loadText();
                 break;
             case 4:
+                System.out.println(controller.statusBoard());
+                break;
+            case 5:
                 run = false;
         }
     }
@@ -88,11 +97,40 @@ public class TextUI {
             case 2:
                 controller.checkEnemiesBoilingWater();
                 break;
+            case 3:
+                controller.checkEnemiesCloseCombat();
+                break;
+            case 4:
+                controller.coupure();
+                break;
+            case 5:
+                controller.askUseOfSupply();
+                break;
+            case 6:
+                controller.selectTunnelMov();
+                break;
+            case 7:
+                controller.supplyRaid();
+                break;
+            case 8:
+                controller.sabotage();
+                break;
+            case 9:
+                controller.endTurn();
+                break;
+            case 10:
+                saveText();
+                break;
+            case 11:
+                loadText();
+                break;
+            case 12:
+                run=false;
+                
         }
     }
 
     private void enemySelectionArchersUi() {
-        //TODO
         System.out.println(controller.archersMenu());
         int opt = readOption();
         switch (opt) {
@@ -106,7 +144,61 @@ public class TextUI {
                 controller.archersAttack(new SiegeTower());
                 break;
             case 4:
+                // TODO 
                 break;
+        }
+    }
+    private void tunnelMenuUi() {
+        System.out.println(controller.tunnelMenu());
+        int opt = readOption();
+        switch (opt){
+            case 1: 
+                //TODO
+                break;
+            case 2:
+                //TODO
+                break;
+            case 3:
+                //TODO
+                break;
+        }
+    }
+    private void enemySelectionBoilingAttackUi() {
+        System.out.println(controller.boilingAttackMenu());
+        int opt = readOption();
+        switch (opt){
+            case 1: 
+                //TODO
+                break;
+            case 2:
+                //TODO
+                break;
+            case 3:
+                //TODO
+                break;
+            case 4:
+                //TODO
+                break;
+                
+        }
+    }
+    private void enemySelectionCloseCombatUi() {
+        System.out.println(controller.closeCombatAttackMenu());
+        int opt = readOption();
+        switch (opt){
+            case 1: 
+                //TODO
+                break;
+            case 2:
+                //TODO
+                break;
+            case 3:
+                //TODO
+                break;
+            case 4:
+                //TODO
+                break;
+                
         }
     }
 
@@ -118,7 +210,7 @@ public class TextUI {
         return in.nextInt();
     }
 
-    private void load_text() {
+    private void loadText() {
         System.out.print("\nName of the file to load:  ");
         String filename = readFileName();
         if (filename == null || filename.isEmpty()) {
@@ -132,7 +224,6 @@ public class TextUI {
         } catch (IOException ex) {
             System.out.println("\nException2\n");
         }
-        //System.out.println("\nGame loaded\n");
     }
 
     private GameController load_game(String filename) throws FileNotFoundException, IOException {
@@ -156,7 +247,7 @@ public class TextUI {
         return control;
     }
 
-    private void save_text() {
+    private void saveText() {
         System.out.println("\nName of the file to save: ");
         String filename = readFileName();
         if (filename == null || filename.isEmpty()) {
@@ -189,4 +280,7 @@ public class TextUI {
         return in.nextLine();
     }
 
+    
+
+    
 }

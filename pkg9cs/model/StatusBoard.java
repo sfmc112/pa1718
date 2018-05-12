@@ -132,6 +132,7 @@ public class StatusBoard implements Serializable {
         str.append(morale);
         str.append(supplies);
         str.append(soldierLine);
+        str.append("Supplies raider = ").append(supplyCount).append("\n");
         return str.toString();
     }
 
