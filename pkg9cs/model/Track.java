@@ -17,7 +17,6 @@ import java.util.List;
  */
 public abstract class Track implements Serializable {
 
-    //TODO (not a priority) constantes
     protected static final int NUM_SPACES = 5;
     protected static final int NUM_SPACES_INV_TRACK = 4;
 

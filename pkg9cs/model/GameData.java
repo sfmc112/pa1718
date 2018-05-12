@@ -116,6 +116,7 @@ public class GameData implements Serializable {
             return false;
         }
         numberOfActions++;
+        statusB.advanceMorale();
         usedExtraAP = true;
         return true;
     }
@@ -125,6 +126,7 @@ public class GameData implements Serializable {
             return false;
         }
         numberOfActions++;
+        statusB.advanceSupply();
         usedExtraAP = true;
         return true;
     }
@@ -348,7 +350,7 @@ public class GameData implements Serializable {
     }
 
     /**
-     * Chama o método de ataque ao respetivo objeto passado por argumento
+     * Ataca a weapon passada por argumento
      *
      * @param weapon Tipo de inimigo a atacar
      * @return true se o ataque foi permitido (sucesso ou insucesso)

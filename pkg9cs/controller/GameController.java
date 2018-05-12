@@ -151,7 +151,7 @@ public class GameController implements Serializable {
      * @return String com o menu preparado para ser apresentado ao utilizador
      */
     public String awaitActionMenu() {
-        //TODO
+
         StringBuilder str = new StringBuilder();
         str.append(game);
         str.append("\nAvailable actions:\n");
