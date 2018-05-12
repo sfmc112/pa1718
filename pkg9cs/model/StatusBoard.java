@@ -70,6 +70,7 @@ public class StatusBoard implements Serializable {
     }
 
     public void captureSoldiers() {
+        supplyCount = 0;
         soldierLine.captureSoldiers();
     }
 

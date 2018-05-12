@@ -83,14 +83,22 @@ public class AwaitAction extends StateAdapter {
 
     @Override
     public IState coupure() {
-        //TODO
-        return super.coupure(); //To change body of generated methods, choose Tools | Templates.
+        if(getGame().checkAP() && !getGame().wallOnStartingSpace()){
+            getGame().coupure();
+            getGame().subtractActionPoint();
+        }
+        return this;    
     }
 
     @Override
     public IState sabotage() {
-        //TODO
-        return super.sabotage(); //To change body of generated methods, choose Tools | Templates.
+        if(getGame().checkAP() && getGame().checkSoldiersOnEnemyLine() && getGame().existsTrebuchets()){
+            getGame().sabotage();
+            getGame().subtractActionPoint();
+        }
+        if(getGame().immediateLossCheck())
+            return new GameLost(getGame());
+        return this;
     }
 
     @Override

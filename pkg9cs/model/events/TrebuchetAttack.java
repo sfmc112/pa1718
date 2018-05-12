@@ -25,7 +25,7 @@ public class TrebuchetAttack extends EventAdapter {
             case 2:
                 game.getStatusB().advanceWall();
                 break;
-            default:
+            case 1:
                 switch (GameData.Die.rollDie()) {
                     case 1:
                     case 2:

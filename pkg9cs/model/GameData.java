@@ -18,6 +18,10 @@ import pkg9cs.model.elements.*;
  */
 public class GameData implements Serializable {
 
+    private static final int COUPURE_STRENGTH = 4;
+    private static final int RALLYTROOPS_STRENGTH = 4;
+    private static final int SABOTAGE_STRENGTH = 4;
+
     private EnemyBoard enemyB;
     private StatusBoard statusB;
 
@@ -217,6 +221,7 @@ public class GameData implements Serializable {
 
     public void captureSoldiers() {
         statusB.captureSoldiers();
+        statusB.advanceMorale();
     }
 
     public boolean immediateLossCheck() {
@@ -275,14 +280,18 @@ public class GameData implements Serializable {
         return statusB.checkAvailableSupplies();
     }
 
+    public boolean checkAvailableMorale() {
+        return statusB.checkAvailableMorale();
+    }
+
     public boolean checkSoldiersOnEnemyLine() {
         return statusB.checkSoldiersOnEnemyLine();
     }
-    
-    public boolean wallOnStartingSpace(){
+
+    public boolean wallOnStartingSpace() {
         return statusB.wallOnStartingSpace();
     }
-    
+
     public boolean moraleOnStartingSpace() {
         return statusB.moraleOnStartingSpace();
     }
@@ -291,10 +300,14 @@ public class GameData implements Serializable {
         return statusB.suppliesOnStartingSpace();
     }
 
+    public boolean existsTrebuchets() {
+        return enemyB.getTrebuchetCount() > 0;
+    }
+
     /**
      * ******************************************************************************************
      */
-    /*--------------------------------Player Action Attacks------------------------------------*/
+    /*-----------------------------------Player Actions----------------------------------------*/
     /**
      * ******************************************************************************************
      */
@@ -321,7 +334,7 @@ public class GameData implements Serializable {
         } else if (weapon instanceof Ram) {
             return archersAttackRam();
         } else {
-             return archersAttackSiegeTower();
+            return archersAttackSiegeTower();
         }
     }
 
@@ -342,7 +355,7 @@ public class GameData implements Serializable {
     private boolean archersAttackLadderOnCloseCombat() {
         int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM() + getLadderDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
-        System.out.println("Dado: " + dieResult);
+        //System.out.println("Dado: " + dieResult);
 
         if (dieResult > CloseCombat.CLOSECOMBATSTRENGTH) {
             enemyB.retreatLadder();
@@ -353,7 +366,7 @@ public class GameData implements Serializable {
     private boolean archersAttackLadderOnCircleSpace() {
         int dieResult = GameData.Die.rollDie() + getCircleSpaceDRM() + getLadderDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
-        System.out.println("Dado: " + dieResult);
+        //System.out.println("Dado: " + dieResult);
 
         if (dieResult > Ladder.STRENGTH) {
             enemyB.retreatLadder();
@@ -364,7 +377,7 @@ public class GameData implements Serializable {
     private boolean archersAttackLadderOnSquareSpace() {
         int dieResult = GameData.Die.rollDie() + getLadderDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
-        System.out.println("Dado: " + dieResult);
+        //System.out.println("Dado: " + dieResult);
 
         if (dieResult > Ladder.STRENGTH) {
             enemyB.retreatLadder();
@@ -389,7 +402,7 @@ public class GameData implements Serializable {
     private boolean archersAttackRamOnCloseCombat() {
         int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM() + getBatteringRamDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
-        System.out.println("Dado: " + dieResult);
+        //System.out.println("Dado: " + dieResult);
 
         if (dieResult > CloseCombat.CLOSECOMBATSTRENGTH) {
             enemyB.retreatRam();
@@ -400,7 +413,7 @@ public class GameData implements Serializable {
     private boolean archersAttackRamOnCircleSpace() {
         int dieResult = GameData.Die.rollDie() + getCircleSpaceDRM() + getBatteringRamDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
-        System.out.println("Dado: " + dieResult);
+        //System.out.println("Dado: " + dieResult);
 
         if (dieResult > Ram.STRENGTH) {
             enemyB.retreatRam();
@@ -411,7 +424,7 @@ public class GameData implements Serializable {
     private boolean archersAttackRamOnSquareSpace() {
         int dieResult = GameData.Die.rollDie() + getBatteringRamDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
-        System.out.println("Dado: " + dieResult);
+        //System.out.println("Dado: " + dieResult);
 
         if (dieResult > Ram.STRENGTH) {
             enemyB.retreatRam();
@@ -436,7 +449,7 @@ public class GameData implements Serializable {
     private boolean archersAttackTowerOnCloseCombat() {
         int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM() + getSiegeTowerDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
-        System.out.println("Dado: " + dieResult);
+        //System.out.println("Dado: " + dieResult);
 
         if (dieResult > CloseCombat.CLOSECOMBATSTRENGTH) {
             enemyB.retreatTower();
@@ -447,7 +460,7 @@ public class GameData implements Serializable {
     private boolean archersAttackTowerOnCircleSpace() {
         int dieResult = GameData.Die.rollDie() + getCircleSpaceDRM() + getSiegeTowerDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
-        System.out.println("Dado: " + dieResult);
+        //System.out.println("Dado: " + dieResult);
 
         if (dieResult > SiegeTower.STRENGTH) {
             enemyB.retreatTower();
@@ -458,7 +471,7 @@ public class GameData implements Serializable {
     private boolean archersAttackTowerOnSquareSpace() {
         int dieResult = GameData.Die.rollDie() + getSiegeTowerDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
-        System.out.println("Dado: " + dieResult);
+        //System.out.println("Dado: " + dieResult);
 
         if (dieResult > SiegeTower.STRENGTH) {
             enemyB.retreatTower();
@@ -469,7 +482,7 @@ public class GameData implements Serializable {
     /**
      * ******************************************************************************************
      */
-    /*-------------------------------Boiling Water Attack----------------------------------------*/
+    /*-------------------------------Boiling Water Attack--------------------------------------*/
     /**
      * ******************************************************************************************
      */
@@ -493,7 +506,7 @@ public class GameData implements Serializable {
         }
         int dieResult = GameData.Die.rollDie() + getCircleSpaceDRM() + getLadderDRM() + 1;
         dieResult = GameData.Die.adjustDieResult(dieResult);
-        System.out.println("Dado: " + dieResult);
+        //System.out.println("Dado: " + dieResult);
 
         if (dieResult > Ladder.STRENGTH) {
             enemyB.retreatLadder();
@@ -511,7 +524,7 @@ public class GameData implements Serializable {
 
         int dieResult = GameData.Die.rollDie() + getCircleSpaceDRM() + getBatteringRamDRM() + 1;
         dieResult = GameData.Die.adjustDieResult(dieResult);
-        System.out.println("Dado: " + dieResult);
+        //System.out.println("Dado: " + dieResult);
 
         if (dieResult > Ram.STRENGTH) {
             enemyB.retreatRam();
@@ -529,7 +542,7 @@ public class GameData implements Serializable {
 
         int dieResult = GameData.Die.rollDie() + getCircleSpaceDRM() + getSiegeTowerDRM() + 1;
         dieResult = GameData.Die.adjustDieResult(dieResult);
-        System.out.println("Dado: " + dieResult);
+        //System.out.println("Dado: " + dieResult);
 
         if (dieResult > SiegeTower.STRENGTH) {
             enemyB.retreatTower();
@@ -569,7 +582,7 @@ public class GameData implements Serializable {
 
         int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
-        System.out.println("Dado: " + dieResult);
+        //System.out.println("Dado: " + dieResult);
 
         if (dieResult > CloseCombat.CLOSECOMBATSTRENGTH) {
             enemyB.retreatLadder();
@@ -586,7 +599,7 @@ public class GameData implements Serializable {
 
         int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
-        System.out.println("Dado: " + dieResult);
+        //System.out.println("Dado: " + dieResult);
 
         if (dieResult > CloseCombat.CLOSECOMBATSTRENGTH) {
             enemyB.retreatRam();
@@ -603,7 +616,7 @@ public class GameData implements Serializable {
 
         int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
-        System.out.println("Dado: " + dieResult);
+        //System.out.println("Dado: " + dieResult);
 
         if (dieResult > CloseCombat.CLOSECOMBATSTRENGTH) {
             enemyB.retreatTower();
@@ -611,6 +624,35 @@ public class GameData implements Serializable {
             statusB.advanceMorale();
         }
         return true;
+    }
+
+    /**
+     * ******************************************************************************************
+     */
+    /*-----------------------------------Coupure Action----------------------------------------*/
+    /**
+     * ******************************************************************************************
+     */
+    public void coupure() {
+        int dieResult = GameData.Die.rollDie() + getCoupureDRM();
+        dieResult = GameData.Die.adjustDieResult(dieResult);
+        //System.out.println("Dado: " + dieResult);
+
+        if (dieResult > COUPURE_STRENGTH) {
+            statusB.retreatWall();
+        }
+    }
+
+    public void sabotage() {
+        int dieResult = GameData.Die.rollDie() + getSabotageDRM();
+        dieResult = GameData.Die.adjustDieResult(dieResult);
+        //System.out.println("Dado: " + dieResult);
+
+        if (dieResult > SABOTAGE_STRENGTH) {
+            enemyB.subtractTrebuchetCount();
+        } else if (dieResult <= 1) {
+            captureSoldiers();
+        }
     }
 
     /**

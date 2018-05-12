@@ -142,7 +142,7 @@ public class EnemyBoard implements Serializable {
     }
 
     public void subtractTrebuchetCount() {
-        if (getTrebuchetCount() > 1) {
+        if (getTrebuchetCount() > 0) {
             setTrebuchetCount(trebuchetCount - 1);
         }
     }
