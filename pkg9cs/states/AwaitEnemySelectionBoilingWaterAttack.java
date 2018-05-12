@@ -6,15 +6,27 @@
 package pkg9cs.states;
 
 import pkg9cs.model.GameData;
+import pkg9cs.model.elements.Weapon;
 
 /**
  *
  * @author sarah
  */
-public class AwaitEnemySelectionBoilingWaterAttack extends StateAdapter{
-    
+public class AwaitEnemySelectionBoilingWaterAttack extends StateAdapter {
+
     public AwaitEnemySelectionBoilingWaterAttack(GameData game) {
         super(game);
     }
-    
+
+    @Override
+    public IState boilingWaterAttack(Weapon weapon) {
+        if (getGame().boilingWaterAttack(weapon)) {
+            getGame().subtractActionPoint();
+        }
+        if (getGame().immediateLossCheck()) {
+            return new GameLost(getGame());
+        }
+        return new AwaitAction(getGame());
+    }
+
 }

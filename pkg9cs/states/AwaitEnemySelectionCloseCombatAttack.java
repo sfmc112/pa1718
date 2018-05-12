@@ -6,6 +6,7 @@
 package pkg9cs.states;
 
 import pkg9cs.model.GameData;
+import pkg9cs.model.elements.Weapon;
 
 /**
  *
@@ -26,10 +27,14 @@ public class AwaitEnemySelectionCloseCombatAttack extends StateAdapter {
     }
 
     @Override
-    public IState closeCombatAttack() {
+    public IState closeCombatAttack(Weapon weapon) {
 
-        getGame().attackCloseCombat();
-        getGame().subtractActionPoint();
+        if (getGame().closeCombatAttack(weapon)) {
+            getGame().subtractActionPoint();
+        }
+        if (getGame().immediateLossCheck()) {
+            return new GameLost(getGame());
+        }
 
         if (!getGame().twoEnemiesOnCloseCombat()) { //se ataque for bem sucedido, vai para AwaitAction
             return new AwaitAction(getGame());
@@ -37,10 +42,10 @@ public class AwaitEnemySelectionCloseCombatAttack extends StateAdapter {
             if (getGame().checkAP()) { //se ataque falhar e tiver ações, permanece no mesmo estado
                 return this;
             } else if (!getGame().isUsedExtraAP() && getGame().checkAvailableResources()) { //se ataque falhar e não tiver ações e puder comprar uma ação, vai para comprar acao
-                return new AwaitAddActionPoint(getGame());                             
+                return new AwaitAddActionPoint(getGame());
             } else {
                 return new AwaitAction(getGame()); //se ataque falhar, não tiver ações e não puder comprar acção, vai para o estado AwaitAction
-            }                                       //De lá, faz endOfTurn e vê que o jogador perdeu e passa para o estado GameOver
+            }                                       //De lá, faz endOfTurn e vê que o jogador perdeu e passa para o estado GameLost
         }
     }
 

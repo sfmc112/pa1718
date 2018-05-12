@@ -19,12 +19,17 @@ public class AwaitAction extends StateAdapter {
 
     @Override
     public IState endOfTurn() {
-        //TODO
-        //WinOrLossCheck
-            //if LOSS -> new GameOver();
-        //se fim do dia -> fazer acções fim do dia
-            //if day = 4 , new GameOver(); (WIN!!)
-        //se fim do turno -> fazer acções de fim de turno
+        if (getGame().endOfTurnLossCheck()) {
+            return new GameLost(getGame());
+        }
+        if (getGame().deckHasCards()) {
+            getGame().newTurnSetup();
+            return new AwaitDrawCard(getGame());
+        }
+        if (getGame().checkIfWon()) { //End of Day procedures in this method
+            return new GameWon(getGame());
+        }
+        //Next Day
         return new AwaitDrawCard(getGame());
     }
 
@@ -38,15 +43,17 @@ public class AwaitAction extends StateAdapter {
 
     @Override
     public IState askUseOfSupply() {
-        if(getGame().checkAP() && getGame().checkAvailableSupplies())
+        if (getGame().checkAP() && getGame().checkAvailableSupplies()) {
             return new AwaitAddSupplyRallyTroops(getGame());
+        }
         return this;
     }
 
     @Override
     public IState selectTunnelMov() {
-        if(getGame().checkAP())
+        if (getGame().checkAP()) {
             return new AwaitTunnelMovementSelection(getGame());
+        }
         return this;
     }
 
@@ -60,7 +67,7 @@ public class AwaitAction extends StateAdapter {
 
     @Override
     public IState checkEnemiesBoilingWater() {
-        if (getGame().checkAP() && getGame().enemiesOnCircleSpace()) {
+        if (getGame().checkAP() && getGame().enemiesOnCircleSpace() && !getGame().isUsedBoiling()) {
             return new AwaitEnemySelectionBoilingWaterAttack(getGame());
         }
         return this;
@@ -72,6 +79,24 @@ public class AwaitAction extends StateAdapter {
             return new AwaitEnemySelectionArchersAttack(getGame());
         }
         return this;
+    }
+
+    @Override
+    public IState coupure() {
+        //TODO
+        return super.coupure(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public IState sabotage() {
+        //TODO
+        return super.sabotage(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public IState supplyRaid() {
+        //TODO
+        return super.supplyRaid(); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

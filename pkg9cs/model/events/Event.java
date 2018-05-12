@@ -12,7 +12,7 @@ import pkg9cs.model.GameData;
  *
  * @author sarah
  */
-//TODO
+
 public interface Event extends Serializable {
 
     public void executeEvent(GameData game);

@@ -15,9 +15,5 @@ public class CloseCombat extends BoardSpace{
     public CloseCombat() {
         super(null,"Close Combat");
     }
-
-//    public int getFixedStrength() {
-//        return CLOSECOMBATSTRENGTH;
-//    }
     
 }

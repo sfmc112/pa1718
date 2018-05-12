@@ -11,21 +11,16 @@ import pkg9cs.model.GameData;
  *
  * @author sarah
  */
-public class GameOver extends StateAdapter{
-    
-    public GameOver(GameData game) {
+public class GameWon extends StateAdapter {
+
+    public GameWon(GameData game) {
         super(game);
     }
 
     @Override
     public IState endGame() {
-        if(getGame().getDayNumber()>=4){
-            System.out.println("GameWon!");
-            //return new GameWon(getGame());
-        }
+        //TODO ganhou
         return new StartGame(new GameData());
     }
-    
-    
-    
+
 }

@@ -6,24 +6,28 @@
 package pkg9cs.states;
 
 import pkg9cs.model.GameData;
+import pkg9cs.model.elements.Element;
 
 /**
  *
  * @author sarah
  */
-public class AwaitAddSupplyRallyTroops extends StateAdapter{
-    
+public class AwaitAddSupplyRallyTroops extends StateAdapter {
+
     public AwaitAddSupplyRallyTroops(GameData game) {
         super(game);
     }
 
     @Override
-    public IState rallyTroops() { //get opt?
+    public IState rallyTroops() {
         //TODO
-        return super.rallyTroops(); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
-    
-   
+    @Override
+    public IState rallyTroops(Element e) { //get opt?
+        //TODO
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

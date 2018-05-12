@@ -6,6 +6,7 @@
 package pkg9cs.states;
 
 import pkg9cs.model.GameData;
+import pkg9cs.model.elements.Element;
 import pkg9cs.model.elements.Weapon;
 
 /**
@@ -42,7 +43,7 @@ public class StateAdapter implements IState {
     public IState checkEnemiesCloseCombat() {
         return this;
     }
-    
+
     @Override
     public IState checkEnemiesArchers() {
         return this;
@@ -59,12 +60,12 @@ public class StateAdapter implements IState {
     }
 
     @Override
-    public IState closeCombatAttack() {
+    public IState closeCombatAttack(Weapon weapon) {
         return this;
     }
 
     @Override
-    public IState boilingWaterAttack() {
+    public IState boilingWaterAttack(Weapon weapon) {
         return this;
     }
 
@@ -89,10 +90,15 @@ public class StateAdapter implements IState {
     }
 
     @Override
+    public IState rallyTroops(Element e) {
+        return this;
+    }
+
+    @Override
     public IState askAddActionPoint() {
         return this;
     }
-    
+
     @Override
     public IState buyActionPoint() {
         return this;
@@ -119,12 +125,12 @@ public class StateAdapter implements IState {
     }
 
     @Override
-    public IState endOfDay() {
+    public IState endGame() {
         return this;
     }
 
     @Override
-    public IState endGame() {
+    public IState returnToAwaitAction() {
         return this;
     }
 

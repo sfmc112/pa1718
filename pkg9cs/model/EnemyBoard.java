@@ -207,10 +207,11 @@ public class EnemyBoard implements Serializable {
      * @return true se existem mais que dois inimigos no CloseCombat
      */
     public boolean checkImmediateLossOnCloseCombat() {
-        if (countEnemiesOnCloseCombat() >= 3) {
-            return true;
-        }
-        return false;
+        return countEnemiesOnCloseCombat() >= 3;
+    }
+
+    public boolean checkEndOfTurnLossOnCloseCombat() {
+        return countEnemiesOnCloseCombat() >= 2;
     }
 
     @Override

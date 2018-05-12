@@ -29,7 +29,7 @@ public class AwaitDrawCard extends StateAdapter {
         getGame().executeCard();
 
         if (getGame().immediateLossCheck()) {
-            return new GameOver(getGame());
+            return new GameLost(getGame());
         } else if (getGame().twoEnemiesOnCloseCombat()) {
             return new AwaitEnemySelectionCloseCombatAttack(getGame());
         }

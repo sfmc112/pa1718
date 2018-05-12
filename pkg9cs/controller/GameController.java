@@ -25,7 +25,6 @@ public class GameController implements Serializable {
         setState(new StartGame(game));
     }
 
-    //TODO check game state
     public GameData getGame() {
         return game;
     }
@@ -117,7 +116,7 @@ public class GameController implements Serializable {
     }
 
     private boolean canDoBoiling() {
-        return (getGame().checkAP() && getGame().enemiesOnCircleSpace());
+        return (getGame().checkAP() && getGame().enemiesOnCircleSpace() && !getGame().isUsedBoiling());
     }
 
     private boolean canDoCloseCombat() {
@@ -125,19 +124,19 @@ public class GameController implements Serializable {
     }
 
     private boolean canDoCoupure() {
-        return (getGame().checkAP()) && (!(getGame().getStatusB().wallOnStartingSpace()));
+        return (getGame().checkAP()) && (!(getGame().wallOnStartingSpace()));
     }
 
     private boolean canDoRallyTroops() {
-        return (getGame().checkAP()) && (!(getGame().getStatusB().moraleOnStartingSpace()));
+        return (getGame().checkAP()) && (!(getGame().moraleOnStartingSpace()));
     }
 
     private boolean canDoSupplyRaid() {
-        return (getGame().checkAP()) && (getGame().getStatusB().checkSoldiersOnEnemyLine());
+        return (getGame().checkAP()) && (getGame().checkSoldiersOnEnemyLine());
     }
 
     private boolean canDoSabotage() {
-        return (getGame().checkAP()) && (getGame().getStatusB().checkSoldiersOnEnemyLine());
+        return (getGame().checkAP()) && (getGame().checkSoldiersOnEnemyLine());
     }
 
     public void startGame() {

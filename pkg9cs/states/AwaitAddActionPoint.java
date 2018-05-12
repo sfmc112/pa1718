@@ -19,8 +19,18 @@ public class AwaitAddActionPoint extends StateAdapter{
 
     @Override
     public IState endOfTurn() {
-        //TODO
-        return super.endOfTurn(); //To change body of generated methods, choose Tools | Templates.
+        if (getGame().endOfTurnLossCheck()) {
+            return new GameLost(getGame());
+        }
+        if (getGame().deckHasCards()) {
+            getGame().newTurnSetup();
+            return new AwaitDrawCard(getGame());
+        }
+        if (getGame().checkIfWon()) { //End of Day procedures in this method
+            return new GameLost(getGame());
+        }
+        //Next Day
+        return new AwaitDrawCard(getGame());
     }
 
     @Override

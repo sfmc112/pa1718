@@ -48,6 +48,13 @@ public class GameData implements Serializable {
         discarded = new CardPile();
     }
 
+    /**
+     * ******************************************************************************************
+     */
+    /*---------------------------------------GETS / SETS---------------------------------------*/
+    /**
+     * ******************************************************************************************
+     */
     public EnemyBoard getEnemyB() {
         return enemyB;
     }
@@ -107,25 +114,44 @@ public class GameData implements Serializable {
         this.dayNumber = dayNumber;
     }
 
+    /**
+     * ******************************************************************************************
+     */
+    /*-------------------------------New Day / New Turn Setups---------------------------------*/
+ /*
+     * ******************************************************************************************
+     */
+    /**
+     * Prepara o jogo para o próximo dia
+     *
+     * @return true se ainda é para continuar em jogo (ainda não se jogou os 3
+     * dias)
+     */
     public boolean newDaySetup() {
-        if (dayNumber > 3) {
-            return false;
-        }
 
         dayNumber++;
         newTurnSetup();
         resetDeck();
         shuffleCards(deck);
-        return true;
+
+        return dayNumber <= 3;
     }
 
     public void newTurnSetup() {
         discarded.receiveCard(deck.transferCard(0));
         usedExtraAP = false;
+        usedBoiling = false;
         numberOfActions = 0;
+        dayEvent = null;
     }
 
-    /*-------------------------------Card Actions----------------------------------------*/
+    /**
+     * ******************************************************************************************
+     */
+    /*-----------------------------------Card Actions------------------------------------------*/
+    /**
+     * ******************************************************************************************
+     */
     public Card getCardFromDeck(int index) {
         return deck.getCard(index);
     }
@@ -142,6 +168,10 @@ public class GameData implements Serializable {
 
         return true;
 
+    }
+
+    public boolean deckHasCards() {
+        return deck.getCardPileSize() > 0;
     }
 
     /**
@@ -164,6 +194,13 @@ public class GameData implements Serializable {
         deck.shuffleCards();
     }
 
+    /**
+     * ******************************************************************************************
+     */
+    /*-----------------------------------Essential Checks--------------------------------------*/
+    /**
+     * ******************************************************************************************
+     */
     public boolean towerIsOnStartingSpace() {
         return enemyB.isSiegeTowerOnStartingSpace();
     }
@@ -183,11 +220,15 @@ public class GameData implements Serializable {
     }
 
     public boolean immediateLossCheck() {
-        if (enemyB.checkImmediateLossOnCloseCombat()) {
-            return true;
-        }
-        return statusB.checkImmediateLossOnSurrender();
+        return enemyB.checkImmediateLossOnCloseCombat() || statusB.checkImmediateLossOnSurrender();
+    }
 
+    public boolean endOfTurnLossCheck() {
+        return enemyB.checkEndOfTurnLossOnCloseCombat() || statusB.checkEndOfTurnLossOnSurrender();
+    }
+
+    public boolean checkIfWon() {
+        return !newDaySetup();
     }
 
     public boolean twoEnemiesOnCloseCombat() {
@@ -237,18 +278,35 @@ public class GameData implements Serializable {
     public boolean checkSoldiersOnEnemyLine() {
         return statusB.checkSoldiersOnEnemyLine();
     }
-
-    /*-------------------------------Attacks----------------------------------------*/
-    public void attackCloseCombat() {
-        //TODO
+    
+    public boolean wallOnStartingSpace(){
+        return statusB.wallOnStartingSpace();
+    }
+    
+    public boolean moraleOnStartingSpace() {
+        return statusB.moraleOnStartingSpace();
     }
 
-    public void attackBoilingWater() {
-        //TODO
+    public boolean suppliesOnStartingSpace() {
+        return statusB.suppliesOnStartingSpace();
     }
 
+    /**
+     * ******************************************************************************************
+     */
+    /*--------------------------------Player Action Attacks------------------------------------*/
+    /**
+     * ******************************************************************************************
+     */
+    /**
+     * ******************************************************************************************
+     */
+    /*-----------------------------------Archers Attack----------------------------------------*/
+    /**
+     * ******************************************************************************************
+     */
     public boolean archersAttack(Weapon weapon) {
-        return checkWeaponTypeAndAttack(weapon);
+        return checkWeaponTypeAndArchersAttack(weapon);
     }
 
     /**
@@ -257,33 +315,34 @@ public class GameData implements Serializable {
      * @param weapon Tipo de inimigo a atacar
      * @return true se o ataque foi permitido (sucesso ou insucesso)
      */
-    public boolean checkWeaponTypeAndAttack(Weapon weapon) {
+    private boolean checkWeaponTypeAndArchersAttack(Weapon weapon) {
         if (weapon instanceof Ladder) {
-            return attackLadder();
+            return archersAttackLadder();
         } else if (weapon instanceof Ram) {
-            return attackRam();
+            return archersAttackRam();
         } else {
-            return attackSiegeTower();
+             return archersAttackSiegeTower();
         }
     }
 
-    private boolean attackLadder() {
+    private boolean archersAttackLadder() {
         if (enemyB.isLadderOnStartingSpace()) {
             return false;
         }
         if (enemyB.isLadderOnCloseCombatSpace()) {
-            return attackLadderOnCloseCombat();
+            return archersAttackLadderOnCloseCombat();
         }
         if (enemyB.isLadderOnCircleSpace()) {
-            return attackLadderOnCircleSpace();
+            return archersAttackLadderOnCircleSpace();
         }
 
-        return attackLadderOnSquareSpace();
+        return archersAttackLadderOnSquareSpace();
     }
 
-    private boolean attackLadderOnCloseCombat() {
-        int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM();
+    private boolean archersAttackLadderOnCloseCombat() {
+        int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM() + getLadderDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
+        System.out.println("Dado: " + dieResult);
 
         if (dieResult > CloseCombat.CLOSECOMBATSTRENGTH) {
             enemyB.retreatLadder();
@@ -291,9 +350,10 @@ public class GameData implements Serializable {
         return true;
     }
 
-    private boolean attackLadderOnCircleSpace() {
+    private boolean archersAttackLadderOnCircleSpace() {
         int dieResult = GameData.Die.rollDie() + getCircleSpaceDRM() + getLadderDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
+        System.out.println("Dado: " + dieResult);
 
         if (dieResult > Ladder.STRENGTH) {
             enemyB.retreatLadder();
@@ -301,9 +361,10 @@ public class GameData implements Serializable {
         return true;
     }
 
-    private boolean attackLadderOnSquareSpace() {
+    private boolean archersAttackLadderOnSquareSpace() {
         int dieResult = GameData.Die.rollDie() + getLadderDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
+        System.out.println("Dado: " + dieResult);
 
         if (dieResult > Ladder.STRENGTH) {
             enemyB.retreatLadder();
@@ -311,23 +372,24 @@ public class GameData implements Serializable {
         return true;
     }
 
-    private boolean attackRam() {
+    private boolean archersAttackRam() {
         if (enemyB.isBatteringRamOnStartingSpace()) {
             return false;
         }
         if (enemyB.isBatteringRamOnCloseCombatSpace()) {
-            return attackRamOnCloseCombat();
+            return archersAttackRamOnCloseCombat();
         }
         if (enemyB.isBatteringRamOnCircleSpace()) {
-            return attackRamOnCircleSpace();
+            return archersAttackRamOnCircleSpace();
         }
 
-        return attackRamOnSquareSpace();
+        return archersAttackRamOnSquareSpace();
     }
 
-    private boolean attackRamOnCloseCombat() {
-        int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM();
+    private boolean archersAttackRamOnCloseCombat() {
+        int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM() + getBatteringRamDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
+        System.out.println("Dado: " + dieResult);
 
         if (dieResult > CloseCombat.CLOSECOMBATSTRENGTH) {
             enemyB.retreatRam();
@@ -335,9 +397,10 @@ public class GameData implements Serializable {
         return true;
     }
 
-    private boolean attackRamOnCircleSpace() {
+    private boolean archersAttackRamOnCircleSpace() {
         int dieResult = GameData.Die.rollDie() + getCircleSpaceDRM() + getBatteringRamDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
+        System.out.println("Dado: " + dieResult);
 
         if (dieResult > Ram.STRENGTH) {
             enemyB.retreatRam();
@@ -345,9 +408,10 @@ public class GameData implements Serializable {
         return true;
     }
 
-    private boolean attackRamOnSquareSpace() {
+    private boolean archersAttackRamOnSquareSpace() {
         int dieResult = GameData.Die.rollDie() + getBatteringRamDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
+        System.out.println("Dado: " + dieResult);
 
         if (dieResult > Ram.STRENGTH) {
             enemyB.retreatRam();
@@ -355,23 +419,24 @@ public class GameData implements Serializable {
         return true;
     }
 
-    private boolean attackSiegeTower() {
+    private boolean archersAttackSiegeTower() {
         if (!enemyB.isTowerPresent() || enemyB.isSiegeTowerOnStartingSpace()) {
             return false;
         }
         if (enemyB.isSiegeTowerOnCloseCombatSpace()) {
-            return attackTowerOnCloseCombat();
+            return archersAttackTowerOnCloseCombat();
         }
         if (enemyB.isSiegeTowerOnCircleSpace()) {
-            return attackTowerOnCircleSpace();
+            return archersAttackTowerOnCircleSpace();
         }
 
-        return attackTowerOnSquareSpace();
+        return archersAttackTowerOnSquareSpace();
     }
 
-    private boolean attackTowerOnCloseCombat() {
-        int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM();
+    private boolean archersAttackTowerOnCloseCombat() {
+        int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM() + getSiegeTowerDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
+        System.out.println("Dado: " + dieResult);
 
         if (dieResult > CloseCombat.CLOSECOMBATSTRENGTH) {
             enemyB.retreatTower();
@@ -379,9 +444,10 @@ public class GameData implements Serializable {
         return true;
     }
 
-    private boolean attackTowerOnCircleSpace() {
+    private boolean archersAttackTowerOnCircleSpace() {
         int dieResult = GameData.Die.rollDie() + getCircleSpaceDRM() + getSiegeTowerDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
+        System.out.println("Dado: " + dieResult);
 
         if (dieResult > SiegeTower.STRENGTH) {
             enemyB.retreatTower();
@@ -389,9 +455,10 @@ public class GameData implements Serializable {
         return true;
     }
 
-    private boolean attackTowerOnSquareSpace() {
+    private boolean archersAttackTowerOnSquareSpace() {
         int dieResult = GameData.Die.rollDie() + getSiegeTowerDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
+        System.out.println("Dado: " + dieResult);
 
         if (dieResult > SiegeTower.STRENGTH) {
             enemyB.retreatTower();
@@ -399,40 +466,193 @@ public class GameData implements Serializable {
         return true;
     }
 
-    /*-------------------------------DRM's----------------------------------------*/
-    public int getSabotageDRM() {
+    /**
+     * ******************************************************************************************
+     */
+    /*-------------------------------Boiling Water Attack----------------------------------------*/
+    /**
+     * ******************************************************************************************
+     */
+    public boolean boilingWaterAttack(Weapon weapon) {
+        return checkWeaponTypeAndBoilingWaterAttack(weapon);
+    }
+
+    private boolean checkWeaponTypeAndBoilingWaterAttack(Weapon weapon) {
+        if (weapon instanceof Ladder) {
+            return BoilingWaterAttackLadder();
+        } else if (weapon instanceof Ram) {
+            return BoilingWaterAttackRam();
+        } else {
+            return BoilingWaterAttackSiegeTower();
+        }
+    }
+
+    private boolean BoilingWaterAttackLadder() {
+        if (!enemyB.isLadderOnCircleSpace()) {
+            return false;
+        }
+        int dieResult = GameData.Die.rollDie() + getCircleSpaceDRM() + getLadderDRM() + 1;
+        dieResult = GameData.Die.adjustDieResult(dieResult);
+        System.out.println("Dado: " + dieResult);
+
+        if (dieResult > Ladder.STRENGTH) {
+            enemyB.retreatLadder();
+        } else if (dieResult <= 1) {
+            statusB.advanceMorale();
+        }
+        usedBoiling = true;
+        return true;
+    }
+
+    private boolean BoilingWaterAttackRam() {
+        if (!enemyB.isBatteringRamOnCircleSpace()) {
+            return false;
+        }
+
+        int dieResult = GameData.Die.rollDie() + getCircleSpaceDRM() + getBatteringRamDRM() + 1;
+        dieResult = GameData.Die.adjustDieResult(dieResult);
+        System.out.println("Dado: " + dieResult);
+
+        if (dieResult > Ram.STRENGTH) {
+            enemyB.retreatRam();
+        } else if (dieResult <= 1) {
+            statusB.advanceMorale();
+        }
+        usedBoiling = true;
+        return true;
+    }
+
+    private boolean BoilingWaterAttackSiegeTower() {
+        if (!enemyB.isTowerPresent() || !enemyB.isSiegeTowerOnCircleSpace()) {
+            return false;
+        }
+
+        int dieResult = GameData.Die.rollDie() + getCircleSpaceDRM() + getSiegeTowerDRM() + 1;
+        dieResult = GameData.Die.adjustDieResult(dieResult);
+        System.out.println("Dado: " + dieResult);
+
+        if (dieResult > SiegeTower.STRENGTH) {
+            enemyB.retreatTower();
+        } else if (dieResult <= 1) {
+            statusB.advanceMorale();
+        }
+        usedBoiling = true;
+        return true;
+
+    }
+
+    /**
+     * ******************************************************************************************
+     */
+    /*-------------------------------Close Combat Attack---------------------------------------*/
+    /**
+     * ******************************************************************************************
+     */
+    public boolean closeCombatAttack(Weapon weapon) {
+        return checkWeaponTypeAndCloseCombatAttack(weapon);
+    }
+
+    private boolean checkWeaponTypeAndCloseCombatAttack(Weapon weapon) {
+        if (weapon instanceof Ladder) {
+            return closeCombatAttackLadder();
+        } else if (weapon instanceof Ram) {
+            return closeCombatAttackRam();
+        } else {
+            return closeCombatAttackSiegeTower();
+        }
+    }
+
+    private boolean closeCombatAttackLadder() {
+        if (!enemyB.isLadderOnCloseCombatSpace()) {
+            return false;
+        }
+
+        int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM();
+        dieResult = GameData.Die.adjustDieResult(dieResult);
+        System.out.println("Dado: " + dieResult);
+
+        if (dieResult > CloseCombat.CLOSECOMBATSTRENGTH) {
+            enemyB.retreatLadder();
+        } else if (dieResult <= 1) {
+            statusB.advanceMorale();
+        }
+        return true;
+    }
+
+    private boolean closeCombatAttackRam() {
+        if (!enemyB.isBatteringRamOnCloseCombatSpace()) {
+            return false;
+        }
+
+        int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM();
+        dieResult = GameData.Die.adjustDieResult(dieResult);
+        System.out.println("Dado: " + dieResult);
+
+        if (dieResult > CloseCombat.CLOSECOMBATSTRENGTH) {
+            enemyB.retreatRam();
+        } else if (dieResult <= 1) {
+            statusB.advanceMorale();
+        }
+        return true;
+    }
+
+    private boolean closeCombatAttackSiegeTower() {
+        if (!enemyB.isTowerPresent() || !enemyB.isSiegeTowerOnCircleSpace()) {
+            return false;
+        }
+
+        int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM();
+        dieResult = GameData.Die.adjustDieResult(dieResult);
+        System.out.println("Dado: " + dieResult);
+
+        if (dieResult > CloseCombat.CLOSECOMBATSTRENGTH) {
+            enemyB.retreatTower();
+        } else if (dieResult <= 1) {
+            statusB.advanceMorale();
+        }
+        return true;
+    }
+
+    /**
+     * ******************************************************************************************
+     */
+    /*-----------------------------------DRM's-------------------------------------------------*/
+    /**
+     * ******************************************************************************************
+     */
+    private int getSabotageDRM() {
         return dayEvent.searchForSabotageDRM();
     }
 
-    public int getMoraleDRM() {
+    private int getMoraleDRM() {
         return dayEvent.searchForMoraleDRM();
     }
 
-    public int getCircleSpaceDRM() {
+    private int getCircleSpaceDRM() {
         return dayEvent.searchForCircleSpaceDRM();
     }
 
-    public int getCloseCombatSpaceDRM() {
+    private int getCloseCombatSpaceDRM() {
         return dayEvent.searchForCloseCombatSpaceDRM();
     }
 
-    public int getSupplyRaidDRM() {
+    private int getSupplyRaidDRM() {
         return dayEvent.searchForSupplyRaidDRM();
     }
 
-    public int getCoupureDRM() {
+    private int getCoupureDRM() {
         return dayEvent.searchForCoupureDRM();
     }
 
-    public int getLadderDRM() {
+    private int getLadderDRM() {
         return dayEvent.searchForLadderDRM();
     }
 
-    public int getBatteringRamDRM() {
+    private int getBatteringRamDRM() {
         return dayEvent.searchForBatteringRamDRM();
     }
 
-    public int getSiegeTowerDRM() {
+    private int getSiegeTowerDRM() {
         return dayEvent.searchForSiegeTowerDRM();
     }
 
@@ -467,17 +687,14 @@ public class GameData implements Serializable {
         }
 
         public static int adjustDieResult(int dieResult) {
-            if (dieResult < DIE[1]) {
-                return DIE[1];
+            if (dieResult < DIE[0]) {
+                return DIE[0];
             } else if (dieResult > DIE[DIE.length - 1]) {
                 return DIE[DIE.length - 1];
             }
             return dieResult;
         }
 
-//        public static int rollDieAdjusted(){
-//            return GameData.Die.adjustDieResult(GameData.Die.rollDie());
-//        }
     }
 
 }
