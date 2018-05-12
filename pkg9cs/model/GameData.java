@@ -248,7 +248,7 @@ public class GameData implements Serializable {
     }
 
     public boolean archersAttack(Weapon weapon) {
-        return checkWeaponType(weapon);
+        return checkWeaponTypeAndAttack(weapon);
     }
 
     /**
@@ -257,7 +257,7 @@ public class GameData implements Serializable {
      * @param weapon Tipo de inimigo a atacar
      * @return true se o ataque foi permitido (sucesso ou insucesso)
      */
-    public boolean checkWeaponType(Weapon weapon) {
+    public boolean checkWeaponTypeAndAttack(Weapon weapon) {
         if (weapon instanceof Ladder) {
             return attackLadder();
         } else if (weapon instanceof Ram) {
@@ -274,11 +274,11 @@ public class GameData implements Serializable {
         if (enemyB.isLadderOnCloseCombatSpace()) {
             return attackLadderOnCloseCombat();
         }
-        if(enemyB.isLadderOnCircleSpace())
+        if (enemyB.isLadderOnCircleSpace()) {
             return attackLadderOnCircleSpace();
-        return attackLadderOnSquareSpace();
+        }
 
-        //}else if(enemyB.) //TODO isLadderOnCloseCombat
+        return attackLadderOnSquareSpace();
     }
 
     private boolean attackLadderOnCloseCombat() {
@@ -290,8 +290,8 @@ public class GameData implements Serializable {
         }
         return true;
     }
-    
-    private boolean attackLadderOnCircleSpace(){
+
+    private boolean attackLadderOnCircleSpace() {
         int dieResult = GameData.Die.rollDie() + getCircleSpaceDRM() + getLadderDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
 
@@ -300,7 +300,7 @@ public class GameData implements Serializable {
         }
         return true;
     }
-    
+
     private boolean attackLadderOnSquareSpace() {
         int dieResult = GameData.Die.rollDie() + getLadderDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
@@ -312,23 +312,89 @@ public class GameData implements Serializable {
     }
 
     private boolean attackRam() {
-        //TODO
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (enemyB.isBatteringRamOnStartingSpace()) {
+            return false;
+        }
+        if (enemyB.isBatteringRamOnCloseCombatSpace()) {
+            return attackRamOnCloseCombat();
+        }
+        if (enemyB.isBatteringRamOnCircleSpace()) {
+            return attackRamOnCircleSpace();
+        }
+
+        return attackRamOnSquareSpace();
+    }
+
+    private boolean attackRamOnCloseCombat() {
+        int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM();
+        dieResult = GameData.Die.adjustDieResult(dieResult);
+
+        if (dieResult > CloseCombat.CLOSECOMBATSTRENGTH) {
+            enemyB.retreatRam();
+        }
+        return true;
+    }
+
+    private boolean attackRamOnCircleSpace() {
+        int dieResult = GameData.Die.rollDie() + getCircleSpaceDRM() + getBatteringRamDRM();
+        dieResult = GameData.Die.adjustDieResult(dieResult);
+
+        if (dieResult > Ram.STRENGTH) {
+            enemyB.retreatRam();
+        }
+        return true;
+    }
+
+    private boolean attackRamOnSquareSpace() {
+        int dieResult = GameData.Die.rollDie() + getBatteringRamDRM();
+        dieResult = GameData.Die.adjustDieResult(dieResult);
+
+        if (dieResult > Ram.STRENGTH) {
+            enemyB.retreatRam();
+        }
+        return true;
     }
 
     private boolean attackSiegeTower() {
-        //TODO
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (!enemyB.isTowerPresent() || enemyB.isSiegeTowerOnStartingSpace()) {
+            return false;
+        }
+        if (enemyB.isSiegeTowerOnCloseCombatSpace()) {
+            return attackTowerOnCloseCombat();
+        }
+        if (enemyB.isSiegeTowerOnCircleSpace()) {
+            return attackTowerOnCircleSpace();
+        }
+
+        return attackTowerOnSquareSpace();
     }
 
-    public boolean checkWeaponOnStartingSpace(Weapon weapon) {
-        //TODO to delete
-        if (weapon instanceof Ladder && enemyB.isLadderOnStartingSpace()) {
-            return false;
-        } else if (weapon instanceof Ram && enemyB.isBatteringRamOnStartingSpace()) {
-            return false;
-        } else if (weapon instanceof SiegeTower && enemyB.isTowerPresent() && enemyB.isSiegeTowerOnStartingSpace()) {
-            return false;
+    private boolean attackTowerOnCloseCombat() {
+        int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM();
+        dieResult = GameData.Die.adjustDieResult(dieResult);
+
+        if (dieResult > CloseCombat.CLOSECOMBATSTRENGTH) {
+            enemyB.retreatTower();
+        }
+        return true;
+    }
+
+    private boolean attackTowerOnCircleSpace() {
+        int dieResult = GameData.Die.rollDie() + getCircleSpaceDRM() + getSiegeTowerDRM();
+        dieResult = GameData.Die.adjustDieResult(dieResult);
+
+        if (dieResult > SiegeTower.STRENGTH) {
+            enemyB.retreatTower();
+        }
+        return true;
+    }
+
+    private boolean attackTowerOnSquareSpace() {
+        int dieResult = GameData.Die.rollDie() + getSiegeTowerDRM();
+        dieResult = GameData.Die.adjustDieResult(dieResult);
+
+        if (dieResult > SiegeTower.STRENGTH) {
+            enemyB.retreatTower();
         }
         return true;
     }
@@ -377,7 +443,7 @@ public class GameData implements Serializable {
         str.append(getEnemyB()).append("\n\n");
         str.append(getStatusB()).append("\n");
         str.append("You have ").append(getNumberOfActions()).append(" actions.");
-        str.append(discarded.getCard(discarded.getCardPileSize() - 1).printDay(dayNumber)).append("\n");
+        str.append(deck.getCard(0).printDay(dayNumber - 1)).append("\n");
         return str.toString();
     }
 

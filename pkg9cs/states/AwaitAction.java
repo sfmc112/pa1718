@@ -28,11 +28,6 @@ public class AwaitAction extends StateAdapter {
         return new AwaitDrawCard(getGame());
     }
 
-    /**
-     * Verifica se o jogador já não tem mais ações para perguntar se pretende comprar uma acção extra
-     * (caso ainda não tenha utilizado nesse turno e tenha recursos disponíveis)
-     * @return novo estado caso o jogador pretenda comprar uma acção e tenha recursos disponíveis
-     */
     @Override
     public IState askAddActionPoint() {
         if (!getGame().checkAP() && !getGame().isUsedExtraAP() && getGame().checkAvailableResources()) {

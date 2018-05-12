@@ -17,13 +17,6 @@ public class AwaitDrawCard extends StateAdapter {
         super(game);
     }
 
-    /**
-     * Faz a verificação do EnemyLine Check, executa a carta e verifica se o
-     * jogador perde imediatamente
-     *
-     * @return Estado GameOver ou AwaitEnemySelectionCloseCombatAttack ou
-     * AwaitAction
-     */
     @Override
     public IState executeCard() {
 
