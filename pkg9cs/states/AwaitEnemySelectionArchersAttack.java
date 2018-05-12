@@ -18,14 +18,9 @@ public class AwaitEnemySelectionArchersAttack extends StateAdapter {
         super(game);
     }
 
-    /**
-     * 
-     * @param weapon Objeco to tipo Ladder, Ram ou SiegeTower
-     * @return Novo estado, regressar ao awaitAction
-     */
     @Override
     public IState archersAttack(Weapon weapon) {
-        if(getGame().archersAttack(weapon)){ //se o ataque foi permitido (bem sucedido ou não), retira um action Point
+        if(getGame().archersAttack(weapon)){
             getGame().subtractActionPoint();
         }
         return new AwaitAction(getGame());
