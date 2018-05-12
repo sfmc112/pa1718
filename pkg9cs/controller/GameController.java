@@ -44,8 +44,8 @@ public class GameController implements Serializable {
     /**
      * ****************************************************************************
      */
-    public void startGame() {
-        setState(state.startGame());
+    public void newGame() {
+        setState(state.endGame());
     }
 
     public void drawCard() {
