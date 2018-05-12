@@ -11,7 +11,7 @@ package pkg9cs.model.elements;
  */
 public abstract class Weapon extends Element {
 
-    private final int strength;
+    protected final int strength;
 
     public Weapon(String name, int strength) {
         super(name);

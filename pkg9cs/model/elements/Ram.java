@@ -11,8 +11,10 @@ package pkg9cs.model.elements;
  */
 public class Ram extends Weapon{
     
+    public static final int STRENGTH = 3;
+    
     public Ram() {
-        super("Ram", 3);
+        super("Ram", STRENGTH);
     }
     
 }

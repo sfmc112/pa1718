@@ -40,6 +40,10 @@ public class CardDay implements Serializable {
 
     }
 
+    public CardDayEvent getCardEvent() {
+        return cardEvent;
+    }
+
     @Override
     public String toString() {
 

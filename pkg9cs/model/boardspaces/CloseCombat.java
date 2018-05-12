@@ -10,11 +10,14 @@ package pkg9cs.model.boardspaces;
  * @author sarah
  */
 public class CloseCombat extends BoardSpace{
-    private int fixedStrength = 4;
+    public static final int CLOSECOMBATSTRENGTH = 4;
     
     public CloseCombat() {
         super(null,"Close Combat");
     }
-    
 
+//    public int getFixedStrength() {
+//        return CLOSECOMBATSTRENGTH;
+//    }
+    
 }

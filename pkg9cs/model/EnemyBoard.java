@@ -234,4 +234,29 @@ public class EnemyBoard implements Serializable {
     public boolean isSiegeTowerOnStartingSpace() {
         return towers.onStartingSpace();
     }
+
+    public boolean isLadderOnCloseCombatSpace() {
+        return ladders.getEnemyOnCloseCombatSpace();
+    }
+
+    public boolean isBatteringRamOnCloseCombatSpace() {
+        return rams.getEnemyOnCloseCombatSpace();
+    }
+
+    public boolean isSiegeTowerOnCloseCombatSpace() {
+        return towers.getEnemyOnCloseCombatSpace();
+    }
+
+    public boolean isLadderOnCircleSpace() {
+        return ladders.getEnemyOnCircleSpace();
+    }
+
+    public boolean isBatteringRamOnCircleSpace() {
+        return rams.getEnemyOnCircleSpace();
+    }
+
+    public boolean isSiegeTowerOnCircleSpace() {
+        return towers.getEnemyOnCircleSpace();
+    }
+
 }

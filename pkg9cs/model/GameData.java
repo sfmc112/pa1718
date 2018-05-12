@@ -6,8 +6,10 @@
 package pkg9cs.model;
 
 import java.io.Serializable;
+import pkg9cs.model.boardspaces.CloseCombat;
 import pkg9cs.model.cards.CardPile;
 import pkg9cs.model.cards.Card;
+import pkg9cs.model.cards.CardDayEvent;
 import pkg9cs.model.elements.*;
 
 /**
@@ -21,6 +23,7 @@ public class GameData implements Serializable {
 
     private int dayNumber;
     private int numberOfActions;
+    private CardDayEvent dayEvent;
 
     private boolean usedExtraAP;
     private boolean usedBoiling;
@@ -34,6 +37,7 @@ public class GameData implements Serializable {
 
         dayNumber = 1;
         numberOfActions = 0;
+        dayEvent = null;
 
         usedExtraAP = false;
         usedBoiling = false;
@@ -60,36 +64,20 @@ public class GameData implements Serializable {
         this.usedExtraAP = usedExtraAP;
     }
 
-    public boolean newDaySetup() {
-        if (dayNumber > 3) {
-            return false;
-        }
-
-        dayNumber++;
-        newTurnSetup();
-        resetDeck();
-        shuffleCards(deck);
-        return true;
+    public CardDayEvent getDayEvent() {
+        return dayEvent;
     }
 
-    public void newTurnSetup() {
-        discarded.receiveCard(deck.transferCard(0));
-        usedExtraAP = false;
-        numberOfActions = 0;
+    public void setDayEvent(CardDayEvent dayEvent) {
+        this.dayEvent = dayEvent;
     }
 
-    /**
-     * Manda executar as acções da carta que está primeiro no deck
-     */
-    public boolean executeCard() {
-        if (deck.getCardPileSize() <= 0) {
-            return false;
-        }
-       
-        getCardFromDeck(0).executeCard(this, dayNumber);
-        
-        return true;
+    public boolean isUsedBoiling() {
+        return usedBoiling;
+    }
 
+    public void setUsedBoiling(boolean usedBoiling) {
+        this.usedBoiling = usedBoiling;
     }
 
     public int getNumberOfActions() {
@@ -111,16 +99,49 @@ public class GameData implements Serializable {
         }
     }
 
-    public Card getCardFromDeck(int index) {
-        return deck.getCard(index);
-    }
-
     public int getDayNumber() {
         return dayNumber;
     }
 
     public void setDayNumber(int dayNumber) {
         this.dayNumber = dayNumber;
+    }
+
+    public boolean newDaySetup() {
+        if (dayNumber > 3) {
+            return false;
+        }
+
+        dayNumber++;
+        newTurnSetup();
+        resetDeck();
+        shuffleCards(deck);
+        return true;
+    }
+
+    public void newTurnSetup() {
+        discarded.receiveCard(deck.transferCard(0));
+        usedExtraAP = false;
+        numberOfActions = 0;
+    }
+
+    /*-------------------------------Card Actions----------------------------------------*/
+    public Card getCardFromDeck(int index) {
+        return deck.getCard(index);
+    }
+
+    /**
+     * Manda executar as acções da carta que está primeiro no deck
+     */
+    public boolean executeCard() {
+        if (deck.getCardPileSize() <= 0) {
+            return false;
+        }
+
+        getCardFromDeck(0).executeCard(this, dayNumber);
+
+        return true;
+
     }
 
     /**
@@ -227,17 +248,137 @@ public class GameData implements Serializable {
     }
 
     public boolean archersAttack(Weapon weapon) {
-        if (weapon instanceof Ladder && !enemyB.isLadderOnStartingSpace()) {
-            enemyB.retreatLadder();
-            return true;
-        } else if (weapon instanceof Ram && !enemyB.isBatteringRamOnStartingSpace()) {
-            enemyB.retreatRam();
-            return true;
-        } else if (weapon instanceof SiegeTower && enemyB.isTowerPresent() && !enemyB.isSiegeTowerOnStartingSpace()) {
-            enemyB.retreatTower();
-            return true;
+        return checkWeaponType(weapon);
+    }
+
+    /**
+     * Chama o método de ataque ao respetivo objeto passado por argumento
+     *
+     * @param weapon Tipo de inimigo a atacar
+     * @return true se o ataque foi permitido (sucesso ou insucesso)
+     */
+    public boolean checkWeaponType(Weapon weapon) {
+        if (weapon instanceof Ladder) {
+            return attackLadder();
+        } else if (weapon instanceof Ram) {
+            return attackRam();
+        } else {
+            return attackSiegeTower();
         }
-        return false;
+    }
+
+    private boolean attackLadder() {
+        if (enemyB.isLadderOnStartingSpace()) {
+            return false;
+        }
+        if (enemyB.isLadderOnCloseCombatSpace()) {
+            return attackLadderOnCloseCombat();
+        }
+        if(enemyB.isLadderOnCircleSpace())
+            return attackLadderOnCircleSpace();
+        return attackLadderOnSquareSpace();
+
+        //}else if(enemyB.) //TODO isLadderOnCloseCombat
+    }
+
+    private boolean attackLadderOnCloseCombat() {
+        int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM();
+        dieResult = GameData.Die.adjustDieResult(dieResult);
+
+        if (dieResult > CloseCombat.CLOSECOMBATSTRENGTH) {
+            enemyB.retreatLadder();
+        }
+        return true;
+    }
+    
+    private boolean attackLadderOnCircleSpace(){
+        int dieResult = GameData.Die.rollDie() + getCircleSpaceDRM() + getLadderDRM();
+        dieResult = GameData.Die.adjustDieResult(dieResult);
+
+        if (dieResult > Ladder.STRENGTH) {
+            enemyB.retreatLadder();
+        }
+        return true;
+    }
+    
+    private boolean attackLadderOnSquareSpace() {
+        int dieResult = GameData.Die.rollDie() + getLadderDRM();
+        dieResult = GameData.Die.adjustDieResult(dieResult);
+
+        if (dieResult > Ladder.STRENGTH) {
+            enemyB.retreatLadder();
+        }
+        return true;
+    }
+
+    private boolean attackRam() {
+        //TODO
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private boolean attackSiegeTower() {
+        //TODO
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean checkWeaponOnStartingSpace(Weapon weapon) {
+        //TODO to delete
+        if (weapon instanceof Ladder && enemyB.isLadderOnStartingSpace()) {
+            return false;
+        } else if (weapon instanceof Ram && enemyB.isBatteringRamOnStartingSpace()) {
+            return false;
+        } else if (weapon instanceof SiegeTower && enemyB.isTowerPresent() && enemyB.isSiegeTowerOnStartingSpace()) {
+            return false;
+        }
+        return true;
+    }
+
+    /*-------------------------------DRM's----------------------------------------*/
+    public int getSabotageDRM() {
+        return dayEvent.searchForSabotageDRM();
+    }
+
+    public int getMoraleDRM() {
+        return dayEvent.searchForMoraleDRM();
+    }
+
+    public int getCircleSpaceDRM() {
+        return dayEvent.searchForCircleSpaceDRM();
+    }
+
+    public int getCloseCombatSpaceDRM() {
+        return dayEvent.searchForCloseCombatSpaceDRM();
+    }
+
+    public int getSupplyRaidDRM() {
+        return dayEvent.searchForSupplyRaidDRM();
+    }
+
+    public int getCoupureDRM() {
+        return dayEvent.searchForCoupureDRM();
+    }
+
+    public int getLadderDRM() {
+        return dayEvent.searchForLadderDRM();
+    }
+
+    public int getBatteringRamDRM() {
+        return dayEvent.searchForBatteringRamDRM();
+    }
+
+    public int getSiegeTowerDRM() {
+        return dayEvent.searchForSiegeTowerDRM();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        str.append("Day ").append(dayNumber).append("\n");
+        str.append(getEnemyB()).append("\n\n");
+        str.append(getStatusB()).append("\n");
+        str.append("You have ").append(getNumberOfActions()).append(" actions.");
+        str.append(discarded.getCard(discarded.getCardPileSize() - 1).printDay(dayNumber)).append("\n");
+        return str.toString();
     }
 
     /**
@@ -259,17 +400,18 @@ public class GameData implements Serializable {
             return DIE[(int) (Math.random() * DIE.length)];
         }
 
-    }
+        public static int adjustDieResult(int dieResult) {
+            if (dieResult < DIE[1]) {
+                return DIE[1];
+            } else if (dieResult > DIE[DIE.length - 1]) {
+                return DIE[DIE.length - 1];
+            }
+            return dieResult;
+        }
 
-    @Override
-    public String toString() {
-        StringBuilder str = new StringBuilder();
-        str.append("Day ").append(dayNumber).append("\n");
-        str.append(getEnemyB()).append("\n\n");
-        str.append(getStatusB()).append("\n");
-        str.append("You have ").append(getNumberOfActions()).append(" actions.");
-        str.append(discarded.getCard(discarded.getCardPileSize() - 1).printDay(dayNumber)).append("\n");
-        return str.toString();
+//        public static int rollDieAdjusted(){
+//            return GameData.Die.adjustDieResult(GameData.Die.rollDie());
+//        }
     }
 
 }

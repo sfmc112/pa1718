@@ -10,9 +10,13 @@ package pkg9cs.model.elements;
  * @author sarah
  */
 public class Ladder extends Weapon {
+    
+    public static final int STRENGTH = 2;
 
     public Ladder() {
-        super("Ladder", 2);
+        super("Ladder", STRENGTH);
     }
+    
+    
 
 }

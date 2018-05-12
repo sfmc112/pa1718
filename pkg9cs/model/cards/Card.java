@@ -25,6 +25,10 @@ public abstract class Card implements Serializable {
 
     public void executeCard(GameData game, int dayNumber) {
         days.get(dayNumber - 1).executeDayActions(game);
+
+        CardDayEvent cardEvent = days.get(dayNumber - 1).getCardEvent();
+
+        game.setDayEvent(cardEvent);
     }
 
     @Override

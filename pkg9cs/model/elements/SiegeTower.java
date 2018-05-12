@@ -10,9 +10,11 @@ package pkg9cs.model.elements;
  * @author sarah
  */
 public class SiegeTower extends Weapon {
+    
+    public static final int STRENGTH = 4;
 
     public SiegeTower() {
-        super("SiegeTower", 4);
+        super("SiegeTower", STRENGTH);
     }
 
 }

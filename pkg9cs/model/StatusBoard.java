@@ -22,13 +22,15 @@ public class StatusBoard implements Serializable {
     private StatusTrack supplies;
 
     private InvadingTrack soldierLine;
-    //TODO supplies spaces
+    private int supplyCount;
 
     public StatusBoard() {
         wall = new StatusTrack(new Wall());
         morale = new StatusTrack(new Morale());
         supplies = new StatusTrack(new Supply());
+        
         soldierLine = new InvadingTrack(new Soldiers());
+        supplyCount = 0; //TODO
     }
 
     public int getWallPos() {
