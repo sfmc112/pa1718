@@ -52,8 +52,7 @@ public class GameController implements Serializable {
         StringBuilder str = new StringBuilder();
         str.append("\t1- New Game\n");
         str.append("\t2- Load Game\n");
-        str.append("\t3- Save Game\n");
-        str.append("\t4- Quit Game\n");
+        str.append("\t3- Quit Game\n");
         return str.toString();
     }
 

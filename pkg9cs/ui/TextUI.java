@@ -56,9 +56,6 @@ public class TextUI {
                 load_text();
                 break;
             case 3:
-                save_text();
-                break;
-            case 4:
                 run = false;
         }
     }

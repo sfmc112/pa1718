@@ -5,6 +5,7 @@
  */
 package pkg9cs.model.cards;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
  *
  * @author sarah
  */
-public class CardPile {
+public class CardPile implements Serializable {
     private List<Card> cards;
 
     public CardPile() {
