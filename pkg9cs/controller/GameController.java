@@ -102,6 +102,17 @@ public class GameController implements Serializable {
     public void returnToAwaitAction() {
         setState(state.returnToMenu());
     }
+    
+    public void buyActionPoint(Element element) {
+        setState(state.buyActionPoint(element));
+    }
+    public void rallyTroops(Supply supply) {
+        setState(state.rallyTroops(supply));
+    }
+
+    public void rallyTroops() {
+        setState(state.rallyTroops());
+    }
 
     /**
      * Start Game Menu
@@ -206,6 +217,38 @@ public class GameController implements Serializable {
         //TODO
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public String winMenu() {
+        StringBuilder str = new StringBuilder();
+        str.append(statusBoard());
+        str.append("\nCongratulations! You have repelled the invaders!\n");
+        str.append("\t1- Start Game\n");
+        str.append("\t2- Quit Game\n");
+        return str.toString();
+    }
+     public String lostMenu() {
+        StringBuilder str = new StringBuilder();
+        str.append("\nYou couldn't resist the invation!\n");
+        str.append("\t1- Start Game\n");
+        str.append("\t2- Quit Game\n");
+        return str.toString();
+    }
+     public String addActionPointMenu() {
+        StringBuilder str = new StringBuilder();
+        str.append(statusBoard());
+        str.append(game.checkAvailableSupplies()?"\t1- Use one supply\n":"");
+        str.append(game.checkAvailableMorale()?"\t2- Use one morale\n":"");
+        str.append("\t3- Return to menu\n");
+        return str.toString();
+    }
+     
+    public String rallyTroopsMenu() {
+        StringBuilder str = new StringBuilder();
+        str.append(game.checkAvailableSupplies()?"\t1- Use one supply\n":"");
+        str.append("\t2- Rally troops\n\t3- Return to menu\n");
+        return str.toString();
+    }
+     
 
     public String statusBoard() {
         StringBuilder str = new StringBuilder();
@@ -240,5 +283,4 @@ public class GameController implements Serializable {
     private boolean canDoSabotage() {
         return (getGame().checkAP()) && (getGame().checkSoldiersOnEnemyLine());
     }
-
 }
