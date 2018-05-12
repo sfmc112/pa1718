@@ -18,6 +18,7 @@ public class AwaitEnemySelectionArchersAttack extends StateAdapter {
         super(game);
     }
 
+    // TODO check and return this
     @Override
     public IState archersAttack(Weapon weapon) {
         if(getGame().archersAttack(weapon)){

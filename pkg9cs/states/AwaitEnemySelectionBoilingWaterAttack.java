@@ -18,6 +18,7 @@ public class AwaitEnemySelectionBoilingWaterAttack extends StateAdapter {
         super(game);
     }
 
+    // TODO check and return this
     @Override
     public IState boilingWaterAttack(Weapon weapon) {
         if (getGame().boilingWaterAttack(weapon)) {

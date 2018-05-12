@@ -26,6 +26,7 @@ public class AwaitEnemySelectionCloseCombatAttack extends StateAdapter {
         return new AwaitAction(getGame());
     }
 
+    // TODO check and return this
     @Override
     public IState closeCombatAttack(Weapon weapon) {
 

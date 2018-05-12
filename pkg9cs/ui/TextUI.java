@@ -124,15 +124,18 @@ public class TextUI {
                 controller.sabotage();
                 break;
             case 9:
-                controller.endTurn();
+                controller.askAddActionPoint();
                 break;
             case 10:
-                saveText();
+                controller.endTurn();
                 break;
             case 11:
-                loadText();
+                saveText();
                 break;
             case 12:
+                loadText();
+                break;
+            case 13:
                 run = false;
 
         }
@@ -189,7 +192,6 @@ public class TextUI {
             case 4:
                 controller.returnToAwaitAction();
                 break;
-
         }
     }
 
@@ -207,6 +209,9 @@ public class TextUI {
                 controller.closeCombatAttack(new SiegeTower());
                 break;
             case 4:
+                controller.askAddActionPoint();
+                break;
+            case 5:
                 controller.returnToAwaitAction();
                 break;
 

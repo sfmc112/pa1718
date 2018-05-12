@@ -113,6 +113,9 @@ public class GameController implements Serializable {
     public void rallyTroops() {
         setState(state.rallyTroops());
     }
+    public void askAddActionPoint() {
+        setState(state.askAddActionPoint());
+    }
 
     /**
      * Start Game Menu
@@ -174,10 +177,12 @@ public class GameController implements Serializable {
         if (canDoSabotage()) {
             str.append("\t8- Sabotage\n");
         }
-        str.append("\t9- End Turn\n");
-        str.append("\t10- Save Game\n");
-        str.append("\t11- Load Game\n");
-        str.append("\t12- Quit Game\n");
+        if (!game.checkAP() && !game.isUsedExtraAP())
+            str.append("\t9- Buy Action Point\n");
+        str.append("\t10- End Turn\n");
+        str.append("\t11- Save Game\n");
+        str.append("\t12- Load Game\n");
+        str.append("\t13- Quit Game\n");
 
         return str.toString();
 
@@ -209,7 +214,8 @@ public class GameController implements Serializable {
         str.append(getGame().getEnemyB().isLadderOnCloseCombatSpace() ? "\t1- Ladder\n" : "");
         str.append(getGame().getEnemyB().isBatteringRamOnCloseCombatSpace() ? "\t2- Battering Ram\n" : "");
         str.append(getGame().getEnemyB().isSiegeTowerOnCloseCombatSpace() ? "\t3- Siege Tower\n" : "");
-        str.append("\t4- Return to menu\n");
+        str.append(getGame().checkAP() && getGame().isUsedExtraAP()?"":"\t4- Buy action point\n");
+        str.append("\t5- Return to menu\n");
         return str.toString();
     }
     

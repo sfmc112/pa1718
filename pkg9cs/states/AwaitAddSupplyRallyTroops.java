@@ -18,6 +18,7 @@ public class AwaitAddSupplyRallyTroops extends StateAdapter {
         super(game);
     }
 
+    // TODO check and return this
     @Override
     public IState rallyTroops() {
         //TODO

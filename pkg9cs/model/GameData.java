@@ -730,6 +730,7 @@ public class GameData implements Serializable {
         str.append(getEnemyB()).append("\n\n");
         str.append(getStatusB()).append("\n");
         str.append("You have ").append(getNumberOfActions()).append(" actions.").append("\n");
+        str.append(usedBoiling?"You have used boiling water this turn\n":"You have not used boilling water this turn!\n");
         str.append(deck.getCard(0).printDay(dayNumber - 1)).append("\n");
         return str.toString();
     }
