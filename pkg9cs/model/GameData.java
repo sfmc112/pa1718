@@ -101,17 +101,32 @@ public class GameData implements Serializable {
 
     public boolean addActionPoint(Element e) {
         return checkStatusTypeAndAddActionPoint(e);
-//        if(e instanceof Morale && checkAvailableMorale())
-//            statusB.advanceMorale();
-//        else if(e instanceof Supply && checkAvailableSupplies())
-//            statusB.advanceSupply();
-//        
-//        numberOfActions++;
-//        usedExtraAP = true;
     }
-    
-    private boolean checkStatusTypeAndAddActionPoint(Element e){
-        
+
+    private boolean checkStatusTypeAndAddActionPoint(Element e) {
+        if (e instanceof Morale) {
+            return addActionPointWithMorale();
+        } else {
+            return addActionPointWithSupply();
+        }
+    }
+
+    private boolean addActionPointWithMorale() {
+        if (!checkAvailableMorale()) {
+            return false;
+        }
+        numberOfActions++;
+        usedExtraAP = true;
+        return true;
+    }
+
+    private boolean addActionPointWithSupply() {
+        if (!checkAvailableSupplies()) {
+            return false;
+        }
+        numberOfActions++;
+        usedExtraAP = true;
+        return true;
     }
 
     public void subtractActionPoint() {

@@ -36,8 +36,8 @@ public class AwaitAddActionPoint extends StateAdapter{
 
     @Override
     public IState buyActionPoint(Element e) {
-        if(getGame().addActionPoint(e)){
-            
+        if(!getGame().addActionPoint(e)){
+            return this;
         }
         
         if(getGame().twoEnemiesOnCloseCombat())
