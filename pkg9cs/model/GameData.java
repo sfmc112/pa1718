@@ -99,9 +99,19 @@ public class GameData implements Serializable {
         this.numberOfActions = numberOfActions;
     }
 
-    public void addActionPoint() {
-        numberOfActions++;
-        usedExtraAP = true;
+    public boolean addActionPoint(Element e) {
+        return checkStatusTypeAndAddActionPoint(e);
+//        if(e instanceof Morale && checkAvailableMorale())
+//            statusB.advanceMorale();
+//        else if(e instanceof Supply && checkAvailableSupplies())
+//            statusB.advanceSupply();
+//        
+//        numberOfActions++;
+//        usedExtraAP = true;
+    }
+    
+    private boolean checkStatusTypeAndAddActionPoint(Element e){
+        
     }
 
     public void subtractActionPoint() {

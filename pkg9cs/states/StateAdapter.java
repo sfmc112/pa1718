@@ -100,7 +100,7 @@ public class StateAdapter implements IState {
     }
 
     @Override
-    public IState buyActionPoint() {
+    public IState buyActionPoint(Element e) {
         return this;
     }
 

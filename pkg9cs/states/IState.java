@@ -74,7 +74,7 @@ public interface IState extends Serializable{
      */
     public IState askAddActionPoint();
     
-    public IState buyActionPoint();
+    public IState buyActionPoint(Element e);
 
     public IState endOfTurn();
 

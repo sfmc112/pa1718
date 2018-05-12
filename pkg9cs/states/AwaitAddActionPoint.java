@@ -6,6 +6,7 @@
 package pkg9cs.states;
 
 import pkg9cs.model.GameData;
+import pkg9cs.model.elements.Element;
 
 /**
  *
@@ -34,8 +35,10 @@ public class AwaitAddActionPoint extends StateAdapter{
     }
 
     @Override
-    public IState buyActionPoint() {
-        getGame().addActionPoint();
+    public IState buyActionPoint(Element e) {
+        if(getGame().addActionPoint(e)){
+            
+        }
         
         if(getGame().twoEnemiesOnCloseCombat())
             return new AwaitEnemySelectionCloseCombatAttack(getGame());
