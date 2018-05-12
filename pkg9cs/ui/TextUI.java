@@ -64,7 +64,7 @@ public class TextUI {
         int opt = readOption();
         switch (opt) {
             case 1:
-                controller.startGame();
+                controller.newGame();
                 break;
             case 2:
                 loadText();
@@ -222,7 +222,7 @@ public class TextUI {
         int opt = readOption();
         switch (opt) {
             case 1:
-                controller.startGame();
+                controller.newGame();
                 break;
             case 2:
                 run = false;
@@ -234,7 +234,7 @@ public class TextUI {
         int opt = readOption();
         switch (opt) {
             case 1:
-                controller.startGame();
+                controller.newGame();
                 break;
             case 2:
                 run = false;
