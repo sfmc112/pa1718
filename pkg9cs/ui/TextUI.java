@@ -47,6 +47,14 @@ public class TextUI {
                 enemySelectionCloseCombatUi();
             } else if (state instanceof AwaitTunnelMovementSelection) {
                 tunnelMenuUi();
+            } else if (state instanceof AwaitAddSupplyRallyTroops) {
+                rallyTroopsMenuUi();
+            } else if (state instanceof AwaitAddActionPoint) {
+                addActionPointMenuUi();
+            }else if (state instanceof GameWon) {
+                winMenuUi();
+            }else if (state instanceof GameLost) {
+                lostMenuUi();
             }
         }
     }
@@ -204,6 +212,60 @@ public class TextUI {
 
         }
     }
+    private void winMenuUi() {
+        System.out.println(controller.winMenu());
+        int opt = readOption();
+        switch (opt) {
+            case 1:
+                controller.startGame();
+                break;
+            case 2:
+                run = false;
+        }
+    }
+
+    private void lostMenuUi() {
+        System.out.println(controller.lostMenu());
+        int opt = readOption();
+        switch (opt) {
+            case 1:
+                controller.startGame();
+                break;
+            case 2:
+                run = false;
+        }
+    }
+
+    private void addActionPointMenuUi() {
+        System.out.println(controller.addActionPointMenu());
+        int opt = readOption();
+        switch (opt) {
+            case 1:
+                controller.buyActionPoint(new Supply());
+                break;
+            case 2:
+                controller.buyActionPoint(new Morale());
+                break;
+            case 3:
+                controller.returnToAwaitAction();
+        }
+    }
+
+    private void rallyTroopsMenuUi() {
+        System.out.println(controller.rallyTroopsMenu());
+        int opt = readOption();
+        switch (opt) {
+            case 1:
+                controller.rallyTroops(new Supply());
+                break;
+            case 2:
+                controller.rallyTroops();
+                break;
+            case 3:
+                controller.returnToAwaitAction();
+        }
+        
+    }
 
     private int readOption() {
         Scanner in = new Scanner(System.in);
@@ -282,5 +344,7 @@ public class TextUI {
         Scanner in = new Scanner(System.in);
         return in.nextLine();
     }
+
+    
 
 }
