@@ -5,7 +5,7 @@
  */
 package pkg9cs.model;
 
-import com.sun.java.util.jar.pack.DriverResource;
+import java.io.Serializable;
 import pkg9cs.model.elements.Supply;
 import pkg9cs.model.elements.Morale;
 import pkg9cs.model.elements.Soldiers;
@@ -15,7 +15,7 @@ import pkg9cs.model.elements.Wall;
  *
  * @author sarah
  */
-public class StatusBoard {
+public class StatusBoard implements Serializable {
 
     private StatusTrack wall;
     private StatusTrack morale;
@@ -106,21 +106,23 @@ public class StatusBoard {
     public boolean checkAvailableSupplies() {
         return supplies.whereIsElement() > 1;
     }
-    
-    public boolean checkSoldiersOnEnemyLine(){
+
+    public boolean checkSoldiersOnEnemyLine() {
         return soldierLine.areSoldiersOnEnemyLines();
     }
-    
+
     public boolean wallOnStartingSpace() {
         return wall.onStartingSpace();
     }
 
     public boolean moraleOnStartingSpace() {
-       return morale.onStartingSpace();
+        return morale.onStartingSpace();
     }
-    public boolean suppliesOnStartingSpace(){
+
+    public boolean suppliesOnStartingSpace() {
         return supplies.onStartingSpace();
     }
+
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
@@ -130,9 +132,5 @@ public class StatusBoard {
         str.append(soldierLine);
         return str.toString();
     }
-
-    
-
-    
 
 }

@@ -5,8 +5,10 @@
  */
 package pkg9cs.model.cards;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import pkg9cs.model.GameData;
 import pkg9cs.model.events.Event;
 
@@ -14,13 +16,15 @@ import pkg9cs.model.events.Event;
  *
  * @author sarah
  */
-public class CardDayEvent {
+public class CardDayEvent implements Serializable {
 
     private String name;
     private String description;
     private List<Event> events;
 
-    public CardDayEvent(ArrayList<Event> events) {
+    public CardDayEvent(String name, String description, ArrayList<Event> events) {
+        this.name = name;
+        this.description = description;
         this.events = new ArrayList<>(events);
     }
 
@@ -32,10 +36,9 @@ public class CardDayEvent {
 
     @Override
     public String toString() {
-        //TODO
-        return super.toString(); //To change body of generated methods, choose Tools | Templates.
+        StringBuilder str = new StringBuilder();
+        str.append(name).append("\n").append(description).append("\n");
+        return str.toString();
     }
-    
-    
 
 }

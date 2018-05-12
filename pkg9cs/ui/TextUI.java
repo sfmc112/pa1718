@@ -16,6 +16,7 @@ import pkg9cs.states.*;
  * @author sarah
  */
 public class TextUI {
+
     GameController controller;
     boolean run;
 
@@ -27,19 +28,18 @@ public class TextUI {
     public void setController(GameController controller) {
         this.controller = controller;
     }
-    
-    
-    public void run(){
-        IState state=null;
-        while(run){
-            state= controller.getState();
-            if(state instanceof StartGame){
+
+    public void run() {
+        IState state = null;
+        while (run) {
+            state = controller.getState();
+            if (state instanceof StartGame) {
                 startGameUi();
-            }else if(state instanceof AwaitDrawCard){
+            } else if (state instanceof AwaitDrawCard) {
                 drawCardUi();
-            }else if(state instanceof AwaitAction){
+            } else if (state instanceof AwaitAction) {
                 awaitActionUi();
-            }else if(state instanceof AwaitEnemySelectionArchersAttack){
+            } else if (state instanceof AwaitEnemySelectionArchersAttack) {
                 enemySelectionArchersUi();
             }
         }
@@ -48,7 +48,7 @@ public class TextUI {
     private void startGameUi() {
         System.out.println(controller.startGameMenu());
         int opt = readOption();
-        switch(opt){
+        switch (opt) {
             case 1:
                 controller.startGame();
                 break;
@@ -59,14 +59,14 @@ public class TextUI {
                 save_text();
                 break;
             case 4:
-                run=false;
+                run = false;
         }
     }
 
     private void drawCardUi() {
         System.out.println(controller.drawCardMenu());
         int opt = readOption();
-        switch(opt){
+        switch (opt) {
             case 1:
                 controller.drawCard();
                 break;
@@ -77,14 +77,14 @@ public class TextUI {
                 load_text();
                 break;
             case 4:
-                run=false;
+                run = false;
         }
     }
 
     private void awaitActionUi() {
         System.out.println(controller.awaitActionMenu());
         int opt = readOption();
-        switch(opt){
+        switch (opt) {
             case 1:
                 controller.checkEnemiesArchers();
                 break;
@@ -93,11 +93,12 @@ public class TextUI {
                 break;
         }
     }
+
     private void enemySelectionArchersUi() {
         //TODO
         System.out.println(controller.archersMenu());
         int opt = readOption();
-        switch(opt){
+        switch (opt) {
             case 1:
                 controller.archersAttack(new Ladder());
                 break;
@@ -114,7 +115,7 @@ public class TextUI {
 
     private int readOption() {
         Scanner in = new Scanner(System.in);
-        while(!in.hasNextInt()){
+        while (!in.hasNextInt()) {
             in.next();
         }
         return in.nextInt();
@@ -123,17 +124,21 @@ public class TextUI {
     private void load_text() {
         System.out.print("\nName of the file to load:  ");
         String filename = readFileName();
-        if(filename == null || filename.isEmpty())
+        if (filename == null || filename.isEmpty()) {
             return;
-        try{
-            setController(load_game(filename));
-        }catch (FileNotFoundException ex){
-        } catch (IOException ex) {
         }
-        System.out.println("\nGame loaded\n");
+        try {
+            setController(load_game(filename));
+            System.out.println("\nGame loaded\n");
+        } catch (FileNotFoundException ex) {
+            System.out.println("\nException1\n");
+        } catch (IOException ex) {
+            System.out.println("\nException2\n");
+        }
+        //System.out.println("\nGame loaded\n");
     }
 
-    private GameController load_game(String filename) throws FileNotFoundException, IOException{
+    private GameController load_game(String filename) throws FileNotFoundException, IOException {
         ObjectInputStream objectIStream = null;
         GameController control = null;
         try {
@@ -141,27 +146,29 @@ public class TextUI {
             control = (GameController) objectIStream.readObject();
         } catch (FileNotFoundException exception) {
             System.err.println("Erro: ficheiro inexistente\n" + exception.getMessage());
-            throw  new FileNotFoundException();    
-        } catch (IOException | ClassNotFoundException exception) {}
-        finally{
-            if(objectIStream != null){
+            throw new FileNotFoundException();
+        } catch (IOException | ClassNotFoundException exception) {
+        } finally {
+            if (objectIStream != null) {
                 try {
                     objectIStream.close();
-                } catch (IOException exception) {}
+                } catch (IOException exception) {
+                }
             }
         }
         return control;
     }
-    
-    private void save_text(){
+
+    private void save_text() {
         System.out.println("\nName of the file to save: ");
         String filename = readFileName();
-        if(filename == null || filename.isEmpty())
+        if (filename == null || filename.isEmpty()) {
             return;
+        }
         save_game(filename);
         System.out.println("\nGame saved\n");
     }
-    
+
     private void save_game(String filename) {
         ObjectOutputStream objectOStream = null;
         try {
@@ -169,12 +176,13 @@ public class TextUI {
             objectOStream.writeObject(this.controller);
         } catch (FileNotFoundException exception) {
             System.err.println("Erro: ficheiro inexistente\n" + exception.getMessage());
-        } catch (IOException exception) {}
-        finally{
-            if(objectOStream != null){
+        } catch (IOException exception) {
+        } finally {
+            if (objectOStream != null) {
                 try {
                     objectOStream.close();
-                } catch (IOException exception) {}
+                } catch (IOException exception) {
+                }
             }
         }
     }
@@ -182,8 +190,6 @@ public class TextUI {
     private String readFileName() {
         Scanner in = new Scanner(System.in);
         return in.nextLine();
-    } 
-
-    
+    }
 
 }

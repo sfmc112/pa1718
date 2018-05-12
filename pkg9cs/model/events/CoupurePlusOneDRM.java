@@ -9,7 +9,7 @@ package pkg9cs.model.events;
  *
  * @author sarah
  */
-public class CoupurePlusOneDRM extends Event {
+public class CoupurePlusOneDRM extends EventAdapter {
 
     @Override
     public int getCoupureDRM() {

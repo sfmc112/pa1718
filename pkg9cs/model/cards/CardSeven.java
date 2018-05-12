@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import pkg9cs.model.enemyAttacks.LadderAttack;
 import pkg9cs.model.enemyAttacks.RamAttack;
 import pkg9cs.model.enemyAttacks.SiegeTowerAttack;
-import pkg9cs.model.enemyAttacks.SwordAttack;
 import pkg9cs.model.enemyAttacks.WeaponAttack;
 import pkg9cs.model.events.Event;
 import pkg9cs.model.events.LadderPlusOneDRM;
@@ -33,7 +32,7 @@ public class CardSeven extends Card {
         ArrayList<Event> e = new ArrayList<>();
         e.add(new RamMinusOneDRM());
 
-        days.add(new CardDay(w, 2, e));
+        days.add(new CardDay(w, 2, e, "Determined Enemy", "-1 to attacks on the Battering Ram"));
 
         w.clear();
         e.clear();
@@ -42,7 +41,7 @@ public class CardSeven extends Card {
 
         e.add(new SiegeTowerMinusOneDRM());
 
-        days.add(new CardDay(w, 2, e));
+        days.add(new CardDay(w, 2, e, "Iron Shields", "-1 to attacks on the Siege Tower"));
 
         w.clear();
         e.clear();
@@ -55,6 +54,6 @@ public class CardSeven extends Card {
         e.add(new LadderPlusOneDRM());
         e.add(new MoralePlusOneDRM());
 
-        days.add(new CardDay(w, 3, e));
+        days.add(new CardDay(w, 3, e, "Faith", "+1 to attacks on the Battering Ram, Ladders, and Morale action"));
     }
 }

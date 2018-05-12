@@ -5,13 +5,15 @@
  */
 package pkg9cs.model.enemyAttacks;
 
+import java.io.Serializable;
 import pkg9cs.model.EnemyBoard;
 
 /**
  *
  * @author sarah
  */
-public interface WeaponAttack {
+public interface WeaponAttack extends Serializable {
+
     public void attack(EnemyBoard eb);
-    
+
 }

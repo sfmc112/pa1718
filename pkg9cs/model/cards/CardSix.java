@@ -34,7 +34,7 @@ public class CardSix extends Card{
         e.add(new RaidPlusOneDRM());
         e.add(new SabotagePlusOneDRM());
 
-        days.add(new CardDay(w, 3, e));
+        days.add(new CardDay(w, 3, e, "Cover of Darkness", "1+ to Raid and Sabotage actions"));
 
         w.clear();
         e.clear();
@@ -45,7 +45,7 @@ public class CardSix extends Card{
         e.add(new RaidPlusOneDRM());
         e.add(new SabotagePlusOneDRM());
 
-        days.add(new CardDay(w, 3, e));
+        days.add(new CardDay(w, 3, e, "Enemy Fatigue", "+1 to Coupure, Raid and Sabotage actions"));
 
         w.clear();
         e.clear();
@@ -56,6 +56,6 @@ public class CardSix extends Card{
         e.add(new CloseCombatSpacePlusOneDRM());
         e.add(new CircleSpacePlusOneDRM());
 
-        days.add(new CardDay(w, 3, e));
+        days.add(new CardDay(w, 3, e, "Rally!", "+1 to attacks on Close Combat or Circle spaces"));
     }
 }

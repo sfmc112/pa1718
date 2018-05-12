@@ -29,7 +29,7 @@ public class AwaitEnemySelectionCloseCombatAttack extends StateAdapter {
     public IState closeCombatAttack() {
 
         getGame().attackCloseCombat();
-        getGame().decreaseActionPoints();
+        getGame().subtractActionPoint();
 
         if (!getGame().twoEnemiesOnCloseCombat()) { //se ataque for bem sucedido, vai para AwaitAction
             return new AwaitAction(getGame());

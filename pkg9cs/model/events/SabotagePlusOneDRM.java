@@ -11,7 +11,7 @@ import pkg9cs.model.GameData;
  *
  * @author sarah
  */
-public class SabotagePlusOneDRM extends Event {
+public class SabotagePlusOneDRM extends EventAdapter {
 
     @Override
     public int getSabotageDRM() {

@@ -16,5 +16,14 @@ public class AwaitAddSupplyRallyTroops extends StateAdapter{
     public AwaitAddSupplyRallyTroops(GameData game) {
         super(game);
     }
+
+    @Override
+    public IState rallyTroops() { //get opt?
+        //TODO
+        return super.rallyTroops(); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
+    
+   
 }

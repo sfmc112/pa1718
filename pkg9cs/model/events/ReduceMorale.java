@@ -11,12 +11,12 @@ import pkg9cs.model.GameData;
  *
  * @author sarah
  */
-public class ReduceMorale extends Event{
+public class ReduceMorale extends EventAdapter {
 
     @Override
     public void executeEvent(GameData game) {
         //System.out.println("Diminuiu moral");
         game.getStatusB().advanceMorale();
     }
-    
+
 }

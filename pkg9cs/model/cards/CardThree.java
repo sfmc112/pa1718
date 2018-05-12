@@ -29,13 +29,13 @@ public class CardThree extends Card {
         ArrayList<Event> e = new ArrayList<>();
         e.add(new ReduceSupplies());
 
-        days.add(new CardDay(w, 2, e));
+        days.add(new CardDay(w, 2, e, "Supplies Spoiled", "Reduce supplies by 1"));
 
         w.clear();
         e.clear();
 
         //TODO acrescentar only raid & sabotage
-        days.add(new CardDay(w, 2, e));
+        days.add(new CardDay(w, 2, e, "Bad Weather", "Only raid and sabotage actions allowed this turn"));
 
         w.clear();
         e.clear();
@@ -45,7 +45,7 @@ public class CardThree extends Card {
         
         e.add(new CircleSpacePlusTwoDRM());
 
-        days.add(new CardDay(w, 2, e));
+        days.add(new CardDay(w, 2, e, "Boiling Oil", "+2 to attacks on enemy units in circle spaces"));
     }
 
 }

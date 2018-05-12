@@ -11,7 +11,7 @@ import pkg9cs.model.GameData;
  *
  * @author sarah
  */
-public class AddTrebuchet extends Event{
+public class AddTrebuchet extends EventAdapter{
 
     @Override
     public void executeEvent(GameData game) {

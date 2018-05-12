@@ -6,6 +6,7 @@
 package pkg9cs.states;
 
 import pkg9cs.model.GameData;
+import pkg9cs.model.elements.Weapon;
 
 /**
  *
@@ -16,5 +17,13 @@ public class AwaitEnemySelectionArchersAttack extends StateAdapter {
     public AwaitEnemySelectionArchersAttack(GameData game) {
         super(game);
     }
+
+    @Override
+    public IState archersAttack(Weapon weapon) {
+        if(getGame().archersAttack(weapon)){
+            getGame().subtractActionPoint();
+        }
+    }
+    
     
 }

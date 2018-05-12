@@ -9,7 +9,7 @@ package pkg9cs.model.events;
  *
  * @author sarah
  */
-public class RamMinusOneDRM extends Event {
+public class RamMinusOneDRM extends EventAdapter {
 
     @Override
     public int getRamDRM() {

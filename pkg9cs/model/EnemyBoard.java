@@ -5,6 +5,7 @@
  */
 package pkg9cs.model;
 
+import java.io.Serializable;
 import pkg9cs.model.elements.SiegeTower;
 import pkg9cs.model.elements.Ladder;
 import pkg9cs.model.elements.Ram;
@@ -13,7 +14,7 @@ import pkg9cs.model.elements.Ram;
  *
  * @author sarah
  */
-public class EnemyBoard {
+public class EnemyBoard implements Serializable {
 
     private EnemyTrack ladders;
     private EnemyTrack rams;
@@ -47,6 +48,10 @@ public class EnemyBoard {
             //TODO exception
             return -1;
         }
+    }
+
+    public boolean isTowerPresent() {
+        return towerPresent;
     }
 
     public void advanceLadder() {
@@ -165,7 +170,7 @@ public class EnemyBoard {
 
         return numEnemies;
     }
-    
+
     public int countEnemiesOnCircleSpace() {
         int numEnemies = 0;
         if (ladders.getEnemyOnCircleSpace()) {
@@ -180,10 +185,10 @@ public class EnemyBoard {
 
         return numEnemies;
     }
-    
-    public int countEnemiesOnStartingPosition(){
+
+    public int countEnemiesOnStartingPosition() {
         int numEnemies = 0;
-        
+
         if (ladders.onStartingSpace()) {
             numEnemies++;
         }
@@ -198,7 +203,7 @@ public class EnemyBoard {
     }
 
     /**
-     * 
+     *
      * @return true se existem mais que dois inimigos no CloseCombat
      */
     public boolean checkImmediateLossOnCloseCombat() {
@@ -213,7 +218,7 @@ public class EnemyBoard {
         StringBuilder str = new StringBuilder();
         str.append(ladders);
         str.append(rams);
-        str.append(towerPresent?towers:"");
+        str.append(towerPresent ? towers : "");
         str.append("Trebuchet = ").append(trebuchetCount);
         return str.toString();
     }
@@ -221,10 +226,12 @@ public class EnemyBoard {
     public boolean isLadderOnStartingSpace() {
         return ladders.onStartingSpace();
     }
-    public boolean isBatteringRamOnStartingSpace(){
+
+    public boolean isBatteringRamOnStartingSpace() {
         return rams.onStartingSpace();
     }
-    public boolean isSiegeTowerOnStartingSpace(){
+
+    public boolean isSiegeTowerOnStartingSpace() {
         return towers.onStartingSpace();
-    } 
+    }
 }

@@ -5,11 +5,14 @@
  */
 package pkg9cs.model.elements;
 
+import java.io.Serializable;
+
 /**
  *
  * @author sarah
  */
-public abstract class Element {
+public abstract class Element implements Serializable {
+
     private final String name;
 
     public Element(String name) {
@@ -24,6 +27,5 @@ public abstract class Element {
     public String toString() {
         return getName();
     }
-    
-    
+
 }

@@ -9,7 +9,7 @@ package pkg9cs.model.events;
  *
  * @author sarah
  */
-public class LadderPlusOneDRM extends Event {
+public class LadderPlusOneDRM extends EventAdapter {
 
     @Override
     public int getLadderDRM() {

@@ -9,7 +9,7 @@ package pkg9cs.model.events;
  *
  * @author sarah
  */
-public class CloseCombatSpacePlusOneDRM extends Event {
+public class CloseCombatSpacePlusOneDRM extends EventAdapter {
 
     @Override
     public int getCloseCombatSpaceDRM() {

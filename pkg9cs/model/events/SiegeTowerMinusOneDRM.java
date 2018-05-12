@@ -9,7 +9,7 @@ package pkg9cs.model.events;
  *
  * @author sarah
  */
-public class SiegeTowerMinusOneDRM extends Event {
+public class SiegeTowerMinusOneDRM extends EventAdapter {
 
     @Override
     public int getSiegeTowerDRM() {

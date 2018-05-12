@@ -34,7 +34,7 @@ public class CardFive extends Card {
         e.add(new RamPlusOneDRM());
         e.add(new SiegeTowerPlusOneDRM());
 
-        days.add(new CardDay(w, 3, e));
+        days.add(new CardDay(w, 3, e, "Volley of Arrows", "+1 to all attacks"));
 
         w.clear();
         e.clear();
@@ -44,7 +44,7 @@ public class CardFive extends Card {
 
         e.add(new RemoveSiegeTower());
 
-        days.add(new CardDay(w, 2, e));
+        days.add(new CardDay(w, 2, e, "Collapsed!", "Siege Tower removed from game if on starting space"));
 
         w.clear();
         e.clear();
@@ -54,6 +54,6 @@ public class CardFive extends Card {
         e.add(new AddTrebuchet());
         e.add(new CoupurePlusOneDRM());
 
-        days.add(new CardDay(w, 2, e));
+        days.add(new CardDay(w, 2, e, "Repaired Trebuchet", "Add 1 Trebuchet (max 3)\n+1 to Coupure action"));
     }
 }

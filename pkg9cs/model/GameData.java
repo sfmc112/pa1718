@@ -5,16 +5,16 @@
  */
 package pkg9cs.model;
 
+import java.io.Serializable;
 import pkg9cs.model.cards.CardPile;
 import pkg9cs.model.cards.Card;
-import java.util.ArrayList;
-import java.util.List;
+import pkg9cs.model.elements.*;
 
 /**
  *
  * @author sarah
  */
-public class GameData {
+public class GameData implements Serializable {
 
     private EnemyBoard enemyB;
     private StatusBoard statusB;
@@ -23,6 +23,7 @@ public class GameData {
     private int numberOfActions;
 
     private boolean usedExtraAP;
+    private boolean usedBoiling;
 
     private CardPile deck;
     private CardPile discarded;
@@ -35,6 +36,7 @@ public class GameData {
         numberOfActions = 0;
 
         usedExtraAP = false;
+        usedBoiling = false;
 
         deck = new CardPile();
         deck.setNewCards();
@@ -71,6 +73,7 @@ public class GameData {
     }
 
     public void newTurnSetup() {
+        discarded.receiveCard(deck.transferCard(0));
         usedExtraAP = false;
         numberOfActions = 0;
     }
@@ -82,9 +85,9 @@ public class GameData {
         if (deck.getCardPileSize() <= 0) {
             return false;
         }
-
+       
         getCardFromDeck(0).executeCard(this, dayNumber);
-        discarded.receiveCard(deck.transferCard(0));
+        
         return true;
 
     }
@@ -102,7 +105,7 @@ public class GameData {
         usedExtraAP = true;
     }
 
-    public void decreaseActionPoints() {
+    public void subtractActionPoint() {
         if (numberOfActions > 0) {
             numberOfActions--;
         }
@@ -219,6 +222,24 @@ public class GameData {
         //TODO
     }
 
+    public void attackBoilingWater() {
+        //TODO
+    }
+
+    public boolean archersAttack(Weapon weapon) {
+        if (weapon instanceof Ladder && !enemyB.isLadderOnStartingSpace()) {
+            enemyB.retreatLadder();
+            return true;
+        } else if (weapon instanceof Ram && !enemyB.isBatteringRamOnStartingSpace()) {
+            enemyB.retreatRam();
+            return true;
+        } else if (weapon instanceof SiegeTower && enemyB.isTowerPresent() && !enemyB.isSiegeTowerOnStartingSpace()) {
+            enemyB.retreatTower();
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Classe estática referente ao Dado
      *
@@ -247,9 +268,8 @@ public class GameData {
         str.append(getEnemyB()).append("\n\n");
         str.append(getStatusB()).append("\n");
         str.append("You have ").append(getNumberOfActions()).append(" actions.");
-        str.append(discarded.getCard(discarded.getCardPileSize()-1).printDay(dayNumber)).append("\n");
+        str.append(discarded.getCard(discarded.getCardPileSize() - 1).printDay(dayNumber)).append("\n");
         return str.toString();
     }
 
-    
 }

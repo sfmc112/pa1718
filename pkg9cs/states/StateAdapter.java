@@ -123,4 +123,9 @@ public class StateAdapter implements IState {
         return this;
     }
 
+    @Override
+    public IState endGame() {
+        return this;
+    }
+
 }

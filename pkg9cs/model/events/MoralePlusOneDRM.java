@@ -11,7 +11,7 @@ import pkg9cs.model.GameData;
  *
  * @author sarah
  */
-public class MoralePlusOneDRM extends Event {
+public class MoralePlusOneDRM extends EventAdapter {
 
     @Override
     public int getMoraleDRM() {

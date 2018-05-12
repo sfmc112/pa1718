@@ -9,7 +9,7 @@ package pkg9cs.model.events;
  *
  * @author sarah
  */
-public class RaidPlusOneDRM extends Event {
+public class RaidPlusOneDRM extends EventAdapter {
 
     @Override
     public int getSupplyRaidDRM() {

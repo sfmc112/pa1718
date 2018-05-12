@@ -5,6 +5,7 @@
  */
 package pkg9cs.controller;
 
+import java.io.Serializable;
 import pkg9cs.model.GameData;
 import pkg9cs.model.elements.*;
 import pkg9cs.states.IState;
@@ -14,7 +15,7 @@ import pkg9cs.states.StartGame;
  *
  * @author sarah
  */
-public class GameController {
+public class GameController implements Serializable {
 
     private GameData game;
     private IState state;
@@ -23,9 +24,8 @@ public class GameController {
         game = new GameData();
         setState(new StartGame(game));
     }
- 
-    //TODO check game state
 
+    //TODO check game state
     public GameData getGame() {
         return game;
     }
@@ -41,11 +41,13 @@ public class GameController {
     public void setState(IState state) {
         this.state = state;
     }
+
     /**
      * Start Game Menu
+     *
      * @return String com o menu preparado para ser apresentado ao utilizador
      */
-    
+
     public String startGameMenu() {
         StringBuilder str = new StringBuilder();
         str.append("\t1- New Game\n");
@@ -54,8 +56,10 @@ public class GameController {
         str.append("\t4- Quit Game\n");
         return str.toString();
     }
+
     /**
      * Draw Card Menu
+     *
      * @return String com o menu preparado para ser apresentado ao utilizador
      */
     public String drawCardMenu() {
@@ -71,6 +75,7 @@ public class GameController {
 
     /**
      * Await Action Menu
+     *
      * @return String com o menu preparado para ser apresentado ao utilizador
      */
     public String awaitActionMenu() {
@@ -78,28 +83,35 @@ public class GameController {
         StringBuilder str = new StringBuilder();
         str.append(game.toString());
         str.append("\nAvailable actions:\n");
-        if(canDoArchers())
+        if (canDoArchers()) {
             str.append("\t1- Archers\n");
-        if(canDoBoiling())
+        }
+        if (canDoBoiling()) {
             str.append("\t2- Boiling\n");
-        if(canDoCloseCombat())
+        }
+        if (canDoCloseCombat()) {
             str.append("\t3- Close Combat\n");
-        if(canDoCoupure())
+        }
+        if (canDoCoupure()) {
             str.append("\t4- Coupure\n");
-        if(canDoRallyTroops())
+        }
+        if (canDoRallyTroops()) {
             str.append("\t5- Rally Troops\n");
+        }
         str.append("\t6- Tunnel Movement\n");
-        if(canDoSupplyRaid())
+        if (canDoSupplyRaid()) {
             str.append("\t7- Supply Raid\n");
-        if(canDoSabotage())
+        }
+        if (canDoSabotage()) {
             str.append("\t8- Sabotage\n");
+        }
         str.append("\t9- End Turn\n");
         str.append("\t10- Save Game\n");
         str.append("\t11- Load Game\n");
         str.append("\t12- Quit Game\n");
-        
+
         return str.toString();
-        
+
     }
 
     private boolean canDoArchers() {
@@ -150,9 +162,9 @@ public class GameController {
     public String archersMenu() {
         StringBuilder str = new StringBuilder();
         str.append(getGame().getEnemyB()).append("\n");
-        str.append(getGame().getEnemyB().isLadderOnStartingSpace()?"":"\t1- Ladder\n");
-        str.append(getGame().getEnemyB().isBatteringRamOnStartingSpace()?"":"\t2- Battering Ram\n");
-        str.append(getGame().getEnemyB().isSiegeTowerOnStartingSpace()?"":"\t3- Siege Tower\n");
+        str.append(getGame().getEnemyB().isLadderOnStartingSpace() ? "" : "\t1- Ladder\n");
+        str.append(getGame().getEnemyB().isBatteringRamOnStartingSpace() ? "" : "\t2- Battering Ram\n");
+        str.append(getGame().getEnemyB().isSiegeTowerOnStartingSpace() ? "" : "\t3- Siege Tower\n");
         str.append("\t4- Return to menu\n");
         return str.toString();
     }

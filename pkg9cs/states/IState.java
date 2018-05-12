@@ -5,13 +5,14 @@
  */
 package pkg9cs.states;
 
+import java.io.Serializable;
 import pkg9cs.model.elements.Weapon;
 
 /**
  *
  * @author sarah
  */
-public interface IState {
+public interface IState extends Serializable{
 
     public IState startGame();
 
@@ -50,5 +51,7 @@ public interface IState {
     public IState sabotage();
 
     public IState endOfDay();
+    
+    public IState endGame();
 
 }

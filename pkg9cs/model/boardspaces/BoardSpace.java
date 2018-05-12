@@ -5,34 +5,36 @@
  */
 package pkg9cs.model.boardspaces;
 
+import java.io.Serializable;
 import pkg9cs.model.elements.Element;
 
 /**
  *
  * @author sarah
  */
-public abstract class BoardSpace {
+public abstract class BoardSpace implements Serializable {
 
     private Element el = null;
     private String name;
 
-    public BoardSpace(Element el,String name) {
+    public BoardSpace(Element el, String name) {
         this.el = el;
-        this.name=name;
+        this.name = name;
     }
 
     public Element getElement() {
         return el;
     }
-    public String getName(){
+
+    public String getName() {
         return name;
     }
 
     public void setElement(Element el) {
         this.el = el;
     }
-    
-    public boolean isEmpty(){
+
+    public boolean isEmpty() {
         return el == null;
     }
 

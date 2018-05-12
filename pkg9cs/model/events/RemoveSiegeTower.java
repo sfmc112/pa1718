@@ -11,11 +11,11 @@ import pkg9cs.model.GameData;
  *
  * @author sarah
  */
-public class RemoveSiegeTower extends Event{
+public class RemoveSiegeTower extends EventAdapter {
 
     @Override
     public void executeEvent(GameData game) {
         game.removeSiegeTower();
     }
-    
+
 }

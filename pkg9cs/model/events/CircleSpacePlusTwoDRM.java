@@ -11,7 +11,7 @@ import pkg9cs.model.GameData;
  *
  * @author sarah
  */
-public class CircleSpacePlusTwoDRM extends Event {
+public class CircleSpacePlusTwoDRM extends EventAdapter {
 
     @Override
     public int getCircleSpaceDRM() {

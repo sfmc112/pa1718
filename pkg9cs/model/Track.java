@@ -5,6 +5,7 @@
  */
 package pkg9cs.model;
 
+import java.io.Serializable;
 import pkg9cs.model.boardspaces.BoardSpace;
 import pkg9cs.model.elements.Element;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.List;
  *
  * @author sarah
  */
-public abstract class Track {
+public abstract class Track implements Serializable {
 
     //TODO (not a priority) constantes
     protected static final int NUM_SPACES = 5;
@@ -86,9 +87,8 @@ public abstract class Track {
         }
         return null;
     }
-    
-    
-    public BoardSpace getBoardspaceType(){
+
+    public BoardSpace getBoardspaceType() {
         for (BoardSpace boardSpace : track) {
             if (!boardSpace.isEmpty()) {
                 return boardSpace;
@@ -104,18 +104,18 @@ public abstract class Track {
             }
         }
     }
-    public boolean onStartingSpace(){
-        return (whereIsElement() == (track.size()-1));
+
+    public boolean onStartingSpace() {
+        return (whereIsElement() == (track.size() - 1));
     }
 
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
         str.append(getElementType());
-        str.append(" is on position ").append( whereIsElement());
+        str.append(" is on position ").append(whereIsElement());
         str.append("\t(").append(getBoardspaceType()).append(")\n");
         return str.toString();
     }
-    
 
 }

@@ -9,7 +9,7 @@ package pkg9cs.model.events;
  *
  * @author sarah
  */
-public class CircleSpacePlusOneDRM extends Event {
+public class CircleSpacePlusOneDRM extends EventAdapter {
 
     @Override
     public int getCircleSpaceDRM() {

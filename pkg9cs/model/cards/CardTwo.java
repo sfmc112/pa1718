@@ -34,7 +34,7 @@ public class CardTwo extends Card {
         e.add(new ReduceMorale());
         e.add(new ReduceSupplies());
 
-        days.add(new CardDay(w, 2, e));
+        days.add(new CardDay(w, 2, e, "Illness", "Reduce morale by 1\nReduce supplies by 1"));
 
         w.clear();
         e.clear();
@@ -44,14 +44,14 @@ public class CardTwo extends Card {
         e.add(new SabotagePlusOneDRM());
         e.add(new MoralePlusOneDRM());
 
-        days.add(new CardDay(w, 2, e));
+        days.add(new CardDay(w, 2, e, "Guards Distracted", "+1 to sabotage action\n+1 to morale action"));
 
         w.clear();
         e.clear();
 
         e.add(new TrebuchetAttack());
 
-        days.add(new CardDay(w, 1, e));
+        days.add(new CardDay(w, 1, e, "Trebuchet Attack", ""));
     }
 
 }

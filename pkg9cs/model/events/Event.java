@@ -5,6 +5,7 @@
  */
 package pkg9cs.model.events;
 
+import java.io.Serializable;
 import pkg9cs.model.GameData;
 
 /**
@@ -12,46 +13,26 @@ import pkg9cs.model.GameData;
  * @author sarah
  */
 //TODO
-public abstract class Event {
+public interface Event extends Serializable {
 
-    public void executeEvent(GameData game){
-        
-    }
+    public void executeEvent(GameData game);
 
-    public int getSabotageDRM() {
-        return 0;
-    }
+    public int getSabotageDRM();
 
-    public int getMoraleDRM() {
-        return 0;
-    }
+    public int getMoraleDRM();
 
-    public int getCircleSpaceDRM() {
-        return 0;
-    }
+    public int getCircleSpaceDRM();
 
-    public int getCloseCombatSpaceDRM() {
-        return 0;
-    }
+    public int getCloseCombatSpaceDRM();
 
-    public int getSupplyRaidDRM() {
-        return 0;
-    }
+    public int getSupplyRaidDRM();
 
-    public int getCoupureDRM() {
-        return 0;
-    }
+    public int getCoupureDRM();
 
-    public int getLadderDRM() {
-        return 0;
-    }
+    public int getLadderDRM();
 
-    public int getRamDRM() {
-        return 0;
-    }
+    public int getRamDRM();
 
-    public int getSiegeTowerDRM() {
-        return 0;
-    }
+    public int getSiegeTowerDRM();
 
 }

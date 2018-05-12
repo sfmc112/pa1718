@@ -11,7 +11,7 @@ import pkg9cs.model.GameData;
  *
  * @author sarah
  */
-public class RamPlusOneDRM extends Event {
+public class RamPlusOneDRM extends EventAdapter {
 
     @Override
     public int getRamDRM() {

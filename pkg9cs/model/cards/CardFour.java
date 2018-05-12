@@ -33,7 +33,7 @@ public class CardFour extends Card {
         ArrayList<Event> e = new ArrayList<>();
         e.add(new ReduceMorale());
 
-        days.add(new CardDay(w, 2, e));
+        days.add(new CardDay(w, 2, e, "Death of a Leader", "Reduce morale by 1"));
 
         w.clear();
         e.clear();
@@ -43,7 +43,7 @@ public class CardFour extends Card {
 
         e.add(new RamPlusOneDRM());
 
-        days.add(new CardDay(w, 2, e));
+        days.add(new CardDay(w, 2, e, "Gate Fortified", "+1 to attacks on the Battering Ram"));
 
         w.clear();
         e.clear();
@@ -52,6 +52,6 @@ public class CardFour extends Card {
 
         e.add(new SiegeTowerPlusOneDRM());
         
-        days.add(new CardDay(w, 3, e));
+        days.add(new CardDay(w, 3, e, "Flaming Arrows", "+1 to attacks on the Siege Engine"));
     }
 }

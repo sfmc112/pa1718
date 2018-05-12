@@ -23,9 +23,9 @@ public class CardOne extends Card {
         ArrayList<Event> e = new ArrayList<>();
         e.add(new TrebuchetAttack());
         
-        days.add(new CardDay(w, 3, e));
-        days.add(new CardDay(w, 2, e));
-        days.add(new CardDay(w, 1, e));
+        days.add(new CardDay(w, 3, e, "Trebuchet Attack", ""));
+        days.add(new CardDay(w, 2, e, "Trebuchet Attack", ""));
+        days.add(new CardDay(w, 1, e, "Trebuchet Attack", ""));
     }
 
 }
