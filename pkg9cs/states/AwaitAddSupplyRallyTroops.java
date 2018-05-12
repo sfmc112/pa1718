@@ -30,4 +30,8 @@ public class AwaitAddSupplyRallyTroops extends StateAdapter {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public IState returnToMenu() {
+        return new AwaitAction(getGame());
+    }
 }

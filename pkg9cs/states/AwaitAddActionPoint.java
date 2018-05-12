@@ -41,6 +41,13 @@ public class AwaitAddActionPoint extends StateAdapter{
             return new AwaitEnemySelectionCloseCombatAttack(getGame());
         return new AwaitAction(getGame());
     }
+
+    @Override
+    public IState returnToMenu() {
+        if(getGame().twoEnemiesOnCloseCombat())
+            return new AwaitEnemySelectionCloseCombatAttack(getGame());
+        return new AwaitAction(getGame());
+    }
     
     
     

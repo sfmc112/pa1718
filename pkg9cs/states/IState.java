@@ -86,6 +86,6 @@ public interface IState extends Serializable{
     
     public IState endGame();
     
-    public IState returnToAwaitAction();
+    public IState returnToMenu();
 
 }

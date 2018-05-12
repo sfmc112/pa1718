@@ -130,7 +130,7 @@ public class StateAdapter implements IState {
     }
 
     @Override
-    public IState returnToAwaitAction() {
+    public IState returnToMenu() {
         return this;
     }
 

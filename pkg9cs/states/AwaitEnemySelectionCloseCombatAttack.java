@@ -48,5 +48,12 @@ public class AwaitEnemySelectionCloseCombatAttack extends StateAdapter {
             }                                       //De lá, faz endOfTurn e vê que o jogador perdeu e passa para o estado GameLost
         }
     }
+    
+    @Override
+    public IState returnToMenu() {
+        if(getGame().twoEnemiesOnCloseCombat())
+            return this;
+        return new AwaitAction(getGame());
+    }
 
 }

@@ -42,11 +42,72 @@ public class GameController implements Serializable {
     }
 
     /**
+     * ****************************************************************************
+     */
+    public void startGame() {
+        setState(state.startGame());
+    }
+
+    public void drawCard() {
+        setState(state.executeCard());
+    }
+
+    public void checkEnemiesArchers() {
+        setState(state.checkEnemiesArchers());
+    }
+
+    public void checkEnemiesBoilingWater() {
+        setState(state.checkEnemiesBoilingWater());
+    }
+
+    public void checkEnemiesCloseCombat() {
+        setState(state.checkEnemiesCloseCombat());
+    }
+
+    public void endTurn() {
+        setState(state.endOfTurn());
+    }
+
+    public void coupure() {
+        setState(state.coupure());
+    }
+
+    public void askUseOfSupply() {
+        setState(state.askUseOfSupply());
+    }
+
+    public void selectTunnelMov() {
+        setState(state.selectTunnelMov());
+    }
+
+    public void supplyRaid() {
+        setState(state.supplyRaid());
+    }
+
+    public void archersAttack(Weapon weapon) {
+        setState(state.archersAttack(weapon));
+    }
+    
+    public void boilingWaterAttack(Weapon weapon) {
+        setState(state.boilingWaterAttack(weapon));
+    }
+    public void closeCombatAttack(Weapon weapon) {
+        setState(state.closeCombatAttack(weapon));
+    }
+
+    public void sabotage() {
+        setState(state.sabotage());
+    }
+    
+    public void returnToAwaitAction() {
+        setState(state.returnToMenu());
+    }
+
+    /**
      * Start Game Menu
      *
      * @return String com o menu preparado para ser apresentado ao utilizador
      */
-
     public String startGameMenu() {
         StringBuilder str = new StringBuilder();
         str.append("\t1- New Game\n");
@@ -111,6 +172,47 @@ public class GameController implements Serializable {
 
     }
 
+    public String archersMenu() {
+        StringBuilder str = new StringBuilder();
+        str.append(getGame().getEnemyB()).append("\n");
+        str.append(getGame().getEnemyB().isLadderOnStartingSpace() ? "" : "\t1- Ladder\n");
+        str.append(getGame().getEnemyB().isBatteringRamOnStartingSpace() ? "" : "\t2- Battering Ram\n");
+        str.append(getGame().getEnemyB().isSiegeTowerOnStartingSpace() ? "" : "\t3- Siege Tower\n");
+        str.append("\t4- Return to menu\n");
+        return str.toString();
+    }
+
+    public String boilingAttackMenu() {
+        StringBuilder str = new StringBuilder();
+        str.append(getGame().getEnemyB()).append("\n");
+        str.append(getGame().getEnemyB().isLadderOnCircleSpace() ? "\t1- Ladder\n" : "");
+        str.append(getGame().getEnemyB().isBatteringRamOnCircleSpace() ? "\t2- Battering Ram\n" : "");
+        str.append(getGame().getEnemyB().isSiegeTowerOnCircleSpace() ? "\t3- Siege Tower\n" : "");
+        str.append("\t4- Return to menu\n");
+        return str.toString();
+    }
+
+    public String closeCombatAttackMenu() {
+        StringBuilder str = new StringBuilder();
+        str.append(getGame().getEnemyB()).append("\n");
+        str.append(getGame().getEnemyB().isLadderOnCloseCombatSpace() ? "\t1- Ladder\n" : "");
+        str.append(getGame().getEnemyB().isBatteringRamOnCloseCombatSpace() ? "\t2- Battering Ram\n" : "");
+        str.append(getGame().getEnemyB().isSiegeTowerOnCloseCombatSpace() ? "\t3- Siege Tower\n" : "");
+        str.append("\t4- Return to menu\n");
+        return str.toString();
+    }
+    
+    public boolean tunnelMenu() {
+        //TODO
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public String statusBoard() {
+        StringBuilder str = new StringBuilder();
+        str.append(game.getEnemyB()).append("\n\n").append(game.getStatusB()).append("\n");
+        return str.toString();
+    }
+
     private boolean canDoArchers() {
         return (getGame().checkAP() && getGame().enemiesAttackable());
     }
@@ -139,84 +241,4 @@ public class GameController implements Serializable {
         return (getGame().checkAP()) && (getGame().checkSoldiersOnEnemyLine());
     }
 
-    public void startGame() {
-        setState(state.startGame());
-    }
-
-    public void drawCard() {
-        setState(state.executeCard());
-    }
-
-    public void checkEnemiesArchers() {
-        setState(state.checkEnemiesArchers());
-    }
-
-    public void checkEnemiesBoilingWater() {
-        setState(state.checkEnemiesBoilingWater());
-    }
-     public void checkEnemiesCloseCombat() {
-        setState(state.checkEnemiesCloseCombat());
-    }
-     
-    public void endTurn() {
-        setState(state.endOfTurn());
-    }
-     public void coupure() {
-        setState(state.coupure());
-    }
-     public void askUseOfSupply() {
-         setState(state.askUseOfSupply());
-    }
-      public void selectTunnelMov() {
-        setState(state.selectTunnelMov());
-    }
-      public void supplyRaid() {
-          setState(state.supplyRaid());
-    }
-    
-    public boolean tunnelMenu() {
-        //TODO
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public String archersMenu() {
-        StringBuilder str = new StringBuilder();
-        str.append(getGame().getEnemyB()).append("\n");
-        str.append(getGame().getEnemyB().isLadderOnStartingSpace() ? "" : "\t1- Ladder\n");
-        str.append(getGame().getEnemyB().isBatteringRamOnStartingSpace() ? "" : "\t2- Battering Ram\n");
-        str.append(getGame().getEnemyB().isSiegeTowerOnStartingSpace() ? "" : "\t3- Siege Tower\n");
-        str.append("\t4- Return to menu\n");
-        return str.toString();
-    }
-    public String boilingAttackMenu() {
-        StringBuilder str = new StringBuilder();
-        str.append(getGame().getEnemyB()).append("\n");
-        str.append(getGame().getEnemyB().isLadderOnCircleSpace() ? "\t1- Ladder\n":"");
-        str.append(getGame().getEnemyB().isBatteringRamOnCircleSpace()? "\t2- Battering Ram\n":"");
-        str.append(getGame().getEnemyB().isSiegeTowerOnCircleSpace() ? "\t3- Siege Tower\n":"");
-        str.append("\t4- Return to menu\n");
-        return str.toString();
-    }
-    public String closeCombatAttackMenu() {
-        StringBuilder str = new StringBuilder();
-        str.append(getGame().getEnemyB()).append("\n");
-        str.append(getGame().getEnemyB().isLadderOnCloseCombatSpace() ? "\t1- Ladder\n":"");
-        str.append(getGame().getEnemyB().isBatteringRamOnCloseCombatSpace()? "\t2- Battering Ram\n":"");
-        str.append(getGame().getEnemyB().isSiegeTowerOnCloseCombatSpace() ? "\t3- Siege Tower\n":"");
-        str.append("\t4- Return to menu\n");
-        return str.toString();
-    }
-
-    public void archersAttack(Weapon weapon) {
-        setState(state.archersAttack(weapon));
-    }
-    public void sabotage() {
-        setState(state.sabotage());
-    }
-
-    public String statusBoard() {
-        StringBuilder str = new StringBuilder();
-        str.append(game.getEnemyB()).append("\n\n").append(game.getStatusB()).append("\n");
-        return str.toString();
-    }
 }

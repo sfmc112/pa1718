@@ -41,12 +41,12 @@ public class TextUI {
                 awaitActionUi();
             } else if (state instanceof AwaitEnemySelectionArchersAttack) {
                 enemySelectionArchersUi();
-            } else if (state instanceof AwaitEnemySelectionBoilingWaterAttack){
+            } else if (state instanceof AwaitEnemySelectionBoilingWaterAttack) {
                 enemySelectionBoilingAttackUi();
-            }else if (state instanceof AwaitTunnelMovementSelection){
-                tunnelMenuUi();
-            }else if (state instanceof AwaitEnemySelectionCloseCombatAttack){
+            } else if (state instanceof AwaitEnemySelectionCloseCombatAttack) {
                 enemySelectionCloseCombatUi();
+            } else if (state instanceof AwaitTunnelMovementSelection) {
+                tunnelMenuUi();
             }
         }
     }
@@ -125,8 +125,8 @@ public class TextUI {
                 loadText();
                 break;
             case 12:
-                run=false;
-                
+                run = false;
+
         }
     }
 
@@ -144,61 +144,64 @@ public class TextUI {
                 controller.archersAttack(new SiegeTower());
                 break;
             case 4:
-                // TODO 
+                controller.returnToAwaitAction();
                 break;
         }
     }
+
     private void tunnelMenuUi() {
         System.out.println(controller.tunnelMenu());
         int opt = readOption();
-        switch (opt){
-            case 1: 
+        switch (opt) {
+            case 1:
                 //TODO
                 break;
             case 2:
                 //TODO
                 break;
             case 3:
-                //TODO
+                controller.returnToAwaitAction();
                 break;
         }
     }
+
     private void enemySelectionBoilingAttackUi() {
         System.out.println(controller.boilingAttackMenu());
         int opt = readOption();
-        switch (opt){
-            case 1: 
-                //TODO
+        switch (opt) {
+            case 1:
+                controller.boilingWaterAttack(new Ladder());
                 break;
             case 2:
-                //TODO
+                controller.boilingWaterAttack(new Ram());
                 break;
             case 3:
-                //TODO
+                controller.boilingWaterAttack(new SiegeTower());
                 break;
             case 4:
-                //TODO
+                controller.returnToAwaitAction();
                 break;
-                
+
         }
     }
+
     private void enemySelectionCloseCombatUi() {
         System.out.println(controller.closeCombatAttackMenu());
         int opt = readOption();
-        switch (opt){
-            case 1: 
-                //TODO
+        switch (opt) {
+            case 1:
+                controller.closeCombatAttack(new Ladder());
                 break;
             case 2:
-                //TODO
+                controller.closeCombatAttack(new Ram());
                 break;
             case 3:
-                //TODO
+                controller.closeCombatAttack(new SiegeTower());
                 break;
             case 4:
-                //TODO
+                controller.returnToAwaitAction();
                 break;
-                
+
         }
     }
 
@@ -280,7 +283,4 @@ public class TextUI {
         return in.nextLine();
     }
 
-    
-
-    
 }

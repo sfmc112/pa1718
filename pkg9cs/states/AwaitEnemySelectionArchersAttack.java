@@ -25,4 +25,9 @@ public class AwaitEnemySelectionArchersAttack extends StateAdapter {
         }
         return new AwaitAction(getGame());
     }
+    
+    @Override
+    public IState returnToMenu() {
+        return new AwaitAction(getGame());
+    }
 }
