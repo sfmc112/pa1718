@@ -37,6 +37,7 @@ public class GameData implements Serializable {
     private CardPile discarded;
 
     private StringBuilder msg;
+
     public GameData() {
         enemyB = new EnemyBoard();
         statusB = new StatusBoard();
@@ -53,7 +54,7 @@ public class GameData implements Serializable {
         deck.setNewCards();
 
         discarded = new CardPile();
-        msg=new StringBuilder();
+        msg = new StringBuilder();
     }
 
     /**
@@ -769,13 +770,13 @@ public class GameData implements Serializable {
      * ******************************************************************************************
      */
     public void addSupplyCount() {
-//        if (statusB.getSupplyCount() >= 2) {
-//            return false;
-//        }
+
         int dieResult = GameData.Die.rollDie() + getSupplyRaidDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
+        msg.append("Die: ").append(dieResult).append("\n");
         switch (dieResult) {
             case 1:
+                msg.append("<<Soldiers have been captured!>>\n");
                 captureSoldiers();
                 break;
             case 2:
@@ -783,13 +784,18 @@ public class GameData implements Serializable {
             case 3:
             case 4:
             case 5:
+                msg.append("<<You have raided 1 Supply!>>\n");
                 statusB.addSupplyCount(1);
                 break;
             default:
+                msg.append("<<You have raided 2 Supplies!>>\n");
                 statusB.addSupplyCount(2);
                 break;
         }
-//        return true;
+    }
+    
+    public void removeOneSupplyForRallyTroops(){
+        statusB.advanceSupply();
     }
 
     /**
@@ -799,6 +805,24 @@ public class GameData implements Serializable {
     /**
      * ******************************************************************************************
      */
+    public void rallyTroops(int extraDRM) {
+        int dieResult = GameData.Die.rollDie() + getMoraleDRM() + extraDRM;
+        dieResult = GameData.Die.adjustDieResult(dieResult);
+        msg.append("Die: ").append(dieResult).append("\n");
+        
+        switch (dieResult) {
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+                break;
+            default:
+                msg.append("<<Rally Troops was successful!>>\n");
+                statusB.retreatMorale();
+                break;
+        }
+    }
+
     /**
      * ******************************************************************************************
      */

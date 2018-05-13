@@ -26,13 +26,13 @@ public class AwaitEnemySelectionCloseCombatAttack extends StateAdapter {
         return new AwaitAction(getGame());
     }
 
-    // TODO check and return this
     @Override
     public IState closeCombatAttack(Weapon weapon) {
 
-        if (getGame().closeCombatAttack(weapon)) {
-            getGame().subtractActionPoint();
+        if (!getGame().closeCombatAttack(weapon)) { //Em caso de escolher uma opção errada, permanece no mesmo estado
+            return this;
         }
+        getGame().subtractActionPoint(); //O ataque foi permitido, reduz um action point
         if (getGame().immediateLossCheck()) {
             return new GameLost(getGame());
         }
@@ -49,11 +49,12 @@ public class AwaitEnemySelectionCloseCombatAttack extends StateAdapter {
             }                                       //De lá, faz endOfTurn e vê que o jogador perdeu e passa para o estado GameLost
         }
     }
-    
+
     @Override
     public IState returnToMenu() {
-        if(getGame().twoEnemiesOnCloseCombat())
+        if (getGame().twoEnemiesOnCloseCombat()) {
             return this;
+        }
         return new AwaitAction(getGame());
     }
 

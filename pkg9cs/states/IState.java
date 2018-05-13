@@ -7,6 +7,7 @@ package pkg9cs.states;
 
 import java.io.Serializable;
 import pkg9cs.model.elements.Element;
+import pkg9cs.model.elements.Supply;
 import pkg9cs.model.elements.Weapon;
 
 /**
@@ -69,7 +70,7 @@ public interface IState extends Serializable{
 
     public IState rallyTroops();
     
-    public IState rallyTroops(Element e);
+    public IState rallyTroops(Supply supp);
 
     /**
      * Verifica se o jogador já não tem mais ações para perguntar se pretende comprar uma acção extra

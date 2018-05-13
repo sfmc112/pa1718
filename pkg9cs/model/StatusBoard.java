@@ -34,7 +34,7 @@ public class StatusBoard implements Serializable {
 
         soldierLine = new InvadingTrack(new Soldiers());
         soldiersHaveBeenOnEnemyLines = false;
-        supplyCount = 0; //TODO
+        supplyCount = 0;
     }
 
     public int getSupplyCount() {

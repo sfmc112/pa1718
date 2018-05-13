@@ -13,20 +13,20 @@ import pkg9cs.model.elements.Weapon;
  * @author sarah
  */
 public class AwaitEnemySelectionArchersAttack extends StateAdapter {
-    
+
     public AwaitEnemySelectionArchersAttack(GameData game) {
         super(game);
     }
 
-    // TODO check and return this
     @Override
     public IState archersAttack(Weapon weapon) {
-        if(getGame().archersAttack(weapon)){
+        if (getGame().archersAttack(weapon)) {
             getGame().subtractActionPoint();
+            return new AwaitAction(getGame());
         }
-        return new AwaitAction(getGame());
+        return this;
     }
-    
+
     @Override
     public IState returnToMenu() {
         return new AwaitAction(getGame());

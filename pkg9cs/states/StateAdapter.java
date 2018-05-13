@@ -7,6 +7,7 @@ package pkg9cs.states;
 
 import pkg9cs.model.GameData;
 import pkg9cs.model.elements.Element;
+import pkg9cs.model.elements.Supply;
 import pkg9cs.model.elements.Weapon;
 
 /**
@@ -100,7 +101,7 @@ public class StateAdapter implements IState {
     }
 
     @Override
-    public IState rallyTroops(Element e) {
+    public IState rallyTroops(Supply supp) {
         return this;
     }
 

@@ -18,18 +18,18 @@ public class AwaitEnemySelectionBoilingWaterAttack extends StateAdapter {
         super(game);
     }
 
-    // TODO check and return this
     @Override
     public IState boilingWaterAttack(Weapon weapon) {
         if (getGame().boilingWaterAttack(weapon)) {
             getGame().subtractActionPoint();
+            return new AwaitAction(getGame());
         }
         if (getGame().immediateLossCheck()) {
             return new GameLost(getGame());
         }
-        return new AwaitAction(getGame());
+        return this;
     }
-    
+
     @Override
     public IState returnToMenu() {
         return new AwaitAction(getGame());
