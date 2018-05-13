@@ -59,6 +59,8 @@ public class GameController extends Observable implements Serializable {
 
     public void drawCard() {
         setState(state.executeCard());
+        setChanged();
+        notifyObservers();
     }
 
     public void checkEnemiesArchers() {
