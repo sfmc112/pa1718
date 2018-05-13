@@ -6,21 +6,26 @@
 package pkg9cs.controller;
 
 import java.io.Serializable;
+import java.util.Observable;
 import pkg9cs.model.GameData;
 import pkg9cs.model.elements.*;
 import pkg9cs.states.IState;
 import pkg9cs.states.StartGame;
+import pkg9cs.ui.TextUI;
 
 /**
  *
  * @author sarah
  */
-public class GameController implements Serializable {
+public class GameController extends Observable implements Serializable{
 
     private GameData game;
     private IState state;
+    private TextUI textUI;
 
-    public GameController() {
+    public GameController(TextUI textUI) {
+        this.textUI=textUI;
+        addObserver(this.textUI);
         game = new GameData();
         setState(new StartGame(game));
     }
@@ -74,6 +79,8 @@ public class GameController implements Serializable {
 
     public void coupure() {
         setState(state.coupure());
+        setChanged();
+        notifyObservers();
     }
 
     public void askUseOfSupply() {
@@ -102,18 +109,26 @@ public class GameController implements Serializable {
 
     public void archersAttack(Weapon weapon) {
         setState(state.archersAttack(weapon));
+        setChanged();
+        notifyObservers();
     }
 
     public void boilingWaterAttack(Weapon weapon) {
         setState(state.boilingWaterAttack(weapon));
+        setChanged();
+        notifyObservers();
     }
 
     public void closeCombatAttack(Weapon weapon) {
         setState(state.closeCombatAttack(weapon));
+        setChanged();
+        notifyObservers();
     }
 
     public void sabotage() {
         setState(state.sabotage());
+        setChanged();
+        notifyObservers();
     }
 
     public void returnToMenu() {
@@ -328,5 +343,9 @@ public class GameController implements Serializable {
     private boolean canDoFastMovement(){
         return getGame().checkAP() && !getGame().checkSoldiersInCastle() && !getGame().checkSoldiersOnEnemyLine();
     }
-            
+    
+    public String printMSG() {
+        return game.printMSG();
+    }
+
 }

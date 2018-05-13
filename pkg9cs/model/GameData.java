@@ -36,6 +36,7 @@ public class GameData implements Serializable {
     private CardPile deck;
     private CardPile discarded;
 
+    private StringBuilder msg;
     public GameData() {
         enemyB = new EnemyBoard();
         statusB = new StatusBoard();
@@ -52,6 +53,7 @@ public class GameData implements Serializable {
         deck.setNewCards();
 
         discarded = new CardPile();
+        msg=new StringBuilder();
     }
 
     /**
@@ -412,8 +414,10 @@ public class GameData implements Serializable {
         int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM() + getLadderDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
         //System.out.println("Dado: " + dieResult);
+        msg.append("Die: ").append(dieResult).append("\n");
 
         if (dieResult > CloseCombat.CLOSECOMBATSTRENGTH) {
+            msg.append("<<Ladder has retreated!>>\n");
             enemyB.retreatLadder();
         }
         return true;
@@ -423,8 +427,10 @@ public class GameData implements Serializable {
         int dieResult = GameData.Die.rollDie() + getCircleSpaceDRM() + getLadderDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
         //System.out.println("Dado: " + dieResult);
+        msg.append("Die: ").append(dieResult).append("\n");
 
         if (dieResult > Ladder.STRENGTH) {
+            msg.append("<<Ladder has retreated!>>\n");
             enemyB.retreatLadder();
         }
         return true;
@@ -434,8 +440,10 @@ public class GameData implements Serializable {
         int dieResult = GameData.Die.rollDie() + getLadderDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
         //System.out.println("Dado: " + dieResult);
+        msg.append("Die: ").append(dieResult).append("\n");
 
         if (dieResult > Ladder.STRENGTH) {
+            msg.append("<<Ladder has retreated!>>\n");
             enemyB.retreatLadder();
         }
         return true;
@@ -459,8 +467,10 @@ public class GameData implements Serializable {
         int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM() + getBatteringRamDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
         //System.out.println("Dado: " + dieResult);
+        msg.append("Die: ").append(dieResult).append("\n");
 
         if (dieResult > CloseCombat.CLOSECOMBATSTRENGTH) {
+            msg.append("<<Ram has retreated!>>\n");
             enemyB.retreatRam();
         }
         return true;
@@ -470,8 +480,10 @@ public class GameData implements Serializable {
         int dieResult = GameData.Die.rollDie() + getCircleSpaceDRM() + getBatteringRamDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
         //System.out.println("Dado: " + dieResult);
+        msg.append("Die: ").append(dieResult).append("\n");
 
         if (dieResult > Ram.STRENGTH) {
+            msg.append("<<Ram has retreated!>>\n");
             enemyB.retreatRam();
         }
         return true;
@@ -481,8 +493,10 @@ public class GameData implements Serializable {
         int dieResult = GameData.Die.rollDie() + getBatteringRamDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
         //System.out.println("Dado: " + dieResult);
+        msg.append("Die: ").append(dieResult).append("\n");
 
         if (dieResult > Ram.STRENGTH) {
+            msg.append("<<Ram has retreated!>>\n");
             enemyB.retreatRam();
         }
         return true;
@@ -506,8 +520,10 @@ public class GameData implements Serializable {
         int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM() + getSiegeTowerDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
         //System.out.println("Dado: " + dieResult);
+        msg.append("Die: ").append(dieResult).append("\n");
 
         if (dieResult > CloseCombat.CLOSECOMBATSTRENGTH) {
+            msg.append("<<Tower has retreated!>>\n");
             enemyB.retreatTower();
         }
         return true;
@@ -517,8 +533,10 @@ public class GameData implements Serializable {
         int dieResult = GameData.Die.rollDie() + getCircleSpaceDRM() + getSiegeTowerDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
         //System.out.println("Dado: " + dieResult);
+        msg.append("Die: ").append(dieResult).append("\n");
 
         if (dieResult > SiegeTower.STRENGTH) {
+            msg.append("<<Tower has retreated!>>\n");
             enemyB.retreatTower();
         }
         return true;
@@ -528,8 +546,10 @@ public class GameData implements Serializable {
         int dieResult = GameData.Die.rollDie() + getSiegeTowerDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
         //System.out.println("Dado: " + dieResult);
+        msg.append("Die: ").append(dieResult).append("\n");
 
         if (dieResult > SiegeTower.STRENGTH) {
+            msg.append("<<Tower has retreated!>>\n");
             enemyB.retreatTower();
         }
         return true;
@@ -563,10 +583,13 @@ public class GameData implements Serializable {
         int dieResult = GameData.Die.rollDie() + getCircleSpaceDRM() + getLadderDRM() + 1;
         dieResult = GameData.Die.adjustDieResult(dieResult);
         //System.out.println("Dado: " + dieResult);
+        msg.append("Die: ").append(dieResult).append("\n");
 
         if (dieResult > Ladder.STRENGTH) {
+            msg.append("<<Ladder has retreated from Circle Space!>>\n");
             enemyB.retreatLadder();
         } else if (dieResult <= 1) {
+            msg.append("<<You have lost one morale>>\n");
             statusB.advanceMorale();
         }
         usedBoiling = true;
@@ -581,10 +604,13 @@ public class GameData implements Serializable {
         int dieResult = GameData.Die.rollDie() + getCircleSpaceDRM() + getBatteringRamDRM() + 1;
         dieResult = GameData.Die.adjustDieResult(dieResult);
         //System.out.println("Dado: " + dieResult);
+        msg.append("Die: ").append(dieResult).append("\n");
 
         if (dieResult > Ram.STRENGTH) {
+            msg.append("<<Ram has retreated from Circle Space!>>\n");
             enemyB.retreatRam();
         } else if (dieResult <= 1) {
+            msg.append("<<You have lost one morale>>\n");
             statusB.advanceMorale();
         }
         usedBoiling = true;
@@ -599,10 +625,13 @@ public class GameData implements Serializable {
         int dieResult = GameData.Die.rollDie() + getCircleSpaceDRM() + getSiegeTowerDRM() + 1;
         dieResult = GameData.Die.adjustDieResult(dieResult);
         //System.out.println("Dado: " + dieResult);
+        msg.append("Die: ").append(dieResult).append("\n");
 
         if (dieResult > SiegeTower.STRENGTH) {
+            msg.append("<<Tower has retreated from Circle Space!>>\n");
             enemyB.retreatTower();
         } else if (dieResult <= 1) {
+            msg.append("<<You have lost one morale>>\n");
             statusB.advanceMorale();
         }
         usedBoiling = true;
@@ -639,10 +668,13 @@ public class GameData implements Serializable {
         int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
         //System.out.println("Dado: " + dieResult);
+        msg.append("Die: ").append(dieResult).append("\n");
 
         if (dieResult > CloseCombat.CLOSECOMBATSTRENGTH) {
+            msg.append("<<Ladder has retreated from Close Combate Space!>>\n");
             enemyB.retreatLadder();
         } else if (dieResult <= 1) {
+            msg.append("<<You have lost one morale>>\n");
             statusB.advanceMorale();
         }
         return true;
@@ -656,10 +688,13 @@ public class GameData implements Serializable {
         int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
         //System.out.println("Dado: " + dieResult);
+        msg.append("Die: ").append(dieResult).append("\n");
 
         if (dieResult > CloseCombat.CLOSECOMBATSTRENGTH) {
+            msg.append("<<Ram has retreated from Close Combate Space!>>\n");
             enemyB.retreatRam();
         } else if (dieResult <= 1) {
+            msg.append("<<You have lost one morale>>\n");
             statusB.advanceMorale();
         }
         return true;
@@ -673,10 +708,13 @@ public class GameData implements Serializable {
         int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
         //System.out.println("Dado: " + dieResult);
+        msg.append("Die: ").append(dieResult).append("\n");
 
         if (dieResult > CloseCombat.CLOSECOMBATSTRENGTH) {
+            msg.append("<<Tower has retreated from Close Combate Space!>>\n");
             enemyB.retreatTower();
         } else if (dieResult <= 1) {
+            msg.append("<<You have lost one morale>>\n");
             statusB.advanceMorale();
         }
         return true;
@@ -693,8 +731,10 @@ public class GameData implements Serializable {
         int dieResult = GameData.Die.rollDie() + getCoupureDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
         //System.out.println("Dado: " + dieResult);
+        msg.append("Die: ").append(dieResult).append("\n");
 
         if (dieResult > COUPURE_STRENGTH) {
+            msg.append("<<The wall was repaired!>>\n");
             statusB.retreatWall();
         }
     }
@@ -710,10 +750,13 @@ public class GameData implements Serializable {
         int dieResult = GameData.Die.rollDie() + getSabotageDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
         //System.out.println("Dado: " + dieResult);
+        msg.append("Die: ").append(dieResult).append("\n");
 
         if (dieResult > SABOTAGE_STRENGTH) {
+            msg.append("<<The trebutchets were damaged!>>\n");
             enemyB.subtractTrebuchetCount();
         } else if (dieResult <= 1) {
+            msg.append("<<Soldiers have been captured!>>\n");
             captureSoldiers();
         }
     }
@@ -837,6 +880,12 @@ public class GameData implements Serializable {
         str.append(usedBoiling ? "You have used boiling water this turn\n" : "You have not used boiling water this turn!\n");
         str.append(deck.getCard(0).printDay(dayNumber - 1)).append("\n");
         return str.toString();
+    }
+
+    public String printMSG() {
+        String aux = msg.toString();
+        msg.delete(0, msg.length());
+        return aux;
     }
 
     /**

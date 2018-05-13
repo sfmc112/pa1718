@@ -6,6 +6,8 @@
 package pkg9cs.ui;
 
 import java.io.*;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Scanner;
 import pkg9cs.controller.GameController;
 import pkg9cs.model.elements.*;
@@ -15,13 +17,13 @@ import pkg9cs.states.*;
  *
  * @author sarah
  */
-public class TextUI {
+public class TextUI implements Observer {
 
     GameController controller;
     boolean run;
 
-    public TextUI(GameController gameController) {
-        controller = gameController;
+    public TextUI() {
+        controller = new GameController(this);
         this.run = true;
     }
 
@@ -355,6 +357,11 @@ public class TextUI {
     private String readFileName() {
         Scanner in = new Scanner(System.in);
         return in.nextLine();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        System.out.println(controller.printMSG());
     }
 
 }
