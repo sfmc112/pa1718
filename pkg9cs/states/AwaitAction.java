@@ -52,10 +52,7 @@ public class AwaitAction extends StateAdapter {
 
     @Override
     public IState selectTunnelMov() {
-        if (getGame().checkAP()) {
-            return new AwaitTunnelMovementSelection(getGame());
-        }
-        return this;
+        return new AwaitTunnelMovementSelection(getGame());
     }
 
     @Override
@@ -105,8 +102,14 @@ public class AwaitAction extends StateAdapter {
 
     @Override
     public IState supplyRaid() {
-        //TODO
-        return super.supplyRaid(); //To change body of generated methods, choose Tools | Templates.
+        if (getGame().checkAP() && getGame().checkSoldiersOnEnemyLine() && !getGame().suppliesFull()) {
+            getGame().addSupplyCount();
+            getGame().subtractActionPoint();
+        }
+        if (getGame().immediateLossCheck()) {
+            return new GameLost(getGame());
+        }
+        return this;
     }
 
 }

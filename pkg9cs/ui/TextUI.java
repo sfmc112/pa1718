@@ -155,7 +155,7 @@ public class TextUI {
                 controller.archersAttack(new SiegeTower());
                 break;
             case 4:
-                controller.returnToAwaitAction();
+                controller.returnToMenu();
                 break;
         }
     }
@@ -165,13 +165,16 @@ public class TextUI {
         int opt = readOption();
         switch (opt) {
             case 1:
-                //TODO
+                controller.moveInTunnel();
                 break;
             case 2:
-                //TODO
+                controller.freeMovement();
                 break;
             case 3:
-                controller.returnToAwaitAction();
+                controller.fastMovement();
+                break;
+            case 4:
+                controller.returnToMenu();
                 break;
         }
     }
@@ -190,7 +193,7 @@ public class TextUI {
                 controller.boilingWaterAttack(new SiegeTower());
                 break;
             case 4:
-                controller.returnToAwaitAction();
+                controller.returnToMenu();
                 break;
         }
     }
@@ -212,7 +215,7 @@ public class TextUI {
                 controller.askAddActionPoint();
                 break;
             case 5:
-                controller.returnToAwaitAction();
+                controller.returnToMenu();
                 break;
 
         }
@@ -256,7 +259,7 @@ public class TextUI {
                 controller.endTurn();
                 break;
             case 4:
-                controller.returnToAwaitAction();
+                controller.returnToMenu();
         }
     }
 
@@ -271,7 +274,7 @@ public class TextUI {
                 controller.rallyTroops();
                 break;
             case 3:
-                controller.returnToAwaitAction();
+                controller.returnToMenu();
         }
 
     }

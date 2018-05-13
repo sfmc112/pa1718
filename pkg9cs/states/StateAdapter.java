@@ -78,6 +78,16 @@ public class StateAdapter implements IState {
     public IState moveInTunnel() {
         return this;
     }
+    
+    @Override
+    public IState freeMovement() {
+        return this;
+    }
+
+    @Override
+    public IState fastMovement() {
+        return this;
+    }
 
     @Override
     public IState askUseOfSupply() {

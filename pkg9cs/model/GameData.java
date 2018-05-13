@@ -31,6 +31,7 @@ public class GameData implements Serializable {
 
     private boolean usedExtraAP;
     private boolean usedBoiling;
+    private boolean canUseFreeMovement;
 
     private CardPile deck;
     private CardPile discarded;
@@ -45,6 +46,7 @@ public class GameData implements Serializable {
 
         usedExtraAP = false;
         usedBoiling = false;
+        canUseFreeMovement = true;
 
         deck = new CardPile();
         deck.setNewCards();
@@ -73,6 +75,14 @@ public class GameData implements Serializable {
 
     public void setUsedExtraAP(boolean usedExtraAP) {
         this.usedExtraAP = usedExtraAP;
+    }
+
+    public boolean isCanUseFreeMovement() {
+        return canUseFreeMovement;
+    }
+
+    public void setCanUseFreeMovement(boolean canUseFreeMovement) {
+        this.canUseFreeMovement = canUseFreeMovement;
     }
 
     public CardDayEvent getDayEvent() {
@@ -145,6 +155,10 @@ public class GameData implements Serializable {
         this.dayNumber = dayNumber;
     }
 
+    public boolean suppliesFull() {
+        return statusB.getSupplyCount() >= 2;
+    }
+
     /**
      * ******************************************************************************************
      */
@@ -162,7 +176,7 @@ public class GameData implements Serializable {
 
         dayNumber++;
         newTurnSetup();
-        
+
         clearDecks();
         deck.setNewCards();
         shuffleCards(deck);
@@ -177,11 +191,12 @@ public class GameData implements Serializable {
     public void newTurnSetup() {
         usedExtraAP = false;
         usedBoiling = false;
+        canUseFreeMovement = true;
         numberOfActions = 0;
         dayEvent = null;
     }
-    
-    private void clearDecks(){
+
+    private void clearDecks() {
         discarded.clearCardPile();
         deck.clearCardPile();
     }
@@ -323,6 +338,10 @@ public class GameData implements Serializable {
 
     public boolean checkSoldiersOnEnemyLine() {
         return statusB.checkSoldiersOnEnemyLine();
+    }
+
+    public boolean checkSoldiersInCastle() {
+        return statusB.checkSoldiersInCastle();
     }
 
     public boolean wallOnStartingSpace() {
@@ -680,6 +699,13 @@ public class GameData implements Serializable {
         }
     }
 
+    /**
+     * ******************************************************************************************
+     */
+    /*-----------------------------------Sabotage Action---------------------------------------*/
+    /**
+     * ******************************************************************************************
+     */
     public void sabotage() {
         int dieResult = GameData.Die.rollDie() + getSabotageDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
@@ -690,6 +716,72 @@ public class GameData implements Serializable {
         } else if (dieResult <= 1) {
             captureSoldiers();
         }
+    }
+
+    /**
+     * ******************************************************************************************
+     */
+    /*-----------------------------------Supply Raid Action------------------------------------*/
+    /**
+     * ******************************************************************************************
+     */
+    public void addSupplyCount() {
+//        if (statusB.getSupplyCount() >= 2) {
+//            return false;
+//        }
+        int dieResult = GameData.Die.rollDie() + getSupplyRaidDRM();
+        dieResult = GameData.Die.adjustDieResult(dieResult);
+        switch (dieResult) {
+            case 1:
+                captureSoldiers();
+                break;
+            case 2:
+                break;
+            case 3:
+            case 4:
+            case 5:
+                statusB.addSupplyCount(1);
+                break;
+            default:
+                statusB.addSupplyCount(2);
+                break;
+        }
+//        return true;
+    }
+
+    /**
+     * ******************************************************************************************
+     */
+    /*-----------------------------------Rally Troops Action-----------------------------------*/
+    /**
+     * ******************************************************************************************
+     */
+    /**
+     * ******************************************************************************************
+     */
+    /*-----------------------------------Tunnel Movement Action--------------------------------*/
+    /**
+     * ******************************************************************************************
+     */
+    public void moveInTunnel() {
+        if (checkSoldiersInCastle()) {
+            statusB.moveSoldiersTowardsEnemyLines();
+        } else {
+            statusB.moveSoldiersTowardsCastle();
+        }
+
+        canUseFreeMovement = false;
+    }
+
+    public void freeTunnelMovement() {
+        if (canUseFreeMovement) {
+            statusB.moveSoldiersThroughTunnel();
+        }
+        canUseFreeMovement = false;
+    }
+
+    public void fastTunnelMovement() {
+        statusB.moveSoldiersFast();
     }
 
     /**

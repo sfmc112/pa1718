@@ -40,5 +40,4 @@ public class InvadingTrack extends Track{
         return getBoardspaceType() instanceof Castle;
     }
     
-    
 }

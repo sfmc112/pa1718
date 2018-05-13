@@ -47,7 +47,7 @@ public class GameController implements Serializable {
     public void newGame() {
         setState(state.startGame());
     }
-    
+
     public void endGame() {
         setState(state.endGame());
     }
@@ -84,6 +84,18 @@ public class GameController implements Serializable {
         setState(state.selectTunnelMov());
     }
 
+    public void moveInTunnel() {
+        setState(state.moveInTunnel());
+    }
+
+    public void freeMovement() {
+        setState(state.freeMovement());
+    }
+
+    public void fastMovement() {
+        setState(state.fastMovement());
+    }
+
     public void supplyRaid() {
         setState(state.supplyRaid());
     }
@@ -104,7 +116,7 @@ public class GameController implements Serializable {
         setState(state.sabotage());
     }
 
-    public void returnToAwaitAction() {
+    public void returnToMenu() {
         setState(state.returnToMenu());
     }
 
@@ -227,9 +239,14 @@ public class GameController implements Serializable {
         return str.toString();
     }
 
-    public boolean tunnelMenu() {
-        //TODO
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String tunnelMenu() {
+        StringBuilder str = new StringBuilder();
+        str.append(getGame().getEnemyB()).append("\n");
+        str.append(canMoveIntoTunnel() ? "\t1- Move into Tunnel\n" : "");
+        str.append(canDoFreeMovement() ? "\t2- Free Movement\n" : "");
+        str.append(canDoFastMovement() ? "\t3- Fast Movement\n" : "");
+        str.append("\t4- Return to menu\n");
+        return str.toString();
     }
 
     public String winMenu() {
@@ -299,4 +316,17 @@ public class GameController implements Serializable {
     private boolean canDoSabotage() {
         return (getGame().checkAP()) && (getGame().checkSoldiersOnEnemyLine());
     }
+    
+    private boolean canMoveIntoTunnel(){
+        return getGame().checkAP() && (getGame().checkSoldiersInCastle() || getGame().checkSoldiersOnEnemyLine());
+    }
+    
+    private boolean canDoFreeMovement(){
+        return getGame().isCanUseFreeMovement() && !getGame().checkSoldiersInCastle() && !getGame().checkSoldiersOnEnemyLine();
+    }
+    
+    private boolean canDoFastMovement(){
+        return getGame().checkAP() && !getGame().checkSoldiersInCastle() && !getGame().checkSoldiersOnEnemyLine();
+    }
+            
 }

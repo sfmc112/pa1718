@@ -12,18 +12,40 @@ import pkg9cs.model.GameData;
  * @author sarah
  */
 public class AwaitTunnelMovementSelection extends StateAdapter {
-    
+
     public AwaitTunnelMovementSelection(GameData game) {
         super(game);
     }
 
-    // TODO check and return this
     @Override
     public IState moveInTunnel() {
-        //TODO
-        return super.moveInTunnel(); //To change body of generated methods, choose Tools | Templates.
+        if (getGame().checkAP() && (getGame().checkSoldiersInCastle() || getGame().checkSoldiersOnEnemyLine())) {
+            getGame().moveInTunnel();
+            getGame().subtractActionPoint();
+            return new AwaitAction(getGame());
+        }
+        return this;
     }
-    
+
+    @Override
+    public IState freeMovement() {
+        if (getGame().isCanUseFreeMovement() && !getGame().checkSoldiersInCastle() && !getGame().checkSoldiersOnEnemyLine()) {
+            getGame().freeTunnelMovement();
+            return new AwaitAction(getGame());
+        }
+        return this;
+    }
+
+    @Override
+    public IState fastMovement() {
+        if (getGame().checkAP() && !getGame().checkSoldiersInCastle() && !getGame().checkSoldiersOnEnemyLine()) {
+            getGame().fastTunnelMovement();
+            getGame().subtractActionPoint();
+            return new AwaitAction(getGame());
+        }
+        return this;
+    }
+
     @Override
     public IState returnToMenu() {
         return new AwaitAction(getGame());

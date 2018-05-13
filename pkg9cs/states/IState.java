@@ -60,6 +60,10 @@ public interface IState extends Serializable{
     public IState selectTunnelMov();
 
     public IState moveInTunnel();
+    
+    public IState freeMovement();
+    
+    public IState fastMovement();
 
     public IState askUseOfSupply();
 
