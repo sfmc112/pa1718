@@ -312,7 +312,7 @@ public class GameController extends Observable implements Serializable {
 
     public String raidAndSabotageMenu() {
         StringBuilder str = new StringBuilder();
-        str.append(getGame().getEnemyB()).append("\n");
+        str.append(getGame()).append("\n");
         str.append(canDoSupplyRaid() ? "\t1- Supply Raid\n" : "");
         str.append(canDoSabotage() ? "\t2- Sabotage\n" : "");
         str.append(!getGame().checkAP() ? "\t3- Buy Action Point\n" : "");
