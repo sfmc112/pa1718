@@ -44,7 +44,7 @@ public class AwaitAction extends StateAdapter {
 
     @Override
     public IState askUseOfSupply() {
-        if (getGame().checkAP() && getGame().checkAvailableSupplies()) {
+        if (getGame().checkAP() && getGame().checkAvailableSupplies() && !getGame().moraleOnStartingSpace()) {
             return new AwaitAddSupplyRallyTroops(getGame());
         }
         return this;
