@@ -161,16 +161,17 @@ public class GameData implements Serializable {
      * dias)
      */
     public boolean newDaySetup() {
-        
+
         statusB.advanceSupply();
-        
-        if(checkSoldiersOnEnemyLine())
+
+        if (checkSoldiersOnEnemyLine()) {
             captureSoldiers();
-        if(statusB.checkSoldiersInTunnel()){
+        }
+        if (statusB.checkSoldiersInTunnel()) {
             statusB.moveDirectlyToCastle();
             statusB.soldiersArrivedAtCastle();
         }
-        
+
         dayNumber++;
         newTurnSetup();
 

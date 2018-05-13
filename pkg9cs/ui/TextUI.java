@@ -316,11 +316,11 @@ public class TextUI implements Observer, Serializable{
         }
         try {
             setController(load_game(filename));
-            System.out.println("\nGame loaded\n");
+            System.out.println("\nGame loaded.\n");
         } catch (FileNotFoundException ex) {
-            System.out.println("\nException1\n");
+            System.out.println("\nFile not found.\n");
         } catch (IOException ex) {
-            System.out.println("\nException2\n");
+
         }
     }
 

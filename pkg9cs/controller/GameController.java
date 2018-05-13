@@ -93,6 +93,8 @@ public class GameController extends Observable implements Serializable {
 
     public void moveInTunnel() {
         setState(state.moveInTunnel());
+        setChanged();
+        notifyObservers();
     }
 
     public void freeMovement() {
@@ -105,6 +107,8 @@ public class GameController extends Observable implements Serializable {
 
     public void supplyRaid() {
         setState(state.supplyRaid());
+        setChanged();
+        notifyObservers();
     }
 
     public void archersAttack(Weapon weapon) {
@@ -141,10 +145,14 @@ public class GameController extends Observable implements Serializable {
 
     public void rallyTroops(Supply supply) {
         setState(state.rallyTroops(supply));
+        setChanged();
+        notifyObservers();
     }
 
     public void rallyTroops() {
         setState(state.rallyTroops());
+        setChanged();
+        notifyObservers();
     }
 
     public void askAddActionPoint() {
@@ -256,7 +264,7 @@ public class GameController extends Observable implements Serializable {
 
     public String tunnelMenu() {
         StringBuilder str = new StringBuilder();
-        str.append(getGame().getEnemyB()).append("\n");
+        str.append(getGame().getStatusB()).append("\n");
         str.append(canMoveIntoTunnel() ? "\t1- Move into Tunnel\n" : "");
         str.append(canDoFreeMovement() ? "\t2- Free Movement\n" : "");
         str.append(canDoFastMovement() ? "\t3- Fast Movement\n" : "");
@@ -339,7 +347,7 @@ public class GameController extends Observable implements Serializable {
     }
 
     private boolean canDoSabotage() {
-        return (getGame().checkAP()) && (getGame().checkSoldiersOnEnemyLine());
+        return (getGame().checkAP()) && (getGame().checkSoldiersOnEnemyLine() && getGame().existsTrebuchets());
     }
 
     private boolean canMoveIntoTunnel() {
