@@ -214,14 +214,16 @@ public class GameController extends Observable implements Serializable {
         if (canDoRallyTroops()) {
             str.append("\t5- Rally Troops\n");
         }
-        str.append("\t6- Tunnel Movement\n");
+        if (canMoveIntoTunnel() || canDoFastMovement() || canDoFreeMovement()) {
+            str.append("\t6- Tunnel Movement\n");
+        }
         if (canDoSupplyRaid()) {
             str.append("\t7- Supply Raid\n");
         }
         if (canDoSabotage()) {
             str.append("\t8- Sabotage\n");
         }
-        if (!game.checkAP() && !game.isUsedExtraAP()) {
+        if (!game.checkAP() && !game.isUsedExtraAP() && game.checkAvailableResources()) {
             str.append("\t9- Buy Action Point\n");
         }
         str.append("\t10- End Turn\n");

@@ -230,7 +230,7 @@ public class TextUI implements Observer, Serializable{
         int opt = readOption();
         switch (opt) {
             case 1:
-                controller.newGame();
+                controller.endGame();
                 break;
             case 2:
                 run = false;
@@ -242,7 +242,7 @@ public class TextUI implements Observer, Serializable{
         int opt = readOption();
         switch (opt) {
             case 1:
-                controller.newGame();
+                controller.endGame();
                 break;
             case 2:
                 run = false;
