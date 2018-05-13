@@ -6,6 +6,7 @@
 package pkg9cs.model.events;
 
 import java.io.Serializable;
+import pkg9cs.RaidAndSabotageException;
 import pkg9cs.model.GameData;
 
 /**
@@ -15,7 +16,7 @@ import pkg9cs.model.GameData;
 
 public interface Event extends Serializable {
 
-    public void executeEvent(GameData game);
+    public void executeEvent(GameData game) throws RaidAndSabotageException;
 
     public int getSabotageDRM();
 

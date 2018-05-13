@@ -37,10 +37,14 @@ public class TextUI implements Observer {
             state = controller.getState();
             if (state instanceof StartGame) {
                 startGameUi();
-            } else if (state instanceof AwaitDrawCard) {
-                drawCardUi();
             } else if (state instanceof AwaitAction) {
                 awaitActionUi();
+            } else if (state instanceof AwaitAddActionPoint) {
+                addActionPointMenuUi();
+            } else if (state instanceof AwaitAddSupplyRallyTroops) {
+                rallyTroopsMenuUi();
+            } else if (state instanceof AwaitDrawCard) {
+                drawCardUi();
             } else if (state instanceof AwaitEnemySelectionArchersAttack) {
                 enemySelectionArchersUi();
             } else if (state instanceof AwaitEnemySelectionBoilingWaterAttack) {
@@ -49,14 +53,12 @@ public class TextUI implements Observer {
                 enemySelectionCloseCombatUi();
             } else if (state instanceof AwaitTunnelMovementSelection) {
                 tunnelMenuUi();
-            } else if (state instanceof AwaitAddSupplyRallyTroops) {
-                rallyTroopsMenuUi();
-            } else if (state instanceof AwaitAddActionPoint) {
-                addActionPointMenuUi();
-            } else if (state instanceof GameWon) {
-                winMenuUi();
             } else if (state instanceof GameLost) {
                 lostMenuUi();
+            } else if (state instanceof GameWon) {
+                winMenuUi();
+            } else if (state instanceof RaidAndSabotageActionsOnly) {
+                raidAndSabotageMenuUi();
             }
         }
     }
@@ -278,7 +280,24 @@ public class TextUI implements Observer {
             case 3:
                 controller.returnToMenu();
         }
+    }
 
+    private void raidAndSabotageMenuUi() {
+        System.out.println(controller.raidAndSabotageMenu());
+        int opt = readOption();
+        switch (opt) {
+            case 1:
+                controller.supplyRaid();
+                break;
+            case 2:
+                controller.sabotage();
+                break;
+            case 3:
+                controller.endTurn();
+                break;
+            case 4:
+                controller.returnToMenu();
+        }
     }
 
     private int readOption() {

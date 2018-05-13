@@ -10,6 +10,7 @@ import pkg9cs.model.enemyAttacks.WeaponAttack;
 import pkg9cs.model.events.Event;
 import java.util.ArrayList;
 import java.util.List;
+import pkg9cs.RaidAndSabotageException;
 import pkg9cs.model.GameData;
 
 /**
@@ -28,9 +29,13 @@ public class CardDay implements Serializable {
         cardEvent = new CardDayEvent(eventName, eventDescription, events);
     }
 
-    public void executeDayActions(GameData game) {
+    public void executeDayActions(GameData game) throws RaidAndSabotageException {
 
-        cardEvent.executeCardDayEvents(game);
+        try {
+            cardEvent.executeCardDayEvents(game);
+        } catch (RaidAndSabotageException ex) {
+            throw ex;
+        }
 
         for (WeaponAttack enemyAttack : enemyAttacks) {
             enemyAttack.attack(game.getEnemyB());

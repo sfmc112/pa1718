@@ -8,10 +8,10 @@ package pkg9cs.model.cards;
 import java.util.ArrayList;
 import pkg9cs.model.enemyAttacks.LadderAttack;
 import pkg9cs.model.enemyAttacks.RamAttack;
-import pkg9cs.model.enemyAttacks.SwordAttack;
 import pkg9cs.model.enemyAttacks.WeaponAttack;
 import pkg9cs.model.events.CircleSpacePlusTwoDRM;
 import pkg9cs.model.events.Event;
+import pkg9cs.model.events.OnlyRaidAndSabotage;
 import pkg9cs.model.events.ReduceSupplies;
 
 /**
@@ -34,7 +34,7 @@ public class CardThree extends Card {
         w.clear();
         e.clear();
 
-        //TODO acrescentar only raid & sabotage
+        e.add(new OnlyRaidAndSabotage());
         days.add(new CardDay(w, 2, e, "Bad Weather", "Only raid and sabotage actions allowed this turn"));
 
         w.clear();

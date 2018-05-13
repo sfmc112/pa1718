@@ -43,6 +43,8 @@ public class AwaitAddActionPoint extends StateAdapter{
         
         if(getGame().twoEnemiesOnCloseCombat())
             return new AwaitEnemySelectionCloseCombatAttack(getGame());
+        if(getGame().isRaidAndSabotageEventActive())
+            return new RaidAndSabotageActionsOnly(getGame());
         return new AwaitAction(getGame());
     }
 
@@ -50,6 +52,8 @@ public class AwaitAddActionPoint extends StateAdapter{
     public IState returnToMenu() {
         if(getGame().twoEnemiesOnCloseCombat())
             return new AwaitEnemySelectionCloseCombatAttack(getGame());
+        if(getGame().isRaidAndSabotageEventActive())
+            return new RaidAndSabotageActionsOnly(getGame());
         return new AwaitAction(getGame());
     }
     

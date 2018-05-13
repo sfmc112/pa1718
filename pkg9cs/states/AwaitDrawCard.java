@@ -5,6 +5,9 @@
  */
 package pkg9cs.states;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import pkg9cs.RaidAndSabotageException;
 import pkg9cs.model.GameData;
 
 /**
@@ -26,7 +29,11 @@ public class AwaitDrawCard extends StateAdapter {
             }
         }
 
-        getGame().executeCard();
+        try {
+            getGame().executeCard();
+        } catch (RaidAndSabotageException ex) {
+            return new RaidAndSabotageActionsOnly(getGame());
+        }
 
         if (getGame().immediateLossCheck()) {
             return new GameLost(getGame());

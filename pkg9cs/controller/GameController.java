@@ -17,14 +17,14 @@ import pkg9cs.ui.TextUI;
  *
  * @author sarah
  */
-public class GameController extends Observable implements Serializable{
+public class GameController extends Observable implements Serializable {
 
     private GameData game;
     private IState state;
     private TextUI textUI;
 
     public GameController(TextUI textUI) {
-        this.textUI=textUI;
+        this.textUI = textUI;
         addObserver(this.textUI);
         game = new GameData();
         setState(new StartGame(game));
@@ -298,6 +298,16 @@ public class GameController extends Observable implements Serializable{
         return str.toString();
     }
 
+    public String raidAndSabotageMenu() {
+        StringBuilder str = new StringBuilder();
+        str.append(getGame().getEnemyB()).append("\n");
+        str.append(canDoSupplyRaid() ? "\t1- Supply Raid\n" : "");
+        str.append(canDoSabotage() ? "\t2- Sabotage\n" : "");
+        str.append("\t3- End Turn\n");
+        str.append("\t4- Return to menu\n");
+        return str.toString();
+    }
+
     public String statusBoard() {
         StringBuilder str = new StringBuilder();
         str.append(game.getEnemyB()).append("\n\n").append(game.getStatusB()).append("\n");
@@ -331,19 +341,19 @@ public class GameController extends Observable implements Serializable{
     private boolean canDoSabotage() {
         return (getGame().checkAP()) && (getGame().checkSoldiersOnEnemyLine());
     }
-    
-    private boolean canMoveIntoTunnel(){
+
+    private boolean canMoveIntoTunnel() {
         return getGame().checkAP() && (getGame().checkSoldiersInCastle() || getGame().checkSoldiersOnEnemyLine());
     }
-    
-    private boolean canDoFreeMovement(){
+
+    private boolean canDoFreeMovement() {
         return getGame().isCanUseFreeMovement() && !getGame().checkSoldiersInCastle() && !getGame().checkSoldiersOnEnemyLine();
     }
-    
-    private boolean canDoFastMovement(){
+
+    private boolean canDoFastMovement() {
         return getGame().checkAP() && !getGame().checkSoldiersInCastle() && !getGame().checkSoldiersOnEnemyLine();
     }
-    
+
     public String printMSG() {
         return game.printMSG();
     }

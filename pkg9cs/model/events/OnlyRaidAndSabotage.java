@@ -12,10 +12,10 @@ import pkg9cs.model.GameData;
  *
  * @author sarah
  */
-public class TrebuchetAttack extends EventAdapter {
+public class OnlyRaidAndSabotage extends EventAdapter {
 
     @Override
-    public void executeEvent(GameData game)/* throws RaidAndSabotageException*/ {
-        game.trebuchetAttack();
+    public void executeEvent(GameData game) throws RaidAndSabotageException {
+        throw new RaidAndSabotageException();
     }
 }

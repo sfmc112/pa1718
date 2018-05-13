@@ -6,6 +6,7 @@
 package pkg9cs.model;
 
 import java.io.Serializable;
+import pkg9cs.RaidAndSabotageException;
 import pkg9cs.model.boardspaces.CloseCombat;
 import pkg9cs.model.cards.CardPile;
 import pkg9cs.model.cards.Card;
@@ -76,16 +77,8 @@ public class GameData implements Serializable {
         return usedExtraAP;
     }
 
-    public void setUsedExtraAP(boolean usedExtraAP) {
-        this.usedExtraAP = usedExtraAP;
-    }
-
     public boolean isCanUseFreeMovement() {
         return canUseFreeMovement;
-    }
-
-    public void setCanUseFreeMovement(boolean canUseFreeMovement) {
-        this.canUseFreeMovement = canUseFreeMovement;
     }
 
     public CardDayEvent getDayEvent() {
@@ -98,10 +91,6 @@ public class GameData implements Serializable {
 
     public boolean isUsedBoiling() {
         return usedBoiling;
-    }
-
-    public void setUsedBoiling(boolean usedBoiling) {
-        this.usedBoiling = usedBoiling;
     }
 
     public int getNumberOfActions() {
@@ -154,10 +143,6 @@ public class GameData implements Serializable {
         return dayNumber;
     }
 
-    public void setDayNumber(int dayNumber) {
-        this.dayNumber = dayNumber;
-    }
-
     public boolean suppliesFull() {
         return statusB.getSupplyCount() >= 2;
     }
@@ -182,7 +167,7 @@ public class GameData implements Serializable {
 
         clearDecks();
         deck.setNewCards();
-        shuffleCards(deck);
+        shuffleDeck();
 
         return dayNumber <= 3;
     }
@@ -217,13 +202,19 @@ public class GameData implements Serializable {
 
     /**
      * Manda executar as acções da carta que está primeiro no deck
+     *
+     * @throws pkg9cs.RaidAndSabotageException
      */
-    public boolean executeCard() {
+    public boolean executeCard() throws RaidAndSabotageException {
         if (deck.getCardPileSize() <= 0) {
             return false;
         }
 
-        getCardFromDeck(0).executeCard(this, dayNumber);
+        try {
+            getCardFromDeck(0).executeCard(this, dayNumber);
+        } catch (RaidAndSabotageException ex) {
+            throw ex;
+        }
 
         return true;
 
@@ -243,10 +234,6 @@ public class GameData implements Serializable {
         while (discarded.getCardPileSize() > 0) {
             deck.receiveCard(discarded.transferCard(0));
         }
-    }
-
-    public void shuffleCards(CardPile cp) {
-        cp.shuffleCards();
     }
 
     public void shuffleDeck() {
@@ -361,6 +348,10 @@ public class GameData implements Serializable {
 
     public boolean existsTrebuchets() {
         return enemyB.getTrebuchetCount() > 0;
+    }
+
+    public boolean isRaidAndSabotageEventActive() {
+        return dayEvent.isRaidAndSabotageEventActive();
     }
 
     /**
@@ -793,10 +784,6 @@ public class GameData implements Serializable {
                 break;
         }
     }
-    
-    public void removeOneSupplyForRallyTroops(){
-        statusB.advanceSupply();
-    }
 
     /**
      * ******************************************************************************************
@@ -809,18 +796,22 @@ public class GameData implements Serializable {
         int dieResult = GameData.Die.rollDie() + getMoraleDRM() + extraDRM;
         dieResult = GameData.Die.adjustDieResult(dieResult);
         msg.append("Die: ").append(dieResult).append("\n");
-        
+
         switch (dieResult) {
             case 1:
             case 2:
             case 3:
-            case 4:
+            case RALLYTROOPS_STRENGTH:
                 break;
             default:
                 msg.append("<<Rally Troops was successful!>>\n");
                 statusB.retreatMorale();
                 break;
         }
+    }
+
+    public void removeOneSupplyForRallyTroops() {
+        statusB.advanceSupply();
     }
 
     /**
@@ -832,8 +823,10 @@ public class GameData implements Serializable {
      */
     public void moveInTunnel() {
         if (checkSoldiersInCastle()) {
+            msg.append("<<The soldiers entered the tunnel towards the Enemy Lines!>>\n");
             statusB.moveSoldiersTowardsEnemyLines();
         } else {
+            msg.append("<<The soldiers entered the tunnel towards the Castle!>>\n");
             statusB.moveSoldiersTowardsCastle();
         }
 
@@ -894,6 +887,39 @@ public class GameData implements Serializable {
         return dayEvent.searchForSiegeTowerDRM();
     }
 
+    /**
+     * ******************************************************************************************
+     */
+    /*-------------------------------Trebuchet Attack------------------------------------------*/
+    /**
+     * ******************************************************************************************
+     */
+    public void trebuchetAttack() {
+        switch (enemyB.getTrebuchetCount()) {
+            case 3:
+                msg.append("<<You lost 2 points in Wall!>>\n");
+                statusB.advanceWall();
+                statusB.advanceWall();
+                break;
+            case 2:
+                msg.append("<<You lost 1 point in Wall!>>\n");
+                statusB.advanceWall();
+                break;
+            case 1:
+                switch (GameData.Die.rollDie()) {
+                    case 1:
+                    case 2:
+                    case 3:
+                        break;
+                    default:
+                        msg.append("<<You lost 1 point in Wall!>>\n");
+                        statusB.advanceWall();
+                        break;
+                }
+                break;
+        }
+    }
+
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
@@ -939,7 +965,5 @@ public class GameData implements Serializable {
             }
             return dieResult;
         }
-
     }
-
 }

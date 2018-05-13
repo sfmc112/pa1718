@@ -8,6 +8,9 @@ package pkg9cs.model.cards;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import pkg9cs.RaidAndSabotageException;
 import pkg9cs.model.GameData;
 
 /**
@@ -23,8 +26,12 @@ public abstract class Card implements Serializable {
         days = new ArrayList<>();
     }
 
-    public void executeCard(GameData game, int dayNumber) {
-        days.get(dayNumber - 1).executeDayActions(game);
+    public void executeCard(GameData game, int dayNumber) throws RaidAndSabotageException {
+        try {
+            days.get(dayNumber - 1).executeDayActions(game);
+        } catch (RaidAndSabotageException ex) {
+            throw ex;
+        }
 
         CardDayEvent cardEvent = days.get(dayNumber - 1).getCardEvent();
 

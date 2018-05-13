@@ -5,6 +5,7 @@
  */
 package pkg9cs.model.events;
 
+import pkg9cs.RaidAndSabotageException;
 import pkg9cs.model.GameData;
 
 /**
@@ -14,7 +15,7 @@ import pkg9cs.model.GameData;
 public class EventAdapter implements Event{
 
     @Override
-    public void executeEvent(GameData game) {
+    public void executeEvent(GameData game) throws RaidAndSabotageException {
         
     }
 

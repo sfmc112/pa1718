@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+import pkg9cs.RaidAndSabotageException;
 import pkg9cs.model.GameData;
 import pkg9cs.model.events.*;
 
@@ -26,12 +27,17 @@ public class CardDayEvent implements Serializable {
         this.name = name;
         this.description = description;
         this.events = new ArrayList<>(events);
-    }    
+    }
 
-    public void executeCardDayEvents(GameData game) {
-        for (Event evento : events) {
-            evento.executeEvent(game);
+    public void executeCardDayEvents(GameData game) throws RaidAndSabotageException {
+        try {
+            for (Event evento : events) {
+                evento.executeEvent(game);
+            }
+        } catch (RaidAndSabotageException ex) {
+            throw ex;
         }
+
     }
 
     public int searchForSabotageDRM() {
@@ -42,8 +48,8 @@ public class CardDayEvent implements Serializable {
         }
         return sumDRM;
     }
-    
-    public int searchForMoraleDRM(){
+
+    public int searchForMoraleDRM() {
         int sumDRM = 0;
 
         for (Event event : events) {
@@ -51,8 +57,8 @@ public class CardDayEvent implements Serializable {
         }
         return sumDRM;
     }
-    
-    public int searchForCircleSpaceDRM(){
+
+    public int searchForCircleSpaceDRM() {
         int sumDRM = 0;
 
         for (Event event : events) {
@@ -60,8 +66,8 @@ public class CardDayEvent implements Serializable {
         }
         return sumDRM;
     }
-    
-    public int searchForCloseCombatSpaceDRM(){
+
+    public int searchForCloseCombatSpaceDRM() {
         int sumDRM = 0;
 
         for (Event event : events) {
@@ -69,8 +75,8 @@ public class CardDayEvent implements Serializable {
         }
         return sumDRM;
     }
-    
-    public int searchForSupplyRaidDRM(){
+
+    public int searchForSupplyRaidDRM() {
         int sumDRM = 0;
 
         for (Event event : events) {
@@ -78,8 +84,8 @@ public class CardDayEvent implements Serializable {
         }
         return sumDRM;
     }
-    
-    public int searchForCoupureDRM(){
+
+    public int searchForCoupureDRM() {
         int sumDRM = 0;
 
         for (Event event : events) {
@@ -87,8 +93,8 @@ public class CardDayEvent implements Serializable {
         }
         return sumDRM;
     }
-    
-    public int searchForLadderDRM(){
+
+    public int searchForLadderDRM() {
         int sumDRM = 0;
 
         for (Event event : events) {
@@ -96,8 +102,8 @@ public class CardDayEvent implements Serializable {
         }
         return sumDRM;
     }
-    
-    public int searchForBatteringRamDRM(){
+
+    public int searchForBatteringRamDRM() {
         int sumDRM = 0;
 
         for (Event event : events) {
@@ -105,14 +111,23 @@ public class CardDayEvent implements Serializable {
         }
         return sumDRM;
     }
-    
-    public int searchForSiegeTowerDRM(){
+
+    public int searchForSiegeTowerDRM() {
         int sumDRM = 0;
 
         for (Event event : events) {
             sumDRM += event.getSiegeTowerDRM();
         }
         return sumDRM;
+    }
+
+    public boolean isRaidAndSabotageEventActive() {
+        for (Event event : events) {
+            if (event instanceof OnlyRaidAndSabotage) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
