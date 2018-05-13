@@ -5,7 +5,7 @@
  */
 package pkg9cs.model.enemyAttacks;
 
-import pkg9cs.model.EnemyBoard;
+import pkg9cs.model.GameData;
 
 /**
  *
@@ -14,11 +14,17 @@ import pkg9cs.model.EnemyBoard;
 public class SiegeTowerAttack implements WeaponAttack {
 
     @Override
-    public void attack(EnemyBoard eb) {
-        //System.out.println("Atacou a torre");
-        eb.advanceTower();
+    public void attack(GameData game) {
+        if (game.getEnemyB().isSiegeTowerOnCloseCombatSpace()) {
+            return;
+        }
+        game.getEnemyB().advanceTower();
+        if (game.getEnemyB().isSiegeTowerOnCloseCombatSpace()) {
+            game.getStatusB().advanceMorale();
+        }
     }
-     @Override
+
+    @Override
     public String toString() {
         return "Siege tower has advanced!";
     }

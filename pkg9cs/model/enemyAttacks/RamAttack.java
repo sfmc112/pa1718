@@ -5,7 +5,7 @@
  */
 package pkg9cs.model.enemyAttacks;
 
-import pkg9cs.model.EnemyBoard;
+import pkg9cs.model.GameData;
 
 /**
  *
@@ -13,13 +13,18 @@ import pkg9cs.model.EnemyBoard;
  */
 public class RamAttack implements WeaponAttack {
 
+    @Override
+    public void attack(GameData game) {
+        if (game.getEnemyB().isBatteringRamOnCloseCombatSpace()) {
+            return;
+        }
+        game.getEnemyB().advanceRam();
+        if (game.getEnemyB().isBatteringRamOnCloseCombatSpace()) {
+            game.getStatusB().advanceMorale();
+        }
+    }
 
     @Override
-    public void attack(EnemyBoard eb) {
-        //System.out.println("Atacou a Ram.");
-        eb.advanceRam();
-    }
-     @Override
     public String toString() {
         return "Battering ram has advanced!";
     }

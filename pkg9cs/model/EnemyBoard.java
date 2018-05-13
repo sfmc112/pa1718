@@ -85,9 +85,10 @@ public class EnemyBoard implements Serializable {
     /**
      * Verifica as posições dos inimigos mais recuados e fá-los avançar
      *
+     * @param game Dados do jogo
      * @see Track
      */
-    public void advanceSlowestEnemies() {
+    public void advanceSlowestEnemies(GameData game) {
         int[] indexes = new int[3];
 
         boolean[] toAdvance = new boolean[3];
@@ -117,13 +118,28 @@ public class EnemyBoard implements Serializable {
 
         // 3º - Fazer avançar os inimigos
         if (toAdvance[0] == true) {
-            advanceLadder();
+            if (!ladders.getEnemyOnCloseCombatSpace()) {
+                advanceLadder();
+                if (ladders.getEnemyOnCloseCombatSpace()) {
+                    game.getStatusB().advanceMorale();
+                }
+            }
         }
         if (toAdvance[1] == true) {
-            advanceRam();
+            if (!rams.getEnemyOnCloseCombatSpace()) {
+                advanceRam();
+                if (rams.getEnemyOnCloseCombatSpace()) {
+                    game.getStatusB().advanceMorale();
+                }
+            }
         }
         if (toAdvance[2] == true) {
-            advanceTower();
+            if (towerPresent && !towers.getEnemyOnCloseCombatSpace()) {
+                advanceTower();
+                if (rams.getEnemyOnCloseCombatSpace()) {
+                    game.getStatusB().advanceMorale();
+                }
+            }
         }
     }
 

@@ -5,7 +5,7 @@
  */
 package pkg9cs.model.enemyAttacks;
 
-import pkg9cs.model.EnemyBoard;
+import pkg9cs.model.GameData;
 
 /**
  *
@@ -14,9 +14,9 @@ import pkg9cs.model.EnemyBoard;
 public class SwordAttack implements WeaponAttack{
 
     @Override
-    public void attack(EnemyBoard eb) {
+    public void attack(GameData game) {
         //System.out.println("Atacaram os mais atrasados.");
-        eb.advanceSlowestEnemies();
+        game.getEnemyB().advanceSlowestEnemies(game);
     }
      @Override
     public String toString() {

@@ -38,7 +38,7 @@ public class CardDay implements Serializable {
         }
 
         for (WeaponAttack enemyAttack : enemyAttacks) {
-            enemyAttack.attack(game.getEnemyB());
+            enemyAttack.attack(game);
         }
 
         game.setNumberOfActions(numActions);

@@ -40,4 +40,8 @@ public class InvadingTrack extends Track{
         return getBoardspaceType() instanceof Castle;
     }
     
+    public boolean onTunnelSpace(){
+        return getBoardspaceType() instanceof Tunnel;
+    }
+    
 }

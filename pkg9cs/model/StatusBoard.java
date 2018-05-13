@@ -123,7 +123,7 @@ public class StatusBoard implements Serializable {
         supplyCount = 0;
     }
 
-    private void soldiersArrivedAtCastle() {
+    public void soldiersArrivedAtCastle() {
         soldiersHaveBeenOnEnemyLines = false;
         replenishSupplies();
     }
@@ -140,7 +140,7 @@ public class StatusBoard implements Serializable {
         }
     }
 
-    private void moveDirectlyToCastle() {
+    public void moveDirectlyToCastle() {
         while (!(soldierLine.getBoardspaceType() instanceof Castle)) {
             soldierLine.advanceElement();
         }
@@ -196,6 +196,10 @@ public class StatusBoard implements Serializable {
 
     public boolean checkSoldiersInCastle() {
         return soldierLine.onStartingSpace();
+    }
+    
+    public boolean checkSoldiersInTunnel(){
+        return soldierLine.onTunnelSpace();
     }
 
     public boolean wallOnStartingSpace() {

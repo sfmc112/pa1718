@@ -6,7 +6,7 @@
 package pkg9cs.model.enemyAttacks;
 
 import java.io.Serializable;
-import pkg9cs.model.EnemyBoard;
+import pkg9cs.model.GameData;
 
 /**
  *
@@ -14,6 +14,6 @@ import pkg9cs.model.EnemyBoard;
  */
 public interface WeaponAttack extends Serializable {
 
-    public void attack(EnemyBoard eb);
+    public void attack(GameData game);
 
 }
