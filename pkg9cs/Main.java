@@ -21,7 +21,7 @@ public class Main {
      */
     public static void main(String[] args) {
         
-        TextUI textUI = new TextUI(new GameController());
+        TextUI textUI = new TextUI();
         textUI.run();
 
         /*
