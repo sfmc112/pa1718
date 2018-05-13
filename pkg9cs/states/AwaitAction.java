@@ -22,7 +22,8 @@ public class AwaitAction extends StateAdapter {
         if (getGame().endOfTurnLossCheck()) {
             return new GameLost(getGame());
         }
-        if (getGame().deckHasCards()) {
+        if (getGame().isNotTheLastCard()) {
+            getGame().moveCardToDiscardedPile();
             getGame().newTurnSetup();
             return new AwaitDrawCard(getGame());
         }
@@ -83,21 +84,22 @@ public class AwaitAction extends StateAdapter {
 
     @Override
     public IState coupure() {
-        if(getGame().checkAP() && !getGame().wallOnStartingSpace()){
+        if (getGame().checkAP() && !getGame().wallOnStartingSpace()) {
             getGame().coupure();
             getGame().subtractActionPoint();
         }
-        return this;    
+        return this;
     }
 
     @Override
     public IState sabotage() {
-        if(getGame().checkAP() && getGame().checkSoldiersOnEnemyLine() && getGame().existsTrebuchets()){
+        if (getGame().checkAP() && getGame().checkSoldiersOnEnemyLine() && getGame().existsTrebuchets()) {
             getGame().sabotage();
             getGame().subtractActionPoint();
         }
-        if(getGame().immediateLossCheck())
+        if (getGame().immediateLossCheck()) {
             return new GameLost(getGame());
+        }
         return this;
     }
 

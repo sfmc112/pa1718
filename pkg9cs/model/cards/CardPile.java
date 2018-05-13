@@ -60,5 +60,8 @@ public class CardPile implements Serializable {
         return cards.size();
     }
     
+    public void clearCardPile(){
+        cards.clear();
+    }
     
 }

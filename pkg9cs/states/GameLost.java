@@ -19,7 +19,6 @@ public class GameLost extends StateAdapter {
 
     @Override
     public IState endGame() {
-        //TODO perdeu
         return new StartGame(new GameData());
     }
 

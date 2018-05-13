@@ -162,18 +162,28 @@ public class GameData implements Serializable {
 
         dayNumber++;
         newTurnSetup();
-        resetDeck();
+        
+        clearDecks();
+        deck.setNewCards();
         shuffleCards(deck);
 
         return dayNumber <= 3;
     }
 
-    public void newTurnSetup() {
+    public void moveCardToDiscardedPile() {
         discarded.receiveCard(deck.transferCard(0));
+    }
+
+    public void newTurnSetup() {
         usedExtraAP = false;
         usedBoiling = false;
         numberOfActions = 0;
         dayEvent = null;
+    }
+    
+    private void clearDecks(){
+        discarded.clearCardPile();
+        deck.clearCardPile();
     }
 
     /**
@@ -201,8 +211,8 @@ public class GameData implements Serializable {
 
     }
 
-    public boolean deckHasCards() {
-        return deck.getCardPileSize() > 0;
+    public boolean isNotTheLastCard() {
+        return deck.getCardPileSize() > 1;
     }
 
     /**
@@ -732,7 +742,7 @@ public class GameData implements Serializable {
         str.append(getEnemyB()).append("\n\n");
         str.append(getStatusB()).append("\n");
         str.append("You have ").append(getNumberOfActions()).append(" actions.").append("\n");
-        str.append(usedBoiling?"You have used boiling water this turn\n":"You have not used boilling water this turn!\n");
+        str.append(usedBoiling ? "You have used boiling water this turn\n" : "You have not used boiling water this turn!\n");
         str.append(deck.getCard(0).printDay(dayNumber - 1)).append("\n");
         return str.toString();
     }

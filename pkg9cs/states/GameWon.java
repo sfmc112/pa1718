@@ -19,7 +19,6 @@ public class GameWon extends StateAdapter {
 
     @Override
     public IState endGame() {
-        //TODO ganhou
         return new StartGame(new GameData());
     }
 

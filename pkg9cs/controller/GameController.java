@@ -45,6 +45,10 @@ public class GameController implements Serializable {
      * ****************************************************************************
      */
     public void newGame() {
+        setState(state.startGame());
+    }
+    
+    public void endGame() {
         setState(state.endGame());
     }
 
@@ -87,10 +91,11 @@ public class GameController implements Serializable {
     public void archersAttack(Weapon weapon) {
         setState(state.archersAttack(weapon));
     }
-    
+
     public void boilingWaterAttack(Weapon weapon) {
         setState(state.boilingWaterAttack(weapon));
     }
+
     public void closeCombatAttack(Weapon weapon) {
         setState(state.closeCombatAttack(weapon));
     }
@@ -98,14 +103,15 @@ public class GameController implements Serializable {
     public void sabotage() {
         setState(state.sabotage());
     }
-    
+
     public void returnToAwaitAction() {
         setState(state.returnToMenu());
     }
-    
+
     public void buyActionPoint(Element element) {
         setState(state.buyActionPoint(element));
     }
+
     public void rallyTroops(Supply supply) {
         setState(state.rallyTroops(supply));
     }
@@ -113,6 +119,7 @@ public class GameController implements Serializable {
     public void rallyTroops() {
         setState(state.rallyTroops());
     }
+
     public void askAddActionPoint() {
         setState(state.askAddActionPoint());
     }
@@ -177,8 +184,9 @@ public class GameController implements Serializable {
         if (canDoSabotage()) {
             str.append("\t8- Sabotage\n");
         }
-        if (!game.checkAP() && !game.isUsedExtraAP())
+        if (!game.checkAP() && !game.isUsedExtraAP()) {
             str.append("\t9- Buy Action Point\n");
+        }
         str.append("\t10- End Turn\n");
         str.append("\t11- Save Game\n");
         str.append("\t12- Load Game\n");
@@ -214,47 +222,49 @@ public class GameController implements Serializable {
         str.append(getGame().getEnemyB().isLadderOnCloseCombatSpace() ? "\t1- Ladder\n" : "");
         str.append(getGame().getEnemyB().isBatteringRamOnCloseCombatSpace() ? "\t2- Battering Ram\n" : "");
         str.append(getGame().getEnemyB().isSiegeTowerOnCloseCombatSpace() ? "\t3- Siege Tower\n" : "");
-        str.append(getGame().checkAP() && getGame().isUsedExtraAP()?"":"\t4- Buy action point\n");
+        str.append(getGame().checkAP() && getGame().isUsedExtraAP() ? "" : "\t4- Buy action point\n");
         str.append("\t5- Return to menu\n");
         return str.toString();
     }
-    
+
     public boolean tunnelMenu() {
         //TODO
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     public String winMenu() {
         StringBuilder str = new StringBuilder();
         str.append(statusBoard());
         str.append("\nCongratulations! You have repelled the invaders!\n");
-        str.append("\t1- Start Game\n");
+        str.append("\t1- Start New Game\n");
         str.append("\t2- Quit Game\n");
         return str.toString();
     }
-     public String lostMenu() {
+
+    public String lostMenu() {
         StringBuilder str = new StringBuilder();
-        str.append("\nYou couldn't resist the invation!\n");
-        str.append("\t1- Start Game\n");
+        str.append("\nYou couldn't resist the invasion!\n");
+        str.append("\t1- Start New Game\n");
         str.append("\t2- Quit Game\n");
         return str.toString();
     }
-     public String addActionPointMenu() {
+
+    public String addActionPointMenu() {
         StringBuilder str = new StringBuilder();
         str.append(statusBoard());
-        str.append(game.checkAvailableSupplies()?"\t1- Use one supply\n":"");
-        str.append(game.checkAvailableMorale()?"\t2- Use one morale\n":"");
-        str.append("\t3- Return to menu\n");
+        str.append(game.checkAvailableSupplies() ? "\t1- Use one Supply\n" : "");
+        str.append(game.checkAvailableMorale() ? "\t2- Use one Morale\n" : "");
+        str.append("\t3- End Turn\n");
+        str.append("\t4- Return to menu\n");
         return str.toString();
     }
-     
+
     public String rallyTroopsMenu() {
         StringBuilder str = new StringBuilder();
-        str.append(game.checkAvailableSupplies()?"\t1- Use one supply\n":"");
+        str.append(game.checkAvailableSupplies() ? "\t1- Use one supply\n" : "");
         str.append("\t2- Rally troops\n\t3- Return to menu\n");
         return str.toString();
     }
-     
 
     public String statusBoard() {
         StringBuilder str = new StringBuilder();

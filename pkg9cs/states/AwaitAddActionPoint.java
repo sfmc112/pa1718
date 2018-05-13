@@ -23,7 +23,8 @@ public class AwaitAddActionPoint extends StateAdapter{
         if (getGame().endOfTurnLossCheck()) {
             return new GameLost(getGame());
         }
-        if (getGame().deckHasCards()) {
+        if (getGame().isNotTheLastCard()) {
+            getGame().moveCardToDiscardedPile();
             getGame().newTurnSetup();
             return new AwaitDrawCard(getGame());
         }

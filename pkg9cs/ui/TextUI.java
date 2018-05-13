@@ -51,9 +51,9 @@ public class TextUI {
                 rallyTroopsMenuUi();
             } else if (state instanceof AwaitAddActionPoint) {
                 addActionPointMenuUi();
-            }else if (state instanceof GameWon) {
+            } else if (state instanceof GameWon) {
                 winMenuUi();
-            }else if (state instanceof GameLost) {
+            } else if (state instanceof GameLost) {
                 lostMenuUi();
             }
         }
@@ -217,6 +217,7 @@ public class TextUI {
 
         }
     }
+
     private void winMenuUi() {
         System.out.println(controller.winMenu());
         int opt = readOption();
@@ -252,6 +253,9 @@ public class TextUI {
                 controller.buyActionPoint(new Morale());
                 break;
             case 3:
+                controller.endTurn();
+                break;
+            case 4:
                 controller.returnToAwaitAction();
         }
     }
@@ -269,7 +273,7 @@ public class TextUI {
             case 3:
                 controller.returnToAwaitAction();
         }
-        
+
     }
 
     private int readOption() {
@@ -349,7 +353,5 @@ public class TextUI {
         Scanner in = new Scanner(System.in);
         return in.nextLine();
     }
-
-    
 
 }
