@@ -5,7 +5,6 @@
  */
 package pkg9cs.model.events;
 
-import pkg9cs.RaidAndSabotageException;
 import pkg9cs.model.GameData;
 
 /**

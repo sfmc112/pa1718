@@ -17,7 +17,7 @@ import pkg9cs.states.*;
  *
  * @author sarah
  */
-public class TextUI implements Observer {
+public class TextUI implements Observer, Serializable{
 
     GameController controller;
     boolean run;
@@ -293,10 +293,10 @@ public class TextUI implements Observer {
                 controller.sabotage();
                 break;
             case 3:
-                controller.endTurn();
+                controller.askAddActionPoint();
                 break;
             case 4:
-                controller.returnToMenu();
+                controller.endTurn();
         }
     }
 

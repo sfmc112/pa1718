@@ -5,10 +5,8 @@
  */
 package pkg9cs.model.cards;
 
-import pkg9cs.model.enemyAttacks.RamAttack;
 import pkg9cs.model.enemyAttacks.SwordAttack;
 import pkg9cs.model.enemyAttacks.WeaponAttack;
-import pkg9cs.model.enemyAttacks.LadderAttack;
 import pkg9cs.model.enemyAttacks.SiegeTowerAttack;
 import pkg9cs.model.events.ReduceSupplies;
 import pkg9cs.model.events.TrebuchetAttack;

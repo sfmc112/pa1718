@@ -303,8 +303,8 @@ public class GameController extends Observable implements Serializable {
         str.append(getGame().getEnemyB()).append("\n");
         str.append(canDoSupplyRaid() ? "\t1- Supply Raid\n" : "");
         str.append(canDoSabotage() ? "\t2- Sabotage\n" : "");
-        str.append("\t3- End Turn\n");
-        str.append("\t4- Return to menu\n");
+        str.append(!getGame().checkAP() ? "\t3- Buy Action Point\n" : "");
+        str.append("\t4- End Turn\n");
         return str.toString();
     }
 

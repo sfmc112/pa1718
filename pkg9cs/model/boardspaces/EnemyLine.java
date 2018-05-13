@@ -5,8 +5,6 @@
  */
 package pkg9cs.model.boardspaces;
 
-import pkg9cs.model.elements.Element;
-
 /**
  *
  * @author sarah

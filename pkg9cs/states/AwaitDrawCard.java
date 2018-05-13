@@ -5,8 +5,6 @@
  */
 package pkg9cs.states;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import pkg9cs.RaidAndSabotageException;
 import pkg9cs.model.GameData;
 

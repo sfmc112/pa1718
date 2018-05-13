@@ -7,8 +7,6 @@ package pkg9cs.model;
 
 import pkg9cs.model.boardspaces.Square;
 import pkg9cs.model.elements.Element;
-import java.util.ArrayList;
-//import static pkg9cs.model.Track.NUM_SPACES;
 
 /**
  *

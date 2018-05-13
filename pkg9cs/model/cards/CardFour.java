@@ -9,12 +9,10 @@ import java.util.ArrayList;
 import pkg9cs.model.enemyAttacks.LadderAttack;
 import pkg9cs.model.enemyAttacks.RamAttack;
 import pkg9cs.model.enemyAttacks.SiegeTowerAttack;
-import pkg9cs.model.enemyAttacks.SwordAttack;
 import pkg9cs.model.enemyAttacks.WeaponAttack;
 import pkg9cs.model.events.Event;
 import pkg9cs.model.events.RamPlusOneDRM;
 import pkg9cs.model.events.ReduceMorale;
-import pkg9cs.model.events.ReduceSupplies;
 import pkg9cs.model.events.SiegeTowerPlusOneDRM;
 
 /**

@@ -5,10 +5,12 @@
  */
 package pkg9cs;
 
+import java.io.Serializable;
+
 /**
  *
  * @author sarah
  */
-public class RaidAndSabotageException extends Exception{
+public class RaidAndSabotageException extends Exception implements Serializable{
     
 }

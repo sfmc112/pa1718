@@ -5,8 +5,6 @@
  */
 package pkg9cs.model.events;
 
-import pkg9cs.model.GameData;
-
 /**
  *
  * @author sarah

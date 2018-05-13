@@ -5,9 +5,6 @@
  */
 package pkg9cs;
 
-import pkg9cs.controller.GameController;
-import pkg9cs.model.EnemyBoard;
-import pkg9cs.model.GameData;
 import pkg9cs.ui.TextUI;
 
 /**

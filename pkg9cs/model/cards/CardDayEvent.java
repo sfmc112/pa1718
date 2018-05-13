@@ -8,7 +8,6 @@ package pkg9cs.model.cards;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 import pkg9cs.RaidAndSabotageException;
 import pkg9cs.model.GameData;
 import pkg9cs.model.events.*;
