@@ -165,9 +165,11 @@ public class GameData implements Serializable {
         statusB.advanceSupply();
 
         if (checkSoldiersOnEnemyLine()) {
+            msg.append("<<Soldiers have been captured!>>\n");
             captureSoldiers();
         }
         if (statusB.checkSoldiersInTunnel()) {
+            msg.append("<<Soldiers are moving to the castle!>>\n");
             statusB.moveDirectlyToCastle();
             statusB.soldiersArrivedAtCastle();
         }
@@ -703,7 +705,7 @@ public class GameData implements Serializable {
     }
 
     private boolean closeCombatAttackSiegeTower() {
-        if (!enemyB.isTowerPresent() || !enemyB.isSiegeTowerOnCircleSpace()) {
+        if (!enemyB.isTowerPresent() || !enemyB.isSiegeTowerOnCloseCombatSpace()) {
             return false;
         }
 

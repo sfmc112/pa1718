@@ -5,7 +5,7 @@
  */
 package pkg9cs;
 
-import pkg9cs.ui.TextUI;
+import pkg9cs.uiText.TextUI;
 
 /**
  *

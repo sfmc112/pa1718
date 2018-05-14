@@ -20,7 +20,7 @@ public class AwaitAddSupplyRallyTroops extends StateAdapter {
 
     @Override
     public IState rallyTroops() {
-        if (getGame().checkAP()) {
+        if (getGame().checkAP() && !getGame().moraleOnStartingSpace()) {
             getGame().rallyTroops(0);
             getGame().subtractActionPoint();
             return new AwaitAction(getGame());
@@ -30,7 +30,7 @@ public class AwaitAddSupplyRallyTroops extends StateAdapter {
 
     @Override
     public IState rallyTroops(Supply supp) {
-        if (getGame().checkAP() && getGame().checkAvailableSupplies()) {
+        if (getGame().checkAP() && getGame().checkAvailableSupplies() && !getGame().moraleOnStartingSpace()) {
             getGame().removeOneSupplyForRallyTroops();
             getGame().rallyTroops(1);
             getGame().subtractActionPoint();

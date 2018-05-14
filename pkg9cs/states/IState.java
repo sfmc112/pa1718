@@ -6,6 +6,7 @@
 package pkg9cs.states;
 
 import java.io.Serializable;
+import pkg9cs.model.GameData;
 import pkg9cs.model.elements.Element;
 import pkg9cs.model.elements.Supply;
 import pkg9cs.model.elements.Weapon;
@@ -17,6 +18,10 @@ import pkg9cs.model.elements.Weapon;
 public interface IState extends Serializable{
 
     public IState startGame();
+    
+    public GameData getGame();
+    
+    public void setGame(GameData game);
 
     /**
      * Faz a verificação do EnemyLine Check, executa a carta e verifica se o

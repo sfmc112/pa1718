@@ -22,10 +22,12 @@ public class StateAdapter implements IState {
         this.game = game;
     }
 
+    @Override
     public GameData getGame() {
         return game;
     }
 
+    @Override
     public void setGame(GameData game) {
         this.game = game;
     }

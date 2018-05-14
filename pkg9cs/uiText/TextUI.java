@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pkg9cs.ui;
+package pkg9cs.uiText;
 
 import java.io.*;
 import java.util.Observable;

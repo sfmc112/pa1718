@@ -11,7 +11,7 @@ import pkg9cs.model.GameData;
 import pkg9cs.model.elements.*;
 import pkg9cs.states.IState;
 import pkg9cs.states.StartGame;
-import pkg9cs.ui.TextUI;
+import pkg9cs.uiText.TextUI;
 
 /**
  *
@@ -55,6 +55,7 @@ public class GameController extends Observable implements Serializable {
 
     public void endGame() {
         setState(state.endGame());
+        game = state.getGame();
     }
 
     public void drawCard() {
@@ -77,6 +78,8 @@ public class GameController extends Observable implements Serializable {
 
     public void endTurn() {
         setState(state.endOfTurn());
+        setChanged();
+        notifyObservers();
     }
 
     public void coupure() {
@@ -101,10 +104,14 @@ public class GameController extends Observable implements Serializable {
 
     public void freeMovement() {
         setState(state.freeMovement());
+        setChanged();
+        notifyObservers();
     }
 
     public void fastMovement() {
         setState(state.fastMovement());
+        setChanged();
+        notifyObservers();
     }
 
     public void supplyRaid() {
@@ -257,7 +264,7 @@ public class GameController extends Observable implements Serializable {
 
     public String closeCombatAttackMenu() {
         StringBuilder str = new StringBuilder();
-        str.append(getGame().getEnemyB()).append("\n");
+        str.append(getGame()).append("\n");
         str.append(getGame().getEnemyB().isLadderOnCloseCombatSpace() ? "\t1- Ladder\n" : "");
         str.append(getGame().getEnemyB().isBatteringRamOnCloseCombatSpace() ? "\t2- Battering Ram\n" : "");
         str.append(getGame().getEnemyB().isSiegeTowerOnCloseCombatSpace() ? "\t3- Siege Tower\n" : "");
@@ -287,6 +294,7 @@ public class GameController extends Observable implements Serializable {
 
     public String lostMenu() {
         StringBuilder str = new StringBuilder();
+        str.append(statusBoard());
         str.append("\nYou couldn't resist the invasion!\n");
         str.append("\t1- Start New Game\n");
         str.append("\t2- Quit Game\n");
@@ -305,8 +313,8 @@ public class GameController extends Observable implements Serializable {
 
     public String rallyTroopsMenu() {
         StringBuilder str = new StringBuilder();
-        str.append(game.checkAvailableSupplies() ? "\t1- Use one supply\n" : "");
-        str.append("\t2- Rally troops\n\t3- Return to menu\n");
+        str.append(game.checkAP() && game.checkAvailableSupplies() ? "\t1- Use one supply\n" : "");
+        str.append(game.checkAP() ? "\t2- Rally troops\n" : "").append("\t3- Return to menu\n");
         return str.toString();
     }
 
