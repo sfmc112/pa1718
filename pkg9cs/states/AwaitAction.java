@@ -36,7 +36,7 @@ public class AwaitAction extends StateAdapter {
 
     @Override
     public IState askAddActionPoint() {
-        if (!getGame().checkAP() && !getGame().isUsedExtraAP() && getGame().checkAvailableResources()) {
+        if (getGame().canDoBuyActionPoint()) {
             return new AwaitAddActionPoint(getGame());
         }
         return this;
@@ -44,7 +44,7 @@ public class AwaitAction extends StateAdapter {
 
     @Override
     public IState askUseOfSupply() {
-        if (getGame().checkAP() && getGame().checkAvailableSupplies() && !getGame().moraleOnStartingSpace()) {
+        if (getGame().canDoRallyTroops() && getGame().checkAvailableSupplies()) {
             return new AwaitAddSupplyRallyTroops(getGame());
         }
         return this;
@@ -57,7 +57,7 @@ public class AwaitAction extends StateAdapter {
 
     @Override
     public IState checkEnemiesCloseCombat() {
-        if (getGame().checkAP() && getGame().enemiesOnCloseCombat()) {
+        if (getGame().canDoCloseCombat()) {
             return new AwaitEnemySelectionCloseCombatAttack(getGame());
         }
         return this;
@@ -65,7 +65,7 @@ public class AwaitAction extends StateAdapter {
 
     @Override
     public IState checkEnemiesBoilingWater() {
-        if (getGame().checkAP() && getGame().enemiesOnCircleSpace() && !getGame().isUsedBoiling()) {
+        if (getGame().canDoBoiling()) {
             return new AwaitEnemySelectionBoilingWaterAttack(getGame());
         }
         return this;
@@ -73,7 +73,7 @@ public class AwaitAction extends StateAdapter {
 
     @Override
     public IState checkEnemiesArchers() {
-        if (getGame().checkAP() && getGame().enemiesAttackable()) {
+        if (getGame().canDoArchers()) {
             return new AwaitEnemySelectionArchersAttack(getGame());
         }
         return this;
@@ -81,7 +81,7 @@ public class AwaitAction extends StateAdapter {
 
     @Override
     public IState coupure() {
-        if (getGame().checkAP() && !getGame().wallOnStartingSpace()) {
+        if (getGame().canDoCoupure()) {
             getGame().coupure();
             getGame().subtractActionPoint();
         }
@@ -90,26 +90,27 @@ public class AwaitAction extends StateAdapter {
 
     @Override
     public IState sabotage() {
-        if (getGame().checkAP() && getGame().checkSoldiersOnEnemyLine() && getGame().existsTrebuchets()) {
+        if (getGame().canDoSabotage()) {
             getGame().sabotage();
             getGame().subtractActionPoint();
+
+            if (getGame().immediateLossCheck()) {
+                return new GameLost(getGame());
+            }
         }
-        if (getGame().immediateLossCheck()) {
-            return new GameLost(getGame());
-        }
+
         return this;
     }
 
     @Override
     public IState supplyRaid() {
-        if (getGame().checkAP() && getGame().checkSoldiersOnEnemyLine() && !getGame().suppliesFull()) {
+        if (getGame().canDoSupplyRaid()) {
             getGame().addSupplyCount();
             getGame().subtractActionPoint();
-        }
-        if (getGame().immediateLossCheck()) {
-            return new GameLost(getGame());
+            if (getGame().immediateLossCheck()) {
+                return new GameLost(getGame());
+            }
         }
         return this;
     }
-
 }

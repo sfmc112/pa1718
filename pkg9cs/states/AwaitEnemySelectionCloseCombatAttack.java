@@ -20,10 +20,10 @@ public class AwaitEnemySelectionCloseCombatAttack extends StateAdapter {
 
     @Override
     public IState askAddActionPoint() {
-        if (!getGame().checkAP() && !getGame().isUsedExtraAP() && getGame().checkAvailableResources()) {
+        if (getGame().canDoBuyActionPoint())
             return new AwaitAddActionPoint(getGame());
-        }
-        return new AwaitAction(getGame());
+
+        return this;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class AwaitEnemySelectionCloseCombatAttack extends StateAdapter {
         } else {
             if (getGame().checkAP()) { //se ataque falhar e tiver ações, permanece no mesmo estado
                 return this;
-            } else if (!getGame().isUsedExtraAP() && getGame().checkAvailableResources()) { //se ataque falhar e não tiver ações e puder comprar uma ação, vai para comprar acao
+            } else if (getGame().canDoBuyActionPoint()) { //se ataque falhar e não tiver ações e puder comprar uma ação, vai para comprar acao
                 return new AwaitAddActionPoint(getGame());
             } else {
                 return new AwaitAction(getGame()); //se ataque falhar, não tiver ações e não puder comprar acção, vai para o estado AwaitAction

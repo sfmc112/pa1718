@@ -22,11 +22,14 @@ public class AwaitEnemySelectionBoilingWaterAttack extends StateAdapter {
     public IState boilingWaterAttack(Weapon weapon) {
         if (getGame().boilingWaterAttack(weapon)) {
             getGame().subtractActionPoint();
-            return new AwaitAction(getGame());
+            
+            if (getGame().immediateLossCheck()) {
+                return new GameLost(getGame());
+            } else {
+                return new AwaitAction(getGame());
+            }
         }
-        if (getGame().immediateLossCheck()) {
-            return new GameLost(getGame());
-        }
+
         return this;
     }
 

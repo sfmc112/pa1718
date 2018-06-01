@@ -259,12 +259,52 @@ public class GameData implements Serializable {
     /**
      * ******************************************************************************************
      */
-    public boolean towerIsOnStartingSpace() {
-        return enemyB.isSiegeTowerOnStartingSpace();
+    public boolean canDoArchers() {
+        return checkAP() && enemiesAttackable();
+    }
+
+    public boolean canDoBoiling() {
+        return checkAP() && enemiesOnCircleSpace() && !isUsedBoiling();
+    }
+
+    public boolean canDoCloseCombat() {
+        return checkAP() && enemiesOnCloseCombat();
+    }
+
+    public boolean canDoCoupure() {
+        return checkAP() && !(wallOnStartingSpace());
+    }
+
+    public boolean canDoRallyTroops() {
+        return checkAP() && !moraleOnStartingSpace();
+    }
+
+    public boolean canDoSupplyRaid() {
+        return checkAP() && checkSoldiersOnEnemyLine() && !suppliesFull();
+    }
+
+    public boolean canDoSabotage() {
+        return checkAP() && checkSoldiersOnEnemyLine() && existsTrebuchets();
+    }
+
+    public boolean canMoveIntoTunnel() {
+        return checkAP() && (checkSoldiersInCastle() || checkSoldiersOnEnemyLine());
+    }
+
+    public boolean canDoFreeMovement() {
+        return isCanUseFreeMovement() && !checkSoldiersInCastle() && !checkSoldiersOnEnemyLine();
+    }
+
+    public boolean canDoFastMovement() {
+        return checkAP() && !checkSoldiersInCastle() && !checkSoldiersOnEnemyLine();
+    }
+
+    public boolean canDoBuyActionPoint() {
+        return !checkAP() && !isUsedExtraAP() && checkAvailableResources();
     }
 
     public void removeSiegeTower() {
-        if (towerIsOnStartingSpace()) {
+        if (isSiegeTowerOnStartingSpace()) {
             enemyB.removeSiegeTower();
         }
     }
@@ -301,6 +341,44 @@ public class GameData implements Serializable {
     public boolean enemiesOnCircleSpace() {
         return enemyB.countEnemiesOnCircleSpace() > 0;
     }
+
+    public boolean isLadderOnStartingSpace() {
+        return enemyB.isLadderOnStartingSpace();
+    }
+
+    public boolean isBatteringRamOnStartingSpace() {
+        return enemyB.isBatteringRamOnStartingSpace();
+    }
+
+    public boolean isSiegeTowerOnStartingSpace() {
+        return enemyB.isSiegeTowerOnStartingSpace();
+    }
+
+    public boolean isLadderOnCloseCombatSpace() {
+        return enemyB.isLadderOnCloseCombatSpace();
+    }
+
+    public boolean isBatteringRamOnCloseCombatSpace() {
+        return enemyB.isBatteringRamOnCloseCombatSpace();
+    }
+
+    public boolean isSiegeTowerOnCloseCombatSpace() {
+        return enemyB.isSiegeTowerOnCloseCombatSpace();
+    }
+
+    public boolean isLadderOnCircleSpace() {
+        return enemyB.isLadderOnCircleSpace();
+    }
+
+    public boolean isBatteringRamOnCircleSpace() {
+        return enemyB.isBatteringRamOnCircleSpace();
+    }
+
+    public boolean isSiegeTowerOnCircleSpace() {
+        return enemyB.isSiegeTowerOnCircleSpace();
+    }
+    
+    
 
     /**
      * Verifica se há inimigos atacáveis, isto é, se há algum que não esteja na
@@ -936,11 +1014,17 @@ public class GameData implements Serializable {
     public String toString() {
         StringBuilder str = new StringBuilder();
         str.append("Day ").append(dayNumber).append("\n");
-        str.append(getEnemyB()).append("\n\n");
-        str.append(getStatusB()).append("\n");
+        str.append(statusBoard());
         str.append("You have ").append(getNumberOfActions()).append(" actions.").append("\n");
-        str.append(enemiesOnCircleSpace() ? (usedBoiling ? "You have used boiling water this turn\n": "You have not used boiling water this turn\n") : "");
+        str.append(enemiesOnCircleSpace() ? (usedBoiling ? "You have used boiling water this turn\n" : "You have not used boiling water this turn\n") : "");
+        str.append("\n\n");
         str.append(deck.getCard(0).printDay(dayNumber - 1)).append("\n");
+        return str.toString();
+    }
+
+    public String statusBoard() {
+        StringBuilder str = new StringBuilder();
+        str.append(getEnemyB()).append("\n\n").append(getStatusB()).append("\n");
         return str.toString();
     }
 

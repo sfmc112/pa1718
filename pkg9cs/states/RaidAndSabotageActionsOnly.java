@@ -19,38 +19,40 @@ public class RaidAndSabotageActionsOnly extends StateAdapter {
 
     @Override
     public IState supplyRaid() {
-        if (getGame().checkAP() && getGame().checkSoldiersOnEnemyLine() && !getGame().suppliesFull()) {
+        if (getGame().canDoSupplyRaid()) {
             getGame().addSupplyCount();
             getGame().subtractActionPoint();
-            return this;
+
+            if (getGame().immediateLossCheck()) {
+                return new GameLost(getGame());
+            }
         }
-        if (getGame().immediateLossCheck()) {
-            return new GameLost(getGame());
-        }
+
         return this;
     }
 
     @Override
     public IState sabotage() {
-        if (getGame().checkAP() && getGame().checkSoldiersOnEnemyLine() && getGame().existsTrebuchets()) {
+        if (getGame().canDoSabotage()) {
             getGame().sabotage();
             getGame().subtractActionPoint();
-            return this;
+
+            if (getGame().immediateLossCheck()) {
+                return new GameLost(getGame());
+            }
         }
-        if (getGame().immediateLossCheck()) {
-            return new GameLost(getGame());
-        }
+
         return this;
     }
 
     @Override
     public IState askAddActionPoint() {
-        if (!getGame().checkAP() && !getGame().isUsedExtraAP() && getGame().checkAvailableResources()) {
+        if (getGame().canDoBuyActionPoint()) {
             return new AwaitAddActionPoint(getGame());
         }
         return this;
     }
-    
+
     @Override
     public IState endOfTurn() {
         if (getGame().endOfTurnLossCheck()) {
@@ -67,7 +69,5 @@ public class RaidAndSabotageActionsOnly extends StateAdapter {
         //Next Day
         return new AwaitDrawCard(getGame());
     }
-    
-    
 
 }

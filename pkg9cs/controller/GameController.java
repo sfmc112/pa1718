@@ -11,7 +11,6 @@ import pkg9cs.model.GameData;
 import pkg9cs.model.elements.*;
 import pkg9cs.states.IState;
 import pkg9cs.states.StartGame;
-import pkg9cs.uiText.TextUI;
 
 /**
  *
@@ -21,16 +20,13 @@ public class GameController extends Observable implements Serializable {
 
     private GameData game;
     private IState state;
-    private TextUI textUI;
 
-    public GameController(TextUI textUI) {
-        this.textUI = textUI;
-        addObserver(this.textUI);
+    public GameController() {
         game = new GameData();
         setState(new StartGame(game));
     }
 
-    public GameData getGame() {
+    private GameData getGame() {
         return game;
     }
 
@@ -146,10 +142,14 @@ public class GameController extends Observable implements Serializable {
 
     public void returnToMenu() {
         setState(state.returnToMenu());
+        setChanged();
+        notifyObservers();
     }
 
     public void buyActionPoint(Element element) {
         setState(state.buyActionPoint(element));
+        setChanged();
+        notifyObservers();
     }
 
     public void rallyTroops(Supply supply) {
@@ -230,7 +230,7 @@ public class GameController extends Observable implements Serializable {
         if (canDoSabotage()) {
             str.append("\t8- Sabotage\n");
         }
-        if (!game.checkAP() && !game.isUsedExtraAP() && game.checkAvailableResources()) {
+        if (canDoBuyActionPoint()) {
             str.append("\t9- Buy Action Point\n");
         }
         str.append("\t10- End Turn\n");
@@ -245,9 +245,9 @@ public class GameController extends Observable implements Serializable {
     public String archersMenu() {
         StringBuilder str = new StringBuilder();
         str.append(getGame().getEnemyB()).append("\n");
-        str.append(getGame().getEnemyB().isLadderOnStartingSpace() ? "" : "\t1- Ladder\n");
-        str.append(getGame().getEnemyB().isBatteringRamOnStartingSpace() ? "" : "\t2- Battering Ram\n");
-        str.append(getGame().getEnemyB().isSiegeTowerOnStartingSpace() ? "" : "\t3- Siege Tower\n");
+        str.append(getGame().isLadderOnStartingSpace() ? "" : "\t1- Ladder\n");
+        str.append(getGame().isBatteringRamOnStartingSpace() ? "" : "\t2- Battering Ram\n");
+        str.append(getGame().isSiegeTowerOnStartingSpace() ? "" : "\t3- Siege Tower\n");
         str.append("\t4- Return to menu\n");
         return str.toString();
     }
@@ -255,9 +255,9 @@ public class GameController extends Observable implements Serializable {
     public String boilingAttackMenu() {
         StringBuilder str = new StringBuilder();
         str.append(getGame().getEnemyB()).append("\n");
-        str.append(getGame().getEnemyB().isLadderOnCircleSpace() ? "\t1- Ladder\n" : "");
-        str.append(getGame().getEnemyB().isBatteringRamOnCircleSpace() ? "\t2- Battering Ram\n" : "");
-        str.append(getGame().getEnemyB().isSiegeTowerOnCircleSpace() ? "\t3- Siege Tower\n" : "");
+        str.append(getGame().isLadderOnCircleSpace() ? "\t1- Ladder\n" : "");
+        str.append(getGame().isBatteringRamOnCircleSpace() ? "\t2- Battering Ram\n" : "");
+        str.append(getGame().isSiegeTowerOnCircleSpace() ? "\t3- Siege Tower\n" : "");
         str.append("\t4- Return to menu\n");
         return str.toString();
     }
@@ -265,10 +265,10 @@ public class GameController extends Observable implements Serializable {
     public String closeCombatAttackMenu() {
         StringBuilder str = new StringBuilder();
         str.append(getGame()).append("\n");
-        str.append(getGame().getEnemyB().isLadderOnCloseCombatSpace() ? "\t1- Ladder\n" : "");
-        str.append(getGame().getEnemyB().isBatteringRamOnCloseCombatSpace() ? "\t2- Battering Ram\n" : "");
-        str.append(getGame().getEnemyB().isSiegeTowerOnCloseCombatSpace() ? "\t3- Siege Tower\n" : "");
-        str.append(getGame().checkAP() && getGame().isUsedExtraAP() ? "" : "\t4- Buy action point\n");
+        str.append(getGame().isLadderOnCloseCombatSpace() ? "\t1- Ladder\n" : "");
+        str.append(getGame().isBatteringRamOnCloseCombatSpace() ? "\t2- Battering Ram\n" : "");
+        str.append(getGame().isSiegeTowerOnCloseCombatSpace() ? "\t3- Siege Tower\n" : "");
+        str.append(canDoBuyActionPoint() ? "" : "\t4- Buy action point\n");
         str.append("\t5- Return to menu\n");
         return str.toString();
     }
@@ -304,8 +304,8 @@ public class GameController extends Observable implements Serializable {
     public String addActionPointMenu() {
         StringBuilder str = new StringBuilder();
         str.append(statusBoard());
-        str.append(game.checkAvailableSupplies() ? "\t1- Use one Supply\n" : "");
-        str.append(game.checkAvailableMorale() ? "\t2- Use one Morale\n" : "");
+        str.append(canDoBuyActionPoint() && getGame().checkAvailableSupplies() ? "\t1- Use one Supply\n" : "");
+        str.append(canDoBuyActionPoint() && getGame().checkAvailableMorale() ? "\t2- Use one Morale\n" : "");
         str.append("\t3- End Turn\n");
         str.append("\t4- Return to menu\n");
         return str.toString();
@@ -313,8 +313,8 @@ public class GameController extends Observable implements Serializable {
 
     public String rallyTroopsMenu() {
         StringBuilder str = new StringBuilder();
-        str.append(game.checkAP() && game.checkAvailableSupplies() ? "\t1- Use one supply\n" : "");
-        str.append(game.checkAP() ? "\t2- Rally troops\n" : "").append("\t3- Return to menu\n");
+        str.append(canDoRallyTroops() && getGame().checkAvailableSupplies() ? "\t1- Use one supply\n" : "");
+        str.append(canDoRallyTroops() ? "\t2- Rally troops\n" : "").append("\t3- Return to menu\n");
         return str.toString();
     }
 
@@ -323,55 +323,57 @@ public class GameController extends Observable implements Serializable {
         str.append(getGame()).append("\n");
         str.append(canDoSupplyRaid() ? "\t1- Supply Raid\n" : "");
         str.append(canDoSabotage() ? "\t2- Sabotage\n" : "");
-        str.append(!getGame().checkAP() ? "\t3- Buy Action Point\n" : "");
+        str.append(canDoBuyActionPoint() ? "\t3- Buy Action Point\n" : "");
         str.append("\t4- End Turn\n");
         return str.toString();
     }
 
     public String statusBoard() {
-        StringBuilder str = new StringBuilder();
-        str.append(game.getEnemyB()).append("\n\n").append(game.getStatusB()).append("\n");
-        return str.toString();
+        return game.statusBoard();
     }
 
     private boolean canDoArchers() {
-        return (getGame().checkAP() && getGame().enemiesAttackable());
+        return game.canDoArchers();
     }
 
     private boolean canDoBoiling() {
-        return (getGame().checkAP() && getGame().enemiesOnCircleSpace() && !getGame().isUsedBoiling());
+        return game.canDoBoiling();
     }
 
     private boolean canDoCloseCombat() {
-        return (getGame().checkAP() && getGame().enemiesOnCloseCombat());
+        return game.canDoCloseCombat();
     }
 
     private boolean canDoCoupure() {
-        return (getGame().checkAP()) && (!(getGame().wallOnStartingSpace()));
+        return game.canDoCoupure();
     }
 
     private boolean canDoRallyTroops() {
-        return (getGame().checkAP()) && (!(getGame().moraleOnStartingSpace()));
+        return game.canDoRallyTroops();
     }
 
     private boolean canDoSupplyRaid() {
-        return (getGame().checkAP()) && (getGame().checkSoldiersOnEnemyLine());
+        return game.canDoSupplyRaid();
     }
 
     private boolean canDoSabotage() {
-        return (getGame().checkAP()) && (getGame().checkSoldiersOnEnemyLine() && getGame().existsTrebuchets());
+        return game.canDoSabotage();
     }
 
     private boolean canMoveIntoTunnel() {
-        return getGame().checkAP() && (getGame().checkSoldiersInCastle() || getGame().checkSoldiersOnEnemyLine());
+        return game.canMoveIntoTunnel();
     }
 
     private boolean canDoFreeMovement() {
-        return getGame().isCanUseFreeMovement() && !getGame().checkSoldiersInCastle() && !getGame().checkSoldiersOnEnemyLine();
+        return game.canDoFreeMovement();
     }
 
     private boolean canDoFastMovement() {
-        return getGame().checkAP() && !getGame().checkSoldiersInCastle() && !getGame().checkSoldiersOnEnemyLine();
+        return game.canDoFastMovement();
+    }
+
+    private boolean canDoBuyActionPoint() {
+        return game.canDoBuyActionPoint();
     }
 
     public String printMSG() {

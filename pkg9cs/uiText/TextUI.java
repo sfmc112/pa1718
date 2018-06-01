@@ -17,13 +17,14 @@ import pkg9cs.states.*;
  *
  * @author sarah
  */
-public class TextUI implements Observer, Serializable{
+public class TextUI implements Observer, Serializable {
 
     GameController controller;
     boolean run;
 
-    public TextUI() {
-        controller = new GameController(this);
+    public TextUI(GameController game) {
+        controller = game;
+        controller.addObserver(this);
         this.run = true;
     }
 
@@ -62,6 +63,8 @@ public class TextUI implements Observer, Serializable{
             }
         }
     }
+    
+    
 
     private void startGameUi() {
         System.out.println(controller.startGameMenu());

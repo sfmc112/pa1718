@@ -19,7 +19,7 @@ public class AwaitTunnelMovementSelection extends StateAdapter {
 
     @Override
     public IState moveInTunnel() {
-        if (getGame().checkAP() && (getGame().checkSoldiersInCastle() || getGame().checkSoldiersOnEnemyLine())) {
+        if (getGame().canMoveIntoTunnel()) {
             getGame().moveInTunnel();
             getGame().subtractActionPoint();
             return new AwaitAction(getGame());
@@ -29,7 +29,7 @@ public class AwaitTunnelMovementSelection extends StateAdapter {
 
     @Override
     public IState freeMovement() {
-        if (getGame().isCanUseFreeMovement() && !getGame().checkSoldiersInCastle() && !getGame().checkSoldiersOnEnemyLine()) {
+        if (getGame().canDoFreeMovement()) {
             getGame().freeTunnelMovement();
             return new AwaitAction(getGame());
         }
@@ -38,7 +38,7 @@ public class AwaitTunnelMovementSelection extends StateAdapter {
 
     @Override
     public IState fastMovement() {
-        if (getGame().checkAP() && !getGame().checkSoldiersInCastle() && !getGame().checkSoldiersOnEnemyLine()) {
+        if (getGame().canDoFastMovement()) {
             getGame().fastTunnelMovement();
             getGame().subtractActionPoint();
             return new AwaitAction(getGame());
