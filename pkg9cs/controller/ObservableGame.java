@@ -1,0 +1,323 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package pkg9cs.controller;
+
+import java.io.IOException;
+import java.util.Observable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import pkg9cs.files.FileUtility;
+import pkg9cs.model.EnemyBoard;
+import pkg9cs.model.GameData;
+import pkg9cs.model.StatusBoard;
+import pkg9cs.model.elements.Element;
+import pkg9cs.model.elements.Supply;
+import pkg9cs.model.elements.Weapon;
+import pkg9cs.states.IState;
+
+/**
+ *
+ * @author sarah
+ */
+public class ObservableGame extends Observable{
+    private GameController gameC;
+
+    public ObservableGame(GameController gameC) {
+        this.gameC = gameC;
+    }
+
+    public GameController getGameC() {
+        return gameC;
+    }
+
+    public void setGameC(GameController gameC) {
+        this.gameC = gameC;
+        
+        setChanged();
+        notifyObservers();
+    }
+
+    public GameData getGameData() {
+        return gameC.getGame();
+    }
+
+    private void setGameData(GameData game) {
+        gameC.setGame(game);
+        
+        setChanged();
+        notifyObservers();
+    }
+
+    public IState getState() {
+        return gameC.getState();
+    }
+
+    public void setState(IState state) {
+        gameC.setState(state);
+    }
+
+    public void newGame() {
+        gameC.newGame();
+    }
+
+    public void endGame() {
+        gameC.endGame();
+    }
+
+    public void drawCard() {
+        gameC.drawCard();
+        
+        setChanged();
+        notifyObservers();
+    }
+
+    public void checkEnemiesArchers() {
+        gameC.checkEnemiesArchers();
+    }
+
+    public void checkEnemiesBoilingWater() {
+        gameC.checkEnemiesBoilingWater();
+    }
+
+    public void checkEnemiesCloseCombat() {
+        gameC.checkEnemiesCloseCombat();
+    }
+
+    public void endTurn() {
+        gameC.endTurn();
+        
+        setChanged();
+        notifyObservers();
+    }
+
+    public void coupure() {
+        gameC.coupure();
+        
+        setChanged();
+        notifyObservers();
+    }
+
+    public void askUseOfSupply() {
+        gameC.askUseOfSupply();
+    }
+
+    public void selectTunnelMov() {
+        gameC.selectTunnelMov();
+    }
+
+    public void moveInTunnel() {
+        gameC.moveInTunnel();
+        
+        setChanged();
+        notifyObservers();
+    }
+
+    public void freeMovement() {
+        gameC.freeMovement();
+        
+        setChanged();
+        notifyObservers();
+    }
+
+    public void fastMovement() {
+        gameC.fastMovement();
+        
+        setChanged();
+        notifyObservers();
+    }
+
+    public void supplyRaid() {
+        gameC.supplyRaid();
+        
+        setChanged();
+        notifyObservers();
+    }
+
+    public void archersAttack(Weapon weapon) {
+        gameC.archersAttack(weapon);
+        
+        setChanged();
+        notifyObservers();
+    }
+
+    public void boilingWaterAttack(Weapon weapon) {
+        gameC.boilingWaterAttack(weapon);
+        
+        setChanged();
+        notifyObservers();
+    }
+
+    public void closeCombatAttack(Weapon weapon) {
+        gameC.closeCombatAttack(weapon);
+        
+        setChanged();
+        notifyObservers();
+    }
+
+    public void sabotage() {
+        gameC.sabotage();
+        
+        setChanged();
+        notifyObservers();
+    }
+
+    public void returnToMenu() {
+        gameC.returnToMenu();
+        
+        setChanged();
+        notifyObservers();
+    }
+
+    public void buyActionPoint(Element element) {
+        gameC.buyActionPoint(element);
+        
+        setChanged();
+        notifyObservers();
+    }
+
+    public void rallyTroops(Supply supply) {
+        gameC.rallyTroops(supply);
+        
+        setChanged();
+        notifyObservers();
+    }
+
+    public void rallyTroops() {
+        gameC.rallyTroops();
+        
+        setChanged();
+        notifyObservers();
+    }
+
+    public void askAddActionPoint() {
+        gameC.askAddActionPoint();
+    }
+    
+    public boolean canDoArchers() {
+        return gameC.canDoArchers();
+    }
+
+    public boolean canDoBoiling() {
+        return gameC.canDoBoiling();
+    }
+
+    public boolean canDoCloseCombat() {
+        return gameC.canDoCloseCombat();
+    }
+
+    public boolean canDoCoupure() {
+        return gameC.canDoCoupure();
+    }
+
+    public boolean canDoRallyTroops() {
+        return gameC.canDoRallyTroops();
+    }
+
+    public boolean canDoSupplyRaid() {
+        return gameC.canDoSupplyRaid();
+    }
+
+    public boolean canDoSabotage() {
+        return gameC.canDoSabotage();
+    }
+
+    public boolean canMoveIntoTunnel() {
+        return gameC.canMoveIntoTunnel();
+    }
+
+    public boolean canDoFreeMovement() {
+        return gameC.canDoFreeMovement();
+    }
+
+    public boolean canDoFastMovement() {
+        return gameC.canDoFastMovement();
+    }
+
+    public boolean canDoBuyActionPoint() {
+        return gameC.canDoBuyActionPoint();
+    }
+
+    public String getEnemyAndStatusBoard() {
+        return gameC.getEnemyAndStatusBoard();
+    }
+
+    public boolean checkAvailableSupplies() {
+        return gameC.checkAvailableSupplies();
+    }
+
+    public boolean checkAvailableMorale() {
+        return gameC.checkAvailableMorale();
+    }
+
+    public boolean isLadderOnStartingSpace() {
+        return gameC.isLadderOnStartingSpace();
+    }
+
+    public boolean isBatteringRamOnStartingSpace() {
+        return gameC.isBatteringRamOnStartingSpace();
+    }
+
+    public boolean isSiegeTowerOnStartingSpace() {
+        return gameC.isSiegeTowerOnStartingSpace();
+    }
+
+    public boolean isLadderOnCloseCombatSpace() {
+        return gameC.isLadderOnCloseCombatSpace();
+    }
+
+    public boolean isBatteringRamOnCloseCombatSpace() {
+        return gameC.isBatteringRamOnCloseCombatSpace();
+    }
+
+    public boolean isSiegeTowerOnCloseCombatSpace() {
+        return gameC.isSiegeTowerOnCloseCombatSpace();
+    }
+
+    public boolean isLadderOnCircleSpace() {
+        return gameC.isLadderOnCircleSpace();
+    }
+
+    public boolean isBatteringRamOnCircleSpace() {
+        return gameC.isBatteringRamOnCircleSpace();
+    }
+
+    public boolean isSiegeTowerOnCircleSpace() {
+        return gameC.isSiegeTowerOnCircleSpace();
+    }
+    
+
+    public EnemyBoard getEnemyB() {
+        return gameC.getEnemyB();
+    }
+
+    public StatusBoard getStatusB() {
+        return gameC.getStatusB();
+    }
+
+    public String printMSG() {
+        return gameC.printMSG();
+    }
+    
+    public boolean saveGame(String filename) {
+        try {
+            FileUtility.saveGameToFile(filename, gameC);
+            return true;
+        } catch (IOException ex) {
+            Logger.getLogger(ObservableGame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    public boolean loadGame(String filename) {
+        try {
+            setGameC((GameController)FileUtility.retrieveGameFromFile(filename));
+            return true;
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(ObservableGame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+}

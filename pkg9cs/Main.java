@@ -6,7 +6,8 @@
 package pkg9cs;
 
 import pkg9cs.controller.GameController;
-import pkg9cs.uiText.TextUI;
+import pkg9cs.controller.ObservableGame;
+import pkg9cs.ui.textui.TextUI;
 
 /**
  *
@@ -18,7 +19,9 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        TextUI textUI = new TextUI(new GameController());
+        GameController g = new GameController();
+        
+        TextUI textUI = new TextUI(new ObservableGame(g));
         textUI.run();
     }
 

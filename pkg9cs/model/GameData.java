@@ -1014,7 +1014,7 @@ public class GameData implements Serializable {
     public String toString() {
         StringBuilder str = new StringBuilder();
         str.append("Day ").append(dayNumber).append("\n");
-        str.append(statusBoard());
+        str.append(getEnemyAndStatusBoard());
         str.append("You have ").append(getNumberOfActions()).append(" actions.").append("\n");
         str.append(enemiesOnCircleSpace() ? (usedBoiling ? "You have used boiling water this turn\n" : "You have not used boiling water this turn\n") : "");
         str.append("\n\n");
@@ -1022,7 +1022,7 @@ public class GameData implements Serializable {
         return str.toString();
     }
 
-    public String statusBoard() {
+    public String getEnemyAndStatusBoard() {
         StringBuilder str = new StringBuilder();
         str.append(getEnemyB()).append("\n\n").append(getStatusB()).append("\n");
         return str.toString();
