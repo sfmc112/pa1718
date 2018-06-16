@@ -10,6 +10,7 @@ import pkg9cs.model.GameData;
 import pkg9cs.model.elements.Element;
 import pkg9cs.model.elements.Supply;
 import pkg9cs.model.elements.Weapon;
+import pkg9cs.model.elements.GameEnums.*;
 
 /**
  *
@@ -43,7 +44,7 @@ public interface IState extends Serializable{
      * @param weapon Objecto to tipo Ladder, Ram ou SiegeTower
      * @return Novo estado, regressa ao AwaitAction
      */
-    public IState archersAttack(Weapon weapon);
+    public IState archersAttack(Enemies weapon);
 
     /**
      * Acção Close Combat Attack
@@ -52,7 +53,7 @@ public interface IState extends Serializable{
      * Verifica se o jogador tem de voltar a fazer CloseCombat (em caso do ataque não ser bem sucedido)
      * @return AwaitAction ou GameLost ou AwaitAddActionPoint
      */
-    public IState closeCombatAttack(Weapon weapon);
+    public IState closeCombatAttack(Enemies weapon);
 
     /**
      * Acção Ataque de Boiling Water
@@ -61,7 +62,7 @@ public interface IState extends Serializable{
      * @param weapon Objecto to tipo Ladder, Ram ou SiegeTower
      * @return Novo estado, AwaitAction ou GameOver
      */
-    public IState boilingWaterAttack(Weapon weapon);
+    public IState boilingWaterAttack(Enemies weapon);
 
     public IState selectTunnelMov();
 
@@ -75,7 +76,7 @@ public interface IState extends Serializable{
 
     public IState rallyTroops();
     
-    public IState rallyTroops(Supply supp);
+    public IState rallyTroops(Status supp);
 
     /**
      * Verifica se o jogador já não tem mais ações para perguntar se pretende comprar uma acção extra
@@ -84,7 +85,7 @@ public interface IState extends Serializable{
      */
     public IState askAddActionPoint();
     
-    public IState buyActionPoint(Element e);
+    public IState buyActionPoint(Status e);
 
     public IState endOfTurn();
 

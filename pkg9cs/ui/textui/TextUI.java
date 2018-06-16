@@ -17,7 +17,7 @@ import pkg9cs.states.*;
  *
  * @author sarah
  */
-public class TextUI implements Observer, Serializable {
+public class TextUI implements Observer, Serializable, GameEnums {
 
     ObservableGame observableGame;
     boolean run;
@@ -152,13 +152,13 @@ public class TextUI implements Observer, Serializable {
         int opt = readOption();
         switch (opt) {
             case 1:
-                observableGame.archersAttack(new Ladder());
+                observableGame.archersAttack(Enemies.LADDER);
                 break;
             case 2:
-                observableGame.archersAttack(new Ram());
+                observableGame.archersAttack(Enemies.BATTERING_RAM);
                 break;
             case 3:
-                observableGame.archersAttack(new SiegeTower());
+                observableGame.archersAttack(Enemies.SIEGE_TOWER);
                 break;
             case 4:
                 observableGame.returnToMenu();
@@ -190,13 +190,13 @@ public class TextUI implements Observer, Serializable {
         int opt = readOption();
         switch (opt) {
             case 1:
-                observableGame.boilingWaterAttack(new Ladder());
+                observableGame.boilingWaterAttack(Enemies.LADDER);
                 break;
             case 2:
-                observableGame.boilingWaterAttack(new Ram());
+                observableGame.boilingWaterAttack(Enemies.BATTERING_RAM);
                 break;
             case 3:
-                observableGame.boilingWaterAttack(new SiegeTower());
+                observableGame.boilingWaterAttack(Enemies.SIEGE_TOWER);
                 break;
             case 4:
                 observableGame.returnToMenu();
@@ -209,13 +209,13 @@ public class TextUI implements Observer, Serializable {
         int opt = readOption();
         switch (opt) {
             case 1:
-                observableGame.closeCombatAttack(new Ladder());
+                observableGame.closeCombatAttack(Enemies.LADDER);
                 break;
             case 2:
-                observableGame.closeCombatAttack(new Ram());
+                observableGame.closeCombatAttack(Enemies.BATTERING_RAM);
                 break;
             case 3:
-                observableGame.closeCombatAttack(new SiegeTower());
+                observableGame.closeCombatAttack(Enemies.SIEGE_TOWER);
                 break;
             case 4:
                 observableGame.askAddActionPoint();
@@ -256,10 +256,10 @@ public class TextUI implements Observer, Serializable {
         int opt = readOption();
         switch (opt) {
             case 1:
-                observableGame.buyActionPoint(new Supply());
+                observableGame.buyActionPoint(Status.SUPPLY);
                 break;
             case 2:
-                observableGame.buyActionPoint(new Morale());
+                observableGame.buyActionPoint(Status.MORALE);
                 break;
             case 3:
                 observableGame.endTurn();
@@ -274,7 +274,7 @@ public class TextUI implements Observer, Serializable {
         int opt = readOption();
         switch (opt) {
             case 1:
-                observableGame.rallyTroops(new Supply());
+                observableGame.rallyTroops(Status.SUPPLY);
                 break;
             case 2:
                 observableGame.rallyTroops();
@@ -322,27 +322,6 @@ public class TextUI implements Observer, Serializable {
         }
     }
 
-//    private GameController load_game(String filename) throws FileNotFoundException, IOException {
-//        ObjectInputStream objectIStream = null;
-//        GameController control = null;
-//        try {
-//            objectIStream = new ObjectInputStream(new FileInputStream(filename));
-//            control = (GameController) objectIStream.readObject();
-//        } catch (FileNotFoundException exception) {
-//            System.err.println("Erro: ficheiro inexistente\n" + exception.getMessage());
-//            throw new FileNotFoundException();
-//        } catch (IOException | ClassNotFoundException exception) {
-//        } finally {
-//            if (objectIStream != null) {
-//                try {
-//                    objectIStream.close();
-//                } catch (IOException exception) {
-//                }
-//            }
-//        }
-//        return control;
-//    }
-
     private void saveText() {
         System.out.println("\nName of the file to save: ");
         String filename = readFileName();
@@ -354,24 +333,7 @@ public class TextUI implements Observer, Serializable {
             System.out.println("\nGame saved\n");
         }
     }
-
-//    private void save_game(String filename) {
-//        ObjectOutputStream objectOStream = null;
-//        try {
-//            objectOStream = new ObjectOutputStream(new FileOutputStream(filename));
-//            objectOStream.writeObject(this.observableGame);
-//        } catch (FileNotFoundException exception) {
-//            System.err.println("Erro: ficheiro inexistente\n" + exception.getMessage());
-//        } catch (IOException exception) {
-//        } finally {
-//            if (objectOStream != null) {
-//                try {
-//                    objectOStream.close();
-//                } catch (IOException exception) {
-//                }
-//            }
-//        }
-//    }
+    
     private String readFileName() {
         Scanner in = new Scanner(System.in);
         return in.nextLine();

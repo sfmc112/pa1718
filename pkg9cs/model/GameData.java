@@ -17,7 +17,7 @@ import pkg9cs.model.elements.*;
  *
  * @author sarah
  */
-public class GameData implements Serializable {
+public class GameData implements Serializable, GameEnums {
 
     private static final int COUPURE_STRENGTH = 4;
     private static final int RALLYTROOPS_STRENGTH = 4;
@@ -101,12 +101,12 @@ public class GameData implements Serializable {
         this.numberOfActions = numberOfActions;
     }
 
-    public boolean addActionPoint(Element e) {
+    public boolean addActionPoint(Status e) {
         return checkStatusTypeAndAddActionPoint(e);
     }
 
-    private boolean checkStatusTypeAndAddActionPoint(Element e) {
-        if (e instanceof Morale) {
+    private boolean checkStatusTypeAndAddActionPoint(Status e) {
+        if (e == Status.MORALE) {
             return addActionPointWithMorale();
         } else {
             return addActionPointWithSupply();
@@ -458,7 +458,7 @@ public class GameData implements Serializable {
     /**
      * ******************************************************************************************
      */
-    public boolean archersAttack(Weapon weapon) {
+    public boolean archersAttack(Enemies weapon) {
         return checkWeaponTypeAndArchersAttack(weapon);
     }
 
@@ -468,10 +468,10 @@ public class GameData implements Serializable {
      * @param weapon Tipo de inimigo a atacar
      * @return true se o ataque foi permitido (sucesso ou insucesso)
      */
-    private boolean checkWeaponTypeAndArchersAttack(Weapon weapon) {
-        if (weapon instanceof Ladder) {
+    private boolean checkWeaponTypeAndArchersAttack(Enemies weapon) {
+        if (weapon == Enemies.LADDER) {
             return archersAttackLadder();
-        } else if (weapon instanceof Ram) {
+        } else if (weapon  == Enemies.BATTERING_RAM) {
             return archersAttackRam();
         } else {
             return archersAttackSiegeTower();
@@ -644,14 +644,14 @@ public class GameData implements Serializable {
     /**
      * ******************************************************************************************
      */
-    public boolean boilingWaterAttack(Weapon weapon) {
+    public boolean boilingWaterAttack(Enemies weapon) {
         return checkWeaponTypeAndBoilingWaterAttack(weapon);
     }
 
-    private boolean checkWeaponTypeAndBoilingWaterAttack(Weapon weapon) {
-        if (weapon instanceof Ladder) {
+    private boolean checkWeaponTypeAndBoilingWaterAttack(Enemies weapon) {
+        if (weapon == Enemies.LADDER) {
             return BoilingWaterAttackLadder();
-        } else if (weapon instanceof Ram) {
+        } else if (weapon == Enemies.BATTERING_RAM) {
             return BoilingWaterAttackRam();
         } else {
             return BoilingWaterAttackSiegeTower();
@@ -728,14 +728,14 @@ public class GameData implements Serializable {
     /**
      * ******************************************************************************************
      */
-    public boolean closeCombatAttack(Weapon weapon) {
+    public boolean closeCombatAttack(Enemies weapon) {
         return checkWeaponTypeAndCloseCombatAttack(weapon);
     }
 
-    private boolean checkWeaponTypeAndCloseCombatAttack(Weapon weapon) {
-        if (weapon instanceof Ladder) {
+    private boolean checkWeaponTypeAndCloseCombatAttack(Enemies weapon) {
+        if (weapon == Enemies.LADDER) {
             return closeCombatAttackLadder();
-        } else if (weapon instanceof Ram) {
+        } else if (weapon == Enemies.BATTERING_RAM) {
             return closeCombatAttackRam();
         } else {
             return closeCombatAttackSiegeTower();

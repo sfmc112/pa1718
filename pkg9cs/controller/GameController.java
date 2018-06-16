@@ -17,7 +17,7 @@ import pkg9cs.states.StartGame;
  *
  * @author sarah
  */
-public class GameController implements Serializable {
+public class GameController implements Serializable, GameEnums {
 
     private GameData game;
     private IState state;
@@ -103,15 +103,15 @@ public class GameController implements Serializable {
         setState(state.supplyRaid());
     }
 
-    public void archersAttack(Weapon weapon) {
+    public void archersAttack(Enemies weapon) {
         setState(state.archersAttack(weapon));
     }
 
-    public void boilingWaterAttack(Weapon weapon) {
+    public void boilingWaterAttack(Enemies weapon) {
         setState(state.boilingWaterAttack(weapon));
     }
 
-    public void closeCombatAttack(Weapon weapon) {
+    public void closeCombatAttack(Enemies weapon) {
         setState(state.closeCombatAttack(weapon));
     }
 
@@ -123,11 +123,11 @@ public class GameController implements Serializable {
         setState(state.returnToMenu());
     }
 
-    public void buyActionPoint(Element element) {
+    public void buyActionPoint(Status element) {
         setState(state.buyActionPoint(element));
     }
 
-    public void rallyTroops(Supply supply) {
+    public void rallyTroops(Status supply) {
         setState(state.rallyTroops(supply));
     }
 
@@ -138,166 +138,6 @@ public class GameController implements Serializable {
     public void askAddActionPoint() {
         setState(state.askAddActionPoint());
     }
-
-//    /**
-//     * Start Game Menu
-//     *
-//     * @return String com o menu preparado para ser apresentado ao utilizador
-//     */
-//    public String startGameMenu() {
-//        StringBuilder str = new StringBuilder();
-//        str.append("\t1- New Game\n");
-//        str.append("\t2- Load Game\n");
-//        str.append("\t3- Quit Game\n");
-//        return str.toString();
-//    }
-//
-//    /**
-//     * Draw Card Menu
-//     *
-//     * @return String com o menu preparado para ser apresentado ao utilizador
-//     */
-//    public String drawCardMenu() {
-//        StringBuilder str = new StringBuilder();
-//        str.append("\t1- Draw Card\n");
-//        str.append("\t2- Save Game\n");
-//        str.append("\t3- Load Game\n");
-//        str.append("\t4- Show Game Status\n");
-//        str.append("\t5- Quit Game\n");
-//        return str.toString();
-//    }
-//
-//    /**
-//     * Await Action Menu
-//     *
-//     * @return String com o menu preparado para ser apresentado ao utilizador
-//     */
-//    public String awaitActionMenu() {
-//
-//        StringBuilder str = new StringBuilder();
-//        str.append(game);
-//        str.append("\nAvailable actions:\n");
-//        if (canDoArchers()) {
-//            str.append("\t1- Archers\n");
-//        }
-//        if (canDoBoiling()) {
-//            str.append("\t2- Boiling\n");
-//        }
-//        if (canDoCloseCombat()) {
-//            str.append("\t3- Close Combat\n");
-//        }
-//        if (canDoCoupure()) {
-//            str.append("\t4- Coupure\n");
-//        }
-//        if (canDoRallyTroops()) {
-//            str.append("\t5- Rally Troops\n");
-//        }
-//        if (canMoveIntoTunnel() || canDoFastMovement() || canDoFreeMovement()) {
-//            str.append("\t6- Tunnel Movement\n");
-//        }
-//        if (canDoSupplyRaid()) {
-//            str.append("\t7- Supply Raid\n");
-//        }
-//        if (canDoSabotage()) {
-//            str.append("\t8- Sabotage\n");
-//        }
-//        if (canDoBuyActionPoint()) {
-//            str.append("\t9- Buy Action Point\n");
-//        }
-//        str.append("\t10- End Turn\n");
-//        str.append("\t11- Save Game\n");
-//        str.append("\t12- Load Game\n");
-//        str.append("\t13- Quit Game\n");
-//
-//        return str.toString();
-//
-//    }
-//
-//    public String archersMenu() {
-//        StringBuilder str = new StringBuilder();
-//        str.append(getGame().getEnemyB()).append("\n");
-//        str.append(getGame().isLadderOnStartingSpace() ? "" : "\t1- Ladder\n");
-//        str.append(getGame().isBatteringRamOnStartingSpace() ? "" : "\t2- Battering Ram\n");
-//        str.append(getGame().isSiegeTowerOnStartingSpace() ? "" : "\t3- Siege Tower\n");
-//        str.append("\t4- Return to menu\n");
-//        return str.toString();
-//    }
-//
-//    public String boilingAttackMenu() {
-//        StringBuilder str = new StringBuilder();
-//        str.append(getGame().getEnemyB()).append("\n");
-//        str.append(getGame().isLadderOnCircleSpace() ? "\t1- Ladder\n" : "");
-//        str.append(getGame().isBatteringRamOnCircleSpace() ? "\t2- Battering Ram\n" : "");
-//        str.append(getGame().isSiegeTowerOnCircleSpace() ? "\t3- Siege Tower\n" : "");
-//        str.append("\t4- Return to menu\n");
-//        return str.toString();
-//    }
-//
-//    public String closeCombatAttackMenu() {
-//        StringBuilder str = new StringBuilder();
-//        str.append(getGame()).append("\n");
-//        str.append(getGame().isLadderOnCloseCombatSpace() ? "\t1- Ladder\n" : "");
-//        str.append(getGame().isBatteringRamOnCloseCombatSpace() ? "\t2- Battering Ram\n" : "");
-//        str.append(getGame().isSiegeTowerOnCloseCombatSpace() ? "\t3- Siege Tower\n" : "");
-//        str.append(canDoBuyActionPoint() ? "" : "\t4- Buy action point\n");
-//        str.append("\t5- Return to menu\n");
-//        return str.toString();
-//    }
-//
-//    public String tunnelMenu() {
-//        StringBuilder str = new StringBuilder();
-//        str.append(getGame().getStatusB()).append("\n");
-//        str.append(canMoveIntoTunnel() ? "\t1- Move into Tunnel\n" : "");
-//        str.append(canDoFreeMovement() ? "\t2- Free Movement\n" : "");
-//        str.append(canDoFastMovement() ? "\t3- Fast Movement\n" : "");
-//        str.append("\t4- Return to menu\n");
-//        return str.toString();
-//    }
-//
-//    public String winMenu() {
-//        StringBuilder str = new StringBuilder();
-//        str.append(getEnemyAndStatusBoard());
-//        str.append("\nCongratulations! You have repelled the invaders!\n");
-//        str.append("\t1- Start New Game\n");
-//        str.append("\t2- Quit Game\n");
-//        return str.toString();
-//    }
-//
-//    public String lostMenu() {
-//        StringBuilder str = new StringBuilder();
-//        str.append(getEnemyAndStatusBoard());
-//        str.append("\nYou couldn't resist the invasion!\n");
-//        str.append("\t1- Start New Game\n");
-//        str.append("\t2- Quit Game\n");
-//        return str.toString();
-//    }
-//
-//    public String addActionPointMenu() {
-//        StringBuilder str = new StringBuilder();
-//        str.append(getEnemyAndStatusBoard());
-//        str.append(canDoBuyActionPoint() && getGame().checkAvailableSupplies() ? "\t1- Use one Supply\n" : "");
-//        str.append(canDoBuyActionPoint() && getGame().checkAvailableMorale() ? "\t2- Use one Morale\n" : "");
-//        str.append("\t3- End Turn\n");
-//        str.append("\t4- Return to menu\n");
-//        return str.toString();
-//    }
-//
-//    public String rallyTroopsMenu() {
-//        StringBuilder str = new StringBuilder();
-//        str.append(canDoRallyTroops() && getGame().checkAvailableSupplies() ? "\t1- Use one supply\n" : "");
-//        str.append(canDoRallyTroops() ? "\t2- Rally troops\n" : "").append("\t3- Return to menu\n");
-//        return str.toString();
-//    }
-//
-//    public String raidAndSabotageMenu() {
-//        StringBuilder str = new StringBuilder();
-//        str.append(getGame()).append("\n");
-//        str.append(canDoSupplyRaid() ? "\t1- Supply Raid\n" : "");
-//        str.append(canDoSabotage() ? "\t2- Sabotage\n" : "");
-//        str.append(canDoBuyActionPoint() ? "\t3- Buy Action Point\n" : "");
-//        str.append("\t4- End Turn\n");
-//        return str.toString();
-//    }
 
     public String statusBoard() {
         return game.getEnemyAndStatusBoard();

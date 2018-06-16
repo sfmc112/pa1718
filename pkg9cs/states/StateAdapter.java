@@ -6,15 +6,14 @@
 package pkg9cs.states;
 
 import pkg9cs.model.GameData;
-import pkg9cs.model.elements.Element;
+import pkg9cs.model.elements.GameEnums;
 import pkg9cs.model.elements.Supply;
-import pkg9cs.model.elements.Weapon;
 
 /**
  *
  * @author sarah
  */
-public class StateAdapter implements IState {
+public class StateAdapter implements IState, GameEnums {
 
     private GameData game;
 
@@ -58,17 +57,17 @@ public class StateAdapter implements IState {
     }
 
     @Override
-    public IState archersAttack(Weapon weapon) {
+    public IState archersAttack(Enemies weapon) {
         return this;
     }
 
     @Override
-    public IState closeCombatAttack(Weapon weapon) {
+    public IState closeCombatAttack(Enemies weapon) {
         return this;
     }
 
     @Override
-    public IState boilingWaterAttack(Weapon weapon) {
+    public IState boilingWaterAttack(Enemies weapon) {
         return this;
     }
 
@@ -103,7 +102,7 @@ public class StateAdapter implements IState {
     }
 
     @Override
-    public IState rallyTroops(Supply supp) {
+    public IState rallyTroops(Status supp) {
         return this;
     }
 
@@ -113,7 +112,7 @@ public class StateAdapter implements IState {
     }
 
     @Override
-    public IState buyActionPoint(Element e) {
+    public IState buyActionPoint(Status e) {
         return this;
     }
 
@@ -139,7 +138,8 @@ public class StateAdapter implements IState {
 
     @Override
     public IState endGame() {
-        return this;
+        //return this;
+        return new StartGame(new GameData());
     }
 
     @Override

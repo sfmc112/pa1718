@@ -19,7 +19,7 @@ public class AwaitEnemySelectionBoilingWaterAttack extends StateAdapter {
     }
 
     @Override
-    public IState boilingWaterAttack(Weapon weapon) {
+    public IState boilingWaterAttack(Enemies weapon) {
         if (getGame().boilingWaterAttack(weapon)) {
             getGame().subtractActionPoint();
             

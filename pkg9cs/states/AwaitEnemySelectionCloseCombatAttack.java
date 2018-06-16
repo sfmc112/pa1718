@@ -27,7 +27,7 @@ public class AwaitEnemySelectionCloseCombatAttack extends StateAdapter {
     }
 
     @Override
-    public IState closeCombatAttack(Weapon weapon) {
+    public IState closeCombatAttack(Enemies weapon) {
 
         if (!getGame().closeCombatAttack(weapon)) { //Em caso de escolher uma opção errada, permanece no mesmo estado
             return this;

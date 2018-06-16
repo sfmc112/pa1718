@@ -29,7 +29,7 @@ public class AwaitAddSupplyRallyTroops extends StateAdapter {
     }
 
     @Override
-    public IState rallyTroops(Supply supp) {
+    public IState rallyTroops(Status supp) {
         if (getGame().canDoRallyTroops() && getGame().checkAvailableSupplies()) {
             getGame().removeOneSupplyForRallyTroops();
             getGame().rallyTroops(1);

@@ -19,7 +19,7 @@ public class AwaitEnemySelectionArchersAttack extends StateAdapter {
     }
 
     @Override
-    public IState archersAttack(Weapon weapon) {
+    public IState archersAttack(Enemies weapon) {
         if (getGame().archersAttack(weapon)) {
             getGame().subtractActionPoint();
             return new AwaitAction(getGame());

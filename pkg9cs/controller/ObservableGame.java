@@ -14,6 +14,7 @@ import pkg9cs.model.EnemyBoard;
 import pkg9cs.model.GameData;
 import pkg9cs.model.StatusBoard;
 import pkg9cs.model.elements.Element;
+import pkg9cs.model.elements.GameEnums;
 import pkg9cs.model.elements.Supply;
 import pkg9cs.model.elements.Weapon;
 import pkg9cs.states.IState;
@@ -22,7 +23,7 @@ import pkg9cs.states.IState;
  *
  * @author sarah
  */
-public class ObservableGame extends Observable{
+public class ObservableGame extends Observable implements GameEnums{
     private GameController gameC;
 
     public ObservableGame(GameController gameC) {
@@ -61,10 +62,16 @@ public class ObservableGame extends Observable{
 
     public void newGame() {
         gameC.newGame();
+        
+        setChanged();
+        notifyObservers();
     }
 
     public void endGame() {
         gameC.endGame();
+        
+        setChanged();
+        notifyObservers();
     }
 
     public void drawCard() {
@@ -136,21 +143,21 @@ public class ObservableGame extends Observable{
         notifyObservers();
     }
 
-    public void archersAttack(Weapon weapon) {
+    public void archersAttack(Enemies weapon) {
         gameC.archersAttack(weapon);
         
         setChanged();
         notifyObservers();
     }
 
-    public void boilingWaterAttack(Weapon weapon) {
+    public void boilingWaterAttack(Enemies weapon) {
         gameC.boilingWaterAttack(weapon);
         
         setChanged();
         notifyObservers();
     }
 
-    public void closeCombatAttack(Weapon weapon) {
+    public void closeCombatAttack(Enemies weapon) {
         gameC.closeCombatAttack(weapon);
         
         setChanged();
@@ -171,14 +178,14 @@ public class ObservableGame extends Observable{
         notifyObservers();
     }
 
-    public void buyActionPoint(Element element) {
+    public void buyActionPoint(Status element) {
         gameC.buyActionPoint(element);
         
         setChanged();
         notifyObservers();
     }
 
-    public void rallyTroops(Supply supply) {
+    public void rallyTroops(Status supply) {
         gameC.rallyTroops(supply);
         
         setChanged();

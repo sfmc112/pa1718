@@ -6,7 +6,6 @@
 package pkg9cs.states;
 
 import pkg9cs.model.GameData;
-import pkg9cs.model.elements.Element;
 
 /**
  *
@@ -36,7 +35,7 @@ public class AwaitAddActionPoint extends StateAdapter{
     }
 
     @Override
-    public IState buyActionPoint(Element e) {
+    public IState buyActionPoint(Status e) {
         if(!getGame().addActionPoint(e)){
             return this;
         }
