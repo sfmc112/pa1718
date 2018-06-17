@@ -187,6 +187,10 @@ public class GameController implements Serializable, GameEnums {
         return game.canDoBuyActionPoint();
     }
 
+    public boolean checkAP() {
+        return game.checkAP();
+    }
+
     public EnemyBoard getEnemyB() {
         return game.getEnemyB();
     }
@@ -243,6 +247,16 @@ public class GameController implements Serializable, GameEnums {
     public String getEnemyAndStatusBoard() {
         return game.getEnemyAndStatusBoard();
     }
+
+    public int getActiveCardNumber() {
+        return game.getActiveCardNumber();
+    }
+
+    public int getTurnNumber() {
+        return game.getTurnNumber();
+    }
+    
+    
 
     public String printMSG() {
         return game.printMSG();

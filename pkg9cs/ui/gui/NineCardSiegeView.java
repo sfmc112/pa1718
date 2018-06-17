@@ -5,14 +5,10 @@
  */
 package pkg9cs.ui.gui;
 
-import java.awt.AlphaComposite;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,7 +26,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -122,7 +117,7 @@ public class NineCardSiegeView extends JFrame implements Observer, Constants {
 
         JPanel mainPanel = new JPanel();
 
-        DimensionClass.setMinAndMaxPanelSize(mainPanel, BG_IMG_X_DIM, BG_IMG_Y_DIM);
+        DimensionClass.setMinAndPreferredSize(mainPanel, BG_IMG_X_DIM, BG_IMG_Y_DIM);
 
         mainPanel.add(pAwaitBeginning);
         mainPanel.add(pOngoingGame);
@@ -261,7 +256,6 @@ public class NineCardSiegeView extends JFrame implements Observer, Constants {
                 case "Exit": {
                     n = JOptionPane.showConfirmDialog(NineCardSiegeView.this, "Exit?", "Warning", JOptionPane.YES_NO_OPTION);
                     if (n == 0) {
-                        //observableGame.endGame();
                         System.exit(0);
                     }
                 }

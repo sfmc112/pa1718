@@ -259,6 +259,11 @@ public class ObservableGame extends Observable implements GameEnums{
         return gameC.checkAvailableMorale();
     }
 
+    public boolean checkAP() {
+        return gameC.checkAP();
+    }
+    
+
     public boolean isLadderOnStartingSpace() {
         return gameC.isLadderOnStartingSpace();
     }
@@ -303,6 +308,16 @@ public class ObservableGame extends Observable implements GameEnums{
     public StatusBoard getStatusB() {
         return gameC.getStatusB();
     }
+
+    public int getActiveCardNumber() {
+        return gameC.getActiveCardNumber();
+    }
+
+    public int getTurnNumber() {
+        return gameC.getTurnNumber();
+    }
+    
+    
 
     public String printMSG() {
         return gameC.printMSG();

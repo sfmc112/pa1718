@@ -142,10 +142,20 @@ public class GameData implements Serializable, GameEnums {
     public int getDayNumber() {
         return dayNumber;
     }
+    
+    public int getTurnNumber(){
+        return 7 - deck.getCardPileSize() + 1;
+    }
 
     public boolean suppliesFull() {
         return statusB.getSupplyCount() >= 2;
     }
+
+    public int getActiveCardNumber() {
+        return deck.getActiveCardNumber();
+    }
+    
+    
 
     /**
      * ******************************************************************************************
@@ -211,6 +221,8 @@ public class GameData implements Serializable, GameEnums {
     public Card getCardFromDeck(int index) {
         return deck.getCard(index);
     }
+    
+    
 
     /**
      * Manda executar as acções da carta que está primeiro no deck

@@ -5,9 +5,7 @@
  */
 package pkg9cs.ui.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Graphics;
-import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Observable;
@@ -15,49 +13,51 @@ import java.util.Observer;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import pkg9cs.controller.ObservableGame;
-import pkg9cs.states.StartGame;
 
 /**
  *
  * @author sarah
  */
-public class AwaitBeginningPanel extends JPanel implements Observer, Constants {
-
+class StatusBoardPanel extends JPanel implements Constants, Observer{
+    
     private ObservableGame observableGame;
-
-    static protected BufferedImage background9CS = null;
+    
+    private static BufferedImage imageStatusBoard = null;
 
     public static BufferedImage getBackgroundImage() {
-        return background9CS;
+        return imageStatusBoard;
     }
 
     static {
         try {
-            background9CS = ImageIO.read(Resources.getResourceFile("images/9cs_logo.png"));
+            imageStatusBoard = ImageIO.read(Resources.getResourceFile("images/statusboard.png"));
         } catch (IOException e) {
             //System.out.println("Error loading image");
         }
     }
 
-    public AwaitBeginningPanel(ObservableGame observableGame) {
+    public StatusBoardPanel(ObservableGame observableGame) {
         this.observableGame = observableGame;
         this.observableGame.addObserver(this);
-
-        setLocation(X_START_MAIN_PANEL, Y_START_MAIN_PANEL);
-        DimensionClass.setMinAndPreferredSize(this, BG_IMG_X_DIM, BG_IMG_Y_DIM);
-
-        update(observableGame, null);
+        //TODO
+        
+        setLocation(0, 0);        
+        DimensionClass.setAllSizes(this, DIM_X_BOARD_PANEL, DIM_Y_BOARD_PANEL);
     }
+    
+    
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(background9CS, 0, 0, this);
+        
+        g.drawImage(imageStatusBoard, 0, 0, getWidth(), getHeight(), this);
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        setVisible(observableGame.getState() instanceof StartGame);
+        //TODO
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
 }

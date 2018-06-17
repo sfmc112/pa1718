@@ -23,7 +23,7 @@ public abstract class DimensionClass implements Constants{
         component.setPreferredSize(d);
     }
     
-    public static void setMinAndMaxPanelSize(JPanel component, int width, int height) {
+    public static void setMinAndPreferredSize(Component component, int width, int height) {
         Dimension d = new Dimension(width,height);
         
         component.setMinimumSize(d);

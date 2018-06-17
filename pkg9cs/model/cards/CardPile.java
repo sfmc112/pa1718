@@ -39,6 +39,10 @@ public class CardPile implements Serializable {
         return cards.get(index);
     }
     
+    public int getActiveCardNumber(){
+        return cards.get(0).cardNumber;
+    }
+    
     /**
      * Transfere uma carta para outro baralho (deck -> discarded e vice-versa)
      * @param index índice da carta no ArrayList
