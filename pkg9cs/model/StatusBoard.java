@@ -64,6 +64,10 @@ public class StatusBoard implements Serializable {
     public int getSupplyPos() {
         return supplies.whereIsElement();
     }
+    
+    public int getSoldiersPos(){
+        return soldierLine.whereIsElement();
+    }
 
     public void advanceWall() {
         wall.advanceElement();
@@ -91,6 +95,7 @@ public class StatusBoard implements Serializable {
 
     public void captureSoldiers() {
         supplyCount = 0;
+        soldiersHaveBeenOnEnemyLines = false;
         soldierLine.captureSoldiers();
     }
 

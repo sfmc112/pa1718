@@ -36,6 +36,8 @@ public class GameData implements Serializable, GameEnums {
 
     private CardPile deck;
     private CardPile discarded;
+    
+    private int die;
 
     private StringBuilder msg;
 
@@ -46,6 +48,8 @@ public class GameData implements Serializable, GameEnums {
         dayNumber = 1;
         numberOfActions = 0;
         dayEvent = null;
+        
+        die = -1;
 
         usedExtraAP = false;
         usedBoiling = false;
@@ -154,7 +158,14 @@ public class GameData implements Serializable, GameEnums {
     public int getActiveCardNumber() {
         return deck.getActiveCardNumber();
     }
-    
+
+    public int getDie() {
+        return die;
+    }
+
+    public void setDie(int die) {
+        this.die = die;
+    }
     
 
     /**
@@ -203,6 +214,7 @@ public class GameData implements Serializable, GameEnums {
         usedBoiling = false;
         canUseFreeMovement = true;
         numberOfActions = 0;
+        die = -1;
         dayEvent = null;
     }
 
@@ -405,6 +417,26 @@ public class GameData implements Serializable, GameEnums {
     public int getTrebuchetCount() {
         return enemyB.getTrebuchetCount();
     }
+
+    public int getSupplyCount() {
+        return statusB.getSupplyCount();
+    }
+
+    public int getWallPos() {
+        return statusB.getWallPos();
+    }
+
+    public int getMoralePos() {
+        return statusB.getMoralePos();
+    }
+
+    public int getSupplyPos() {
+        return statusB.getSupplyPos();
+    }
+
+    public int getSoldiersPos() {
+        return statusB.getSoldiersPos();
+    }
     
     
 
@@ -524,6 +556,7 @@ public class GameData implements Serializable, GameEnums {
         int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM() + getLadderDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
         //System.out.println("Dado: " + dieResult);
+        die = dieResult;
         msg.append("Die: ").append(dieResult).append("\n");
 
         if (dieResult > CloseCombat.CLOSECOMBATSTRENGTH) {
@@ -536,6 +569,7 @@ public class GameData implements Serializable, GameEnums {
     private boolean archersAttackLadderOnCircleSpace() {
         int dieResult = GameData.Die.rollDie() + getCircleSpaceDRM() + getLadderDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
+        die = dieResult;
         //System.out.println("Dado: " + dieResult);
         msg.append("Die: ").append(dieResult).append("\n");
 
@@ -549,6 +583,7 @@ public class GameData implements Serializable, GameEnums {
     private boolean archersAttackLadderOnSquareSpace() {
         int dieResult = GameData.Die.rollDie() + getLadderDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
+        die = dieResult;
         //System.out.println("Dado: " + dieResult);
         msg.append("Die: ").append(dieResult).append("\n");
 
@@ -576,6 +611,7 @@ public class GameData implements Serializable, GameEnums {
     private boolean archersAttackRamOnCloseCombat() {
         int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM() + getBatteringRamDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
+        die = dieResult;
         //System.out.println("Dado: " + dieResult);
         msg.append("Die: ").append(dieResult).append("\n");
 
@@ -589,6 +625,7 @@ public class GameData implements Serializable, GameEnums {
     private boolean archersAttackRamOnCircleSpace() {
         int dieResult = GameData.Die.rollDie() + getCircleSpaceDRM() + getBatteringRamDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
+        die = dieResult;
         //System.out.println("Dado: " + dieResult);
         msg.append("Die: ").append(dieResult).append("\n");
 
@@ -602,6 +639,7 @@ public class GameData implements Serializable, GameEnums {
     private boolean archersAttackRamOnSquareSpace() {
         int dieResult = GameData.Die.rollDie() + getBatteringRamDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
+        die = dieResult;
         //System.out.println("Dado: " + dieResult);
         msg.append("Die: ").append(dieResult).append("\n");
 
@@ -629,6 +667,7 @@ public class GameData implements Serializable, GameEnums {
     private boolean archersAttackTowerOnCloseCombat() {
         int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM() + getSiegeTowerDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
+        die = dieResult;
         //System.out.println("Dado: " + dieResult);
         msg.append("Die: ").append(dieResult).append("\n");
 
@@ -642,6 +681,7 @@ public class GameData implements Serializable, GameEnums {
     private boolean archersAttackTowerOnCircleSpace() {
         int dieResult = GameData.Die.rollDie() + getCircleSpaceDRM() + getSiegeTowerDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
+        die = dieResult;
         //System.out.println("Dado: " + dieResult);
         msg.append("Die: ").append(dieResult).append("\n");
 
@@ -655,6 +695,7 @@ public class GameData implements Serializable, GameEnums {
     private boolean archersAttackTowerOnSquareSpace() {
         int dieResult = GameData.Die.rollDie() + getSiegeTowerDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
+        die = dieResult;
         //System.out.println("Dado: " + dieResult);
         msg.append("Die: ").append(dieResult).append("\n");
 
@@ -692,6 +733,7 @@ public class GameData implements Serializable, GameEnums {
         }
         int dieResult = GameData.Die.rollDie() + getCircleSpaceDRM() + getLadderDRM() + 1;
         dieResult = GameData.Die.adjustDieResult(dieResult);
+        die = dieResult;
         //System.out.println("Dado: " + dieResult);
         msg.append("Die: ").append(dieResult).append("\n");
 
@@ -713,6 +755,7 @@ public class GameData implements Serializable, GameEnums {
 
         int dieResult = GameData.Die.rollDie() + getCircleSpaceDRM() + getBatteringRamDRM() + 1;
         dieResult = GameData.Die.adjustDieResult(dieResult);
+        die = dieResult;
         //System.out.println("Dado: " + dieResult);
         msg.append("Die: ").append(dieResult).append("\n");
 
@@ -734,6 +777,7 @@ public class GameData implements Serializable, GameEnums {
 
         int dieResult = GameData.Die.rollDie() + getCircleSpaceDRM() + getSiegeTowerDRM() + 1;
         dieResult = GameData.Die.adjustDieResult(dieResult);
+        die = dieResult;
         //System.out.println("Dado: " + dieResult);
         msg.append("Die: ").append(dieResult).append("\n");
 
@@ -777,6 +821,7 @@ public class GameData implements Serializable, GameEnums {
 
         int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
+        die = dieResult;
         //System.out.println("Dado: " + dieResult);
         msg.append("Die: ").append(dieResult).append("\n");
 
@@ -797,6 +842,7 @@ public class GameData implements Serializable, GameEnums {
 
         int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
+        die = dieResult;
         //System.out.println("Dado: " + dieResult);
         msg.append("Die: ").append(dieResult).append("\n");
 
@@ -817,6 +863,7 @@ public class GameData implements Serializable, GameEnums {
 
         int dieResult = GameData.Die.rollDie() + getCloseCombatSpaceDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
+        die = dieResult;
         //System.out.println("Dado: " + dieResult);
         msg.append("Die: ").append(dieResult).append("\n");
 
@@ -840,6 +887,7 @@ public class GameData implements Serializable, GameEnums {
     public void coupure() {
         int dieResult = GameData.Die.rollDie() + getCoupureDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
+        die = dieResult;
         //System.out.println("Dado: " + dieResult);
         msg.append("Die: ").append(dieResult).append("\n");
 
@@ -859,6 +907,7 @@ public class GameData implements Serializable, GameEnums {
     public void sabotage() {
         int dieResult = GameData.Die.rollDie() + getSabotageDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
+        die = dieResult;
         //System.out.println("Dado: " + dieResult);
         msg.append("Die: ").append(dieResult).append("\n");
 
@@ -882,6 +931,7 @@ public class GameData implements Serializable, GameEnums {
 
         int dieResult = GameData.Die.rollDie() + getSupplyRaidDRM();
         dieResult = GameData.Die.adjustDieResult(dieResult);
+        die = dieResult;
         msg.append("Die: ").append(dieResult).append("\n");
         switch (dieResult) {
             case 1:
@@ -913,6 +963,7 @@ public class GameData implements Serializable, GameEnums {
     public void rallyTroops(int extraDRM) {
         int dieResult = GameData.Die.rollDie() + getMoraleDRM() + extraDRM;
         dieResult = GameData.Die.adjustDieResult(dieResult);
+        die = dieResult;
         msg.append("Die: ").append(dieResult).append("\n");
 
         switch (dieResult) {
@@ -1087,6 +1138,7 @@ public class GameData implements Serializable, GameEnums {
             } else if (dieResult > DIE[DIE.length - 1]) {
                 return DIE[DIE.length - 1];
             }
+            
             return dieResult;
         }
     }

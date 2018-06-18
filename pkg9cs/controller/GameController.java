@@ -279,6 +279,30 @@ public class GameController implements Serializable, GameEnums {
     public int getTrebuchetCount() {
         return game.getTrebuchetCount();
     }
+
+    public int getSupplyCount() {
+        return game.getSupplyCount();
+    }
+
+    public int getWallPos() {
+        return game.getWallPos();
+    }
+
+    public int getMoralePos() {
+        return game.getMoralePos();
+    }
+
+    public int getSupplyPos() {
+        return game.getSupplyPos();
+    }
+
+    public int getSoldiersPos() {
+        return game.getSoldiersPos();
+    }
+
+    public int getDie() {
+        return game.getDie();
+    }
     
     
 

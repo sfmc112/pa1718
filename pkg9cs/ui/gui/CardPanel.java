@@ -62,15 +62,15 @@ class CardPanel extends JPanel implements Constants {
     public CardPanel(ObservableGame observableGame) {
         this.observableGame = observableGame;
 
-        addMouseMotionListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                super.mousePressed(e);
-                if (observableGame.getState() instanceof AwaitDrawCard) {
-                    observableGame.drawCard();
-                }
-            }
-        });
+//        addMouseMotionListener(new MouseAdapter() {
+//            @Override
+//            public void mousePressed(MouseEvent e) {
+//                super.mousePressed(e);
+//                if (observableGame.getState() instanceof AwaitDrawCard) {
+//                    observableGame.drawCard();
+//                }
+//            }
+//        });
 
         setLocation(0, 0);
         DimensionClass.setAllSizes(this, DIM_X_CARD_PANEL, DIM_Y_CARD_PANEL);

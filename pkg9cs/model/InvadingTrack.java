@@ -43,5 +43,4 @@ public class InvadingTrack extends Track{
     public boolean onTunnelSpace(){
         return getBoardspaceType() instanceof Tunnel;
     }
-    
 }

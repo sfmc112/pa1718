@@ -355,7 +355,30 @@ public class ObservableGame extends Observable implements GameEnums{
     public int getTrebuchetCount() {
         return gameC.getTrebuchetCount();
     }
-    
+
+    public int getSupplyCount() {
+        return gameC.getSupplyCount();
+    }
+
+    public int getWallPos() {
+        return gameC.getWallPos();
+    }
+
+    public int getMoralePos() {
+        return gameC.getMoralePos();
+    }
+
+    public int getSupplyPos() {
+        return gameC.getSupplyPos();
+    }
+
+    public int getSoldiersPos() {
+        return gameC.getSoldiersPos();
+    }
+
+    public int getDie() {
+        return gameC.getDie();
+    }
     
 
     public String printMSG() {

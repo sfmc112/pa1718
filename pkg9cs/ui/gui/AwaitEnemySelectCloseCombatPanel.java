@@ -48,9 +48,9 @@ public class AwaitEnemySelectCloseCombatPanel extends JPanel implements Observer
     public void update(Observable o, Object arg) {
         setVisible(observableGame.getState() instanceof AwaitEnemySelectionCloseCombatAttack);
         
-        bCCLadder.setEnabled(observableGame.isLadderOnCircleSpace());
-        bCCRam.setEnabled(observableGame.isBatteringRamOnCircleSpace());
-        bCCSiege.setEnabled(observableGame.isSiegeTowerOnCircleSpace());
+        bCCLadder.setEnabled(observableGame.isLadderOnCloseCombatSpace());
+        bCCRam.setEnabled(observableGame.isBatteringRamOnCloseCombatSpace());
+        bCCSiege.setEnabled(observableGame.isSiegeTowerOnCloseCombatSpace());
         bBuyAP.setEnabled(observableGame.canDoBuyActionPoint());
         bReturn.setEnabled(!observableGame.twoEnemiesOnCloseCombat());
         

@@ -54,7 +54,7 @@ class EnemyBoardPanel extends JPanel implements Constants {
 
         //Draw Posições da Ladder, Ram, Siege e Trebuchets
         if (observableGame.getLadderPos() == 0) {
-            g.drawImage(token, getWidth() / 4, getHeight() / 12, 25, 25, this);
+            g.drawImage(token, 150, getHeight() / 12, 25, 25, this);
         } else {
             g.drawImage(token, getWidth() / 8, observableGame.getLadderPos() * getHeight() / 6 + getWidth() / 10, 25, 25, this);
         }
@@ -66,7 +66,7 @@ class EnemyBoardPanel extends JPanel implements Constants {
         }
 
         if (observableGame.getTowerPos() == 0) {
-            g.drawImage(token, 6 * getWidth() / 8, getHeight() / 12, 25, 25, this);
+            g.drawImage(token, 210, getHeight() / 12, 25, 25, this);
         } else {
             g.drawImage(token, 6 * getWidth() / 8, observableGame.getTowerPos() * getHeight() / 6 + getWidth() / 10, 25, 25, this);
         }

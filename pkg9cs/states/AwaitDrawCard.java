@@ -20,9 +20,13 @@ public class AwaitDrawCard extends StateAdapter {
 
     @Override
     public IState executeCard() {
+        int dieResult;
 
         if (getGame().checkSoldiersOnEnemyLine()) {
-            if (GameData.Die.rollDie() == 1) {
+            dieResult = GameData.Die.rollDie();
+            getGame().setDie(dieResult);
+            
+            if (dieResult == 1) {
                 getGame().captureSoldiers();
             }
         }

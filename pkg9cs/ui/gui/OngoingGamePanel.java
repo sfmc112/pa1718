@@ -58,12 +58,12 @@ public class OngoingGamePanel extends JPanel implements Observer, Constants {
     @Override
     public void update(Observable o, Object arg) {
         setVisible(!(observableGame.getState() instanceof StartGame)
-                && !(observableGame.getState() instanceof GameWon)
-                && !(observableGame.getState() instanceof GameLost));
+                /*&& !(observableGame.getState() instanceof GameWon)
+                && !(observableGame.getState() instanceof GameLost)*/);
 
-        setFocusable(!(observableGame.getState() instanceof StartGame)
-                && !(observableGame.getState() instanceof GameWon)
-                && !(observableGame.getState() instanceof GameLost));
+//        setFocusable(!(observableGame.getState() instanceof StartGame)
+//                && !(observableGame.getState() instanceof GameWon)
+//                && !(observableGame.getState() instanceof GameLost));
 
         lTurn.setText("Turno " + observableGame.getTurnNumber());
 

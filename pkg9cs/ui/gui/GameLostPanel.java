@@ -15,21 +15,21 @@ import pkg9cs.states.GameLost;
  *
  * @author sarah
  */
-public class GameLostPanel extends JPanel implements Observer, Constants {
-
-    private ObservableGame observableGame;
-    
-    public GameLostPanel(ObservableGame observableGame){
-        this.observableGame = observableGame;
-        this.observableGame.addObserver(this);
-        
-        setLocation(X_START_MAIN_PANEL, Y_START_MAIN_PANEL);
-        DimensionClass.setAllSizes(this, DIM_X_MAIN_PANEL, DIM_X_MAIN_PANEL);
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        setVisible(observableGame.getState() instanceof GameLost);
-    }
-
-}
+//public class GameLostPanel extends JPanel implements Observer, Constants {
+//
+//    private ObservableGame observableGame;
+//    
+//    public GameLostPanel(ObservableGame observableGame){
+//        this.observableGame = observableGame;
+//        this.observableGame.addObserver(this);
+//        
+//        setLocation(X_START_MAIN_PANEL, Y_START_MAIN_PANEL);
+//        DimensionClass.setAllSizes(this, DIM_X_MAIN_PANEL, DIM_X_MAIN_PANEL);
+//    }
+//
+//    @Override
+//    public void update(Observable o, Object arg) {
+//        setVisible(observableGame.getState() instanceof GameLost);
+//    }
+//
+//}
