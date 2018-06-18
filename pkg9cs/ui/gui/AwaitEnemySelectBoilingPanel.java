@@ -18,10 +18,25 @@ import pkg9cs.states.AwaitEnemySelectionBoilingWaterAttack;
 public class AwaitEnemySelectBoilingPanel extends JPanel implements Observer, Constants{
     
     private ObservableGame observableGame;
+    
+    private GameButton bBWLadder;
+    private GameButton bBWRam;
+    private GameButton bBWSiege;
+    private GameButton bReturn;
 
     public AwaitEnemySelectBoilingPanel(ObservableGame observableGame) {
         this.observableGame = observableGame;
         observableGame.addObserver(this);
+        
+        bBWLadder = new GameButton("Attack Ladder", "BW Ladder", observableGame);
+        bBWRam = new GameButton("Attack Ram", "BW Ram", observableGame);
+        bBWSiege = new GameButton("Attack Siege", "BW Siege", observableGame);
+        bReturn = new GameButton("Go Back", "Return", observableGame);
+        
+        add(bBWLadder);
+        add(bBWRam);
+        add(bBWSiege);
+        add(bReturn);
         
         DimensionClass.setMinAndPreferredSize(this, DIM_X_OPTION_PANEL, DIM_Y_OPTION_PANEL);
     }
@@ -29,6 +44,10 @@ public class AwaitEnemySelectBoilingPanel extends JPanel implements Observer, Co
     @Override
     public void update(Observable o, Object arg) {
         setVisible(observableGame.getState() instanceof AwaitEnemySelectionBoilingWaterAttack);
+        
+        bBWLadder.setEnabled(observableGame.isLadderOnCircleSpace());
+        bBWRam.setEnabled(observableGame.isBatteringRamOnCircleSpace());
+        bBWSiege.setEnabled(observableGame.isSiegeTowerOnCircleSpace());
     }
     
 }

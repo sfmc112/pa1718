@@ -5,13 +5,9 @@
  */
 package pkg9cs.ui.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.Box;
@@ -133,7 +129,7 @@ public class OngoingGamePanel extends JPanel implements Observer, Constants {
 //        DimensionClass.setMinAndPreferredSize(mainSouth, DIM_X_OPTION_PANEL, DIM_Y_OPTION_PANEL);
 //
 //        mainSouth.add(pOptions);
-        bottomBox.setBorder(new LineBorder(Color.DARK_GRAY));
+        //bottomBox.setBorder(new LineBorder(Color.DARK_GRAY));
 
         DimensionClass.setAllSizes(mainCenterBox, DIM_X_MAIN_PANEL, DIM_Y_BOARD_PANEL);
         //DimensionClass.setAllSizes(bottomBox, DIM_X_MAIN_PANEL, DIM_Y_OPTION_PANEL);

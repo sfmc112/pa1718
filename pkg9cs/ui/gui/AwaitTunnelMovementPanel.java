@@ -15,20 +15,39 @@ import pkg9cs.states.AwaitTunnelMovementSelection;
  *
  * @author sarah
  */
-public class AwaitTunnelMovementPanel extends JPanel implements Observer, Constants{
-    
+public class AwaitTunnelMovementPanel extends JPanel implements Observer, Constants {
+
     private ObservableGame observableGame;
+
+    private GameButton bMoveInTunnel;
+    private GameButton bFreeMove;
+    private GameButton bFastMove;
+    private GameButton bReturn;
 
     public AwaitTunnelMovementPanel(ObservableGame observableGame) {
         this.observableGame = observableGame;
         observableGame.addObserver(this);
-        
+
+        bMoveInTunnel = new GameButton("Move In Tunnel", "Move In", observableGame);
+        bFreeMove = new GameButton("Free Movement", "Free Move", observableGame);
+        bFastMove = new GameButton("Fast Movement", "Fast Move", observableGame);
+        bReturn = new GameButton("Go Back", "Return", observableGame);
+
+        add(bMoveInTunnel);
+        add(bFreeMove);
+        add(bFastMove);
+        add(bReturn);
+
         DimensionClass.setMinAndPreferredSize(this, DIM_X_OPTION_PANEL, DIM_Y_OPTION_PANEL);
     }
 
     @Override
     public void update(Observable o, Object arg) {
         setVisible(observableGame.getState() instanceof AwaitTunnelMovementSelection);
+
+        bMoveInTunnel.setEnabled(observableGame.canMoveIntoTunnel());
+        bFreeMove.setEnabled(observableGame.canDoFreeMovement());
+        bFastMove.setEnabled(observableGame.canDoFastMovement());
     }
-    
+
 }

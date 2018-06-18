@@ -255,6 +255,30 @@ public class GameController implements Serializable, GameEnums {
     public int getTurnNumber() {
         return game.getTurnNumber();
     }
+
+    public boolean twoEnemiesOnCloseCombat() {
+        return game.twoEnemiesOnCloseCombat();
+    }
+
+    public int getDayNumber() {
+        return game.getDayNumber();
+    }
+
+    public int getLadderPos() {
+        return game.getLadderPos();
+    }
+
+    public int getRamPos() {
+        return game.getRamPos();
+    }
+
+    public int getTowerPos() {
+        return game.getTowerPos();
+    }
+
+    public int getTrebuchetCount() {
+        return game.getTrebuchetCount();
+    }
     
     
 

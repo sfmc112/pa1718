@@ -13,10 +13,7 @@ import pkg9cs.files.FileUtility;
 import pkg9cs.model.EnemyBoard;
 import pkg9cs.model.GameData;
 import pkg9cs.model.StatusBoard;
-import pkg9cs.model.elements.Element;
 import pkg9cs.model.elements.GameEnums;
-import pkg9cs.model.elements.Supply;
-import pkg9cs.model.elements.Weapon;
 import pkg9cs.states.IState;
 
 /**
@@ -83,14 +80,23 @@ public class ObservableGame extends Observable implements GameEnums{
 
     public void checkEnemiesArchers() {
         gameC.checkEnemiesArchers();
+        
+        setChanged();
+        notifyObservers();
     }
 
     public void checkEnemiesBoilingWater() {
         gameC.checkEnemiesBoilingWater();
+        
+        setChanged();
+        notifyObservers();
     }
 
     public void checkEnemiesCloseCombat() {
         gameC.checkEnemiesCloseCombat();
+        
+        setChanged();
+        notifyObservers();
     }
 
     public void endTurn() {
@@ -109,10 +115,16 @@ public class ObservableGame extends Observable implements GameEnums{
 
     public void askUseOfSupply() {
         gameC.askUseOfSupply();
+        
+        setChanged();
+        notifyObservers();
     }
 
     public void selectTunnelMov() {
         gameC.selectTunnelMov();
+        
+        setChanged();
+        notifyObservers();
     }
 
     public void moveInTunnel() {
@@ -201,6 +213,9 @@ public class ObservableGame extends Observable implements GameEnums{
 
     public void askAddActionPoint() {
         gameC.askAddActionPoint();
+        
+        setChanged();
+        notifyObservers();
     }
     
     public boolean canDoArchers() {
@@ -315,6 +330,30 @@ public class ObservableGame extends Observable implements GameEnums{
 
     public int getTurnNumber() {
         return gameC.getTurnNumber();
+    }
+
+    public boolean twoEnemiesOnCloseCombat() {
+        return gameC.twoEnemiesOnCloseCombat();
+    }
+
+    public int getDayNumber() {
+        return gameC.getDayNumber();
+    }
+
+    public int getLadderPos() {
+        return gameC.getLadderPos();
+    }
+
+    public int getRamPos() {
+        return gameC.getRamPos();
+    }
+
+    public int getTowerPos() {
+        return gameC.getTowerPos();
+    }
+
+    public int getTrebuchetCount() {
+        return gameC.getTrebuchetCount();
     }
     
     

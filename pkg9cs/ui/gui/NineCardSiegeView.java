@@ -237,6 +237,9 @@ public class NineCardSiegeView extends JFrame implements Observer, Constants {
                     }
 
                     boolean loaded = observableGame.loadGame(filename);
+                    
+                    if(loaded)
+                        JOptionPane.showMessageDialog(NineCardSiegeView.this, "Game was loaded sucessfully", "Load Game", JOptionPane.OK_OPTION, UIManager.getIcon("OptionPane.informationIcon"));
                 }
                 break;
                 case "Save": {
@@ -247,6 +250,9 @@ public class NineCardSiegeView extends JFrame implements Observer, Constants {
                     }
 
                     boolean saved = observableGame.saveGame(filename);
+                    
+                    if(saved)
+                        JOptionPane.showMessageDialog(NineCardSiegeView.this, "Game was saved sucessfully", "Save Game", JOptionPane.OK_OPTION, UIManager.getIcon("OptionPane.informationIcon"));
                 }
                 break;
                 case "About": {

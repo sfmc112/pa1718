@@ -389,6 +389,22 @@ public class GameData implements Serializable, GameEnums {
     public boolean isSiegeTowerOnCircleSpace() {
         return enemyB.isSiegeTowerOnCircleSpace();
     }
+
+    public int getLadderPos() {
+        return enemyB.getLadderPos();
+    }
+
+    public int getRamPos() {
+        return enemyB.getRamPos();
+    }
+
+    public int getTowerPos() {
+        return enemyB.getTowerPos();
+    }
+
+    public int getTrebuchetCount() {
+        return enemyB.getTrebuchetCount();
+    }
     
     
 

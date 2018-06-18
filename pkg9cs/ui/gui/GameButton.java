@@ -32,6 +32,7 @@ public class GameButton extends JButton implements GameEnums {
         @Override
         public void actionPerformed(ActionEvent e) {
             String cmd = e.getActionCommand();
+            System.out.println(cmd);
 
             switch (cmd) {
                 case "Archers":

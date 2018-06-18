@@ -18,10 +18,25 @@ import pkg9cs.states.RaidAndSabotageActionsOnly;
 public class AwaitRaidAndSabotagePanel extends JPanel implements Observer, Constants {
 
     private ObservableGame observableGame;
+    
+    private GameButton bSupplyRaid;
+    private GameButton bSabotage;
+    private GameButton bBuyAP;
+    private GameButton bEndTurn;
 
     public AwaitRaidAndSabotagePanel(ObservableGame observableGame) {
         this.observableGame = observableGame;
         observableGame.addObserver(this);
+        
+        bSupplyRaid = new GameButton("Supply Raid", "Supply Raid", observableGame);
+        bSabotage = new GameButton("Sabotage", "Sabotage", observableGame);
+        bBuyAP = new GameButton("Buy Action Point", "Buy AP", observableGame);
+        bEndTurn = new GameButton("End Turn", "End Turn", observableGame);
+        
+        add(bSupplyRaid);
+        add(bSabotage);
+        add(bBuyAP);
+        add(bEndTurn);
         
         DimensionClass.setMinAndPreferredSize(this, DIM_X_OPTION_PANEL, DIM_Y_OPTION_PANEL);
     }
@@ -29,5 +44,9 @@ public class AwaitRaidAndSabotagePanel extends JPanel implements Observer, Const
     @Override
     public void update(Observable o, Object arg) {
         setVisible(observableGame.getState() instanceof RaidAndSabotageActionsOnly);
+        
+        bSupplyRaid.setEnabled(observableGame.canDoSupplyRaid());
+        bSabotage.setEnabled(observableGame.canDoSabotage());
+        bBuyAP.setEnabled(observableGame.canDoBuyActionPoint());
     }
 }

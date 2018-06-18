@@ -5,8 +5,10 @@
  */
 package pkg9cs.ui.gui;
 
-import com.sun.java.accessibility.util.AWTEventMonitor;
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -19,13 +21,12 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import pkg9cs.controller.ObservableGame;
 import pkg9cs.states.AwaitDrawCard;
-import static pkg9cs.ui.gui.AwaitBeginningPanel.background9CS;
 
 /**
  *
  * @author sarah
  */
-class CardPanel extends JPanel implements Constants, Observer {
+class CardPanel extends JPanel implements Constants {
 
     private ObservableGame observableGame;
 
@@ -60,8 +61,6 @@ class CardPanel extends JPanel implements Constants, Observer {
 
     public CardPanel(ObservableGame observableGame) {
         this.observableGame = observableGame;
-        this.observableGame.addObserver(this);
-        //TODO
 
         addMouseMotionListener(new MouseAdapter() {
             @Override
@@ -86,12 +85,12 @@ class CardPanel extends JPanel implements Constants, Observer {
             g.drawImage(getCardBack(), 0, 0, getWidth(), getHeight(), this);
         } else {
             g.drawImage(getCardImage(cardIndex), 0, 0, getWidth(), getHeight(), this);
+            g.setColor(Color.red);
+
+            Graphics2D g2D = (Graphics2D) g;
+            g2D.setStroke(new BasicStroke(10F));
+
+            g2D.drawRect(0, (observableGame.getDayNumber() - 1) * (getHeight() / 3), getWidth(), getHeight() / 3);
         }
     }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        //setFocusable(observableGame.getState() instanceof AwaitDrawCard);
-    }
-
 }
