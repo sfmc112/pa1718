@@ -1065,6 +1065,8 @@ public class GameData implements Serializable, GameEnums {
      * ******************************************************************************************
      */
     public void trebuchetAttack() {
+        int dieResult;
+        
         switch (enemyB.getTrebuchetCount()) {
             case 3:
                 msg.append("<<You lost 2 points in Wall!>>\n");
@@ -1076,7 +1078,9 @@ public class GameData implements Serializable, GameEnums {
                 statusB.advanceWall();
                 break;
             case 1:
-                switch (GameData.Die.rollDie()) {
+                dieResult = GameData.Die.rollDie();
+                setDie(dieResult);
+                switch (dieResult) {
                     case 1:
                     case 2:
                     case 3:
