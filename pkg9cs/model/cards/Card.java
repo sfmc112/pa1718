@@ -29,11 +29,10 @@ public abstract class Card implements Serializable {
             days.get(dayNumber - 1).executeDayActions(game);
         } catch (RaidAndSabotageException ex) {
             throw ex;
+        } finally {
+            CardDayEvent cardEvent = days.get(dayNumber - 1).getCardEvent();
+            game.setDayEvent(cardEvent);
         }
-
-        CardDayEvent cardEvent = days.get(dayNumber - 1).getCardEvent();
-
-        game.setDayEvent(cardEvent);
     }
 
     @Override

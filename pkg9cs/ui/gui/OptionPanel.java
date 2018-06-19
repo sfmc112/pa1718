@@ -28,17 +28,17 @@ class OptionPanel extends JPanel implements Observer, Constants {
     private AwaitEnemySelectCloseCombatPanel pAwaitEnemySelectCloseCombat;
     private AwaitTunnelMovementPanel pAwaitTunnelMovement;
     private AwaitRaidAndSabotagePanel pAwaitRaidAndSabotage;
+    private GameWonPanel pGameWon;
+    private GameLostPanel pGameLost;
 
 
     public OptionPanel(ObservableGame observableGame) {
         this.observableGame = observableGame;
         this.observableGame.addObserver(this);
-        //TODO
 
         configurePanels();
         addPanels();
 
-        //setBackground(Color.lightGray);
         setLocation(0, 0);
         DimensionClass.setMinAndPreferredSize(this, DIM_X_OPTION_PANEL, DIM_Y_OPTION_PANEL);
 
@@ -59,25 +59,21 @@ class OptionPanel extends JPanel implements Observer, Constants {
         pAwaitEnemySelectCloseCombat = new AwaitEnemySelectCloseCombatPanel(observableGame);
         pAwaitTunnelMovement = new AwaitTunnelMovementPanel(observableGame);
         pAwaitRaidAndSabotage = new AwaitRaidAndSabotagePanel(observableGame);
+        pGameWon = new GameWonPanel(observableGame);
+        pGameLost= new GameLostPanel(observableGame);
     }
 
     private void addPanels() {
         add(pAwaitAction);
-        //DimensionClass.setAllSizes(pAwaitAction, DIM_X_OPTION_PANEL, DIM_Y_OPTION_PANEL);
         add(pAwaitAddActionPoint);
-        //DimensionClass.setAllSizes(pAwaitAddActionPoint, DIM_X_OPTION_PANEL, DIM_Y_OPTION_PANEL);
         add(pAwaitAddSupplyRallyTroops);
-        //DimensionClass.setAllSizes(pAwaitAddSupplyRallyTroops, DIM_X_OPTION_PANEL, DIM_Y_OPTION_PANEL);
         add(pAwaitEnemySelectArchers);
-        //DimensionClass.setAllSizes(pAwaitEnemySelectArchers, DIM_X_OPTION_PANEL, DIM_Y_OPTION_PANEL);
         add(pAwaitEnemySelectBoiling);
-        //DimensionClass.setAllSizes(pAwaitEnemySelectBoiling, DIM_X_OPTION_PANEL, DIM_Y_OPTION_PANEL);
         add(pAwaitEnemySelectCloseCombat);
-        //DimensionClass.setAllSizes(pAwaitEnemySelectCloseCombat, DIM_X_OPTION_PANEL, DIM_Y_OPTION_PANEL);
         add(pAwaitTunnelMovement);
-        //DimensionClass.setAllSizes(pAwaitTunnelMovement, DIM_X_OPTION_PANEL, DIM_Y_OPTION_PANEL);
         add(pAwaitRaidAndSabotage);
-        //DimensionClass.setAllSizes(pAwaitRaidAndSabotage, DIM_X_OPTION_PANEL, DIM_Y_OPTION_PANEL);
+        add(pGameWon);
+        add(pGameLost);
     }
 
 }

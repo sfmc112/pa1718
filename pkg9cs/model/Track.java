@@ -40,7 +40,6 @@ public abstract class Track implements Serializable {
                 return track.indexOf(boardSpace);
             }
         }
-        //TODO exception
         return -1;
     }
 

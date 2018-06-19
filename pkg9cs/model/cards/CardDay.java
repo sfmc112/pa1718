@@ -35,14 +35,18 @@ public class CardDay implements Serializable {
             cardEvent.executeCardDayEvents(game);
         } catch (RaidAndSabotageException ex) {
             throw ex;
+        } finally {
+            game.setNumberOfActions(numActions);
+            for (WeaponAttack enemyAttack : enemyAttacks) {
+                enemyAttack.attack(game);
+            }
         }
 
-        for (WeaponAttack enemyAttack : enemyAttacks) {
-            enemyAttack.attack(game);
-        }
-
-        game.setNumberOfActions(numActions);
-
+//        for (WeaponAttack enemyAttack : enemyAttacks) {
+//            enemyAttack.attack(game);
+//        }
+//
+//        game.setNumberOfActions(numActions);
     }
 
     public CardDayEvent getCardEvent() {

@@ -6,6 +6,7 @@
 package pkg9cs.ui.gui;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -29,11 +30,14 @@ import pkg9cs.states.StartGame;
 public class OngoingGamePanel extends JPanel implements Observer, Constants {
 
     private ObservableGame observableGame;
+    
+    private static Font textFont=  new Font("Book Antiqua", Font.PLAIN, 18);
 
     private EnemyBoardPanel pEnemyBoard;
     private StatusBoardPanel pStatusBoard;
 
-    private JLabel lTurn;
+    private JLabel lTurnAndAP;
+    private JLabel lDieLabel;
     private DiePanel pDie;
 
     private CardPanel pCard;
@@ -57,15 +61,9 @@ public class OngoingGamePanel extends JPanel implements Observer, Constants {
 
     @Override
     public void update(Observable o, Object arg) {
-        setVisible(!(observableGame.getState() instanceof StartGame)
-                /*&& !(observableGame.getState() instanceof GameWon)
-                && !(observableGame.getState() instanceof GameLost)*/);
+        setVisible(!(observableGame.getState() instanceof StartGame));
 
-//        setFocusable(!(observableGame.getState() instanceof StartGame)
-//                && !(observableGame.getState() instanceof GameWon)
-//                && !(observableGame.getState() instanceof GameLost));
-
-        lTurn.setText("Turno " + observableGame.getTurnNumber());
+        lTurnAndAP.setText("Turn: " + observableGame.getTurnNumber() + "  AP: " + observableGame.getNumberOfActions());
 
         bDrawCard.setEnabled(observableGame.getState() instanceof AwaitDrawCard);
     }
@@ -73,38 +71,43 @@ public class OngoingGamePanel extends JPanel implements Observer, Constants {
     private void createComponents() {
         pEnemyBoard = new EnemyBoardPanel(observableGame);
         pStatusBoard = new StatusBoardPanel(observableGame);
-        lTurn = new JLabel("");
+        lTurnAndAP = new JLabel("");
         pCard = new CardPanel(observableGame);
         pDie = new DiePanel(observableGame);
         pOptions = new OptionPanel(observableGame);
+        lDieLabel = new JLabel("Die plus Modifiers");
 
         bDrawCard = new JButton("Draw Card");
         bDrawCard.setEnabled(false);
+        
+        lTurnAndAP.setFont(textFont);
+        lDieLabel.setFont(textFont);
 
     }
 
     private void displayView() {
         Box LeftBox = Box.createVerticalBox();
 
-        //LeftBox.add(Box.createVerticalGlue());
+
         LeftBox.add(pEnemyBoard);
         LeftBox.add(Box.createVerticalGlue());
 
         Box rightBox = Box.createVerticalBox();
 
-        //rightBox.add(Box.createVerticalGlue());
         rightBox.add(pStatusBoard);
         rightBox.add(Box.createVerticalGlue());
 
         Box centerBox = Box.createVerticalBox();
 
         //centerBox.add(Box.createVerticalGlue());
-        centerBox.add(lTurn);
-        lTurn.setAlignmentX(CENTER_ALIGNMENT);
+        centerBox.add(lTurnAndAP);
+        lTurnAndAP.setAlignmentX(CENTER_ALIGNMENT);
         centerBox.add(pCard);
         centerBox.add(bDrawCard);
         bDrawCard.setAlignmentX(CENTER_ALIGNMENT);
         centerBox.add(Box.createVerticalGlue());
+        centerBox.add(lDieLabel);
+        lDieLabel.setAlignmentX(CENTER_ALIGNMENT);
         centerBox.add(pDie);
         centerBox.add(Box.createVerticalGlue());
 
@@ -120,24 +123,14 @@ public class OngoingGamePanel extends JPanel implements Observer, Constants {
 
         Box bottomBox = Box.createHorizontalBox();
         bottomBox.add(Box.createHorizontalGlue());
-        //bottomBox.add(Box.createVerticalGlue());
         bottomBox.add(pOptions);
         bottomBox.add(Box.createHorizontalGlue());
-        //.add(Box.createVerticalGlue());
-
-//        JPanel mainSouth = new JPanel();
-//        DimensionClass.setMinAndPreferredSize(mainSouth, DIM_X_OPTION_PANEL, DIM_Y_OPTION_PANEL);
-//
-//        mainSouth.add(pOptions);
-        //bottomBox.setBorder(new LineBorder(Color.DARK_GRAY));
 
         DimensionClass.setAllSizes(mainCenterBox, DIM_X_MAIN_PANEL, DIM_Y_BOARD_PANEL);
-        //DimensionClass.setAllSizes(bottomBox, DIM_X_MAIN_PANEL, DIM_Y_OPTION_PANEL);
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         
         add(mainCenterBox);
-        //add(Box.createHorizontalGlue());
         add(bottomBox);
     }
 

@@ -65,7 +65,7 @@ class StatusBoardPanel extends JPanel implements Constants {
         }
 
         if (observableGame.getSupplyPos() == 0) {
-            g.drawImage(token, 200, 400, 25, 25, this);
+            g.drawImage(token, 180, 400, 25, 25, this);
         } else {
             g.drawImage(token, 6 * getWidth() / 8, (4 - observableGame.getSupplyPos()) * getHeight() / 6 + getWidth() / 10, 25, 25, this);
         }

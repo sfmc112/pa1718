@@ -303,6 +303,10 @@ public class GameController implements Serializable, GameEnums {
     public int getDie() {
         return game.getDie();
     }
+
+    public int getNumberOfActions() {
+        return game.getNumberOfActions();
+    }
     
     
 

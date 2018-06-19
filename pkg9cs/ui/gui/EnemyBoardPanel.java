@@ -43,7 +43,6 @@ class EnemyBoardPanel extends JPanel implements Constants {
 
         setLocation(X_START_MAIN_PANEL, Y_START_MAIN_PANEL);
         DimensionClass.setAllSizes(this, DIM_X_BOARD_PANEL, DIM_Y_BOARD_PANEL);
-        //TODO
     }
 
     @Override

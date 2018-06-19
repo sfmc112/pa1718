@@ -45,7 +45,6 @@ public class EnemyBoard implements Serializable {
         if (towerPresent) {
             return towers.whereIsElement();
         } else {
-            //TODO exception
             return -1;
         }
     }

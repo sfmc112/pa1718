@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import javax.imageio.ImageIO;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import pkg9cs.controller.ObservableGame;
 
@@ -45,6 +46,7 @@ class DiePanel extends JPanel implements Constants {
     public DiePanel(ObservableGame observableGame) {
         this.observableGame = observableGame;
 
+
         setLocation(0, 0);
         DimensionClass.setAllSizes(this, DIM_X_DIE_PANEL, DIM_Y_DIE_PANEL);
     }
@@ -54,7 +56,10 @@ class DiePanel extends JPanel implements Constants {
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
 
         if (observableGame.getDie() > 0) {
+            //OngoingGamePanel.switchDieLabel(true);
             g.drawImage(die.get(observableGame.getDie() - 1), 0, 0, getWidth(), getHeight(), this);
+        } else {
+            //OngoingGamePanel.switchDieLabel(false);
         }
     }
 

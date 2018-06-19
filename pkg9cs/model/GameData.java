@@ -150,6 +150,7 @@ public class GameData implements Serializable, GameEnums {
     public int getTurnNumber(){
         return 7 - deck.getCardPileSize() + 1;
     }
+    
 
     public boolean suppliesFull() {
         return statusB.getSupplyCount() >= 2;

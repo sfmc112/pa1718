@@ -39,15 +39,11 @@ public class NineCardSiegeView extends JFrame implements Observer, Constants {
 
     private ObservableGame observableGame;
 
-    private static Font fonte = new Font("Book Antiqua", Font.ITALIC, 32);
+    private static Font titleFont=  new Font("Book Antiqua", Font.ITALIC, 32);
 
     private JMenuBar menuBar;
-    //private JToolBar toolBar;
-    //private JPanel mainPanel;
     private AwaitBeginningPanel pAwaitBeginning;
     private OngoingGamePanel pOngoingGame;
-//    private GameWonPanel pGameWon;
-//    private GameLostPanel pGameLost;
 
     public NineCardSiegeView(ObservableGame observableGame) {
         this(observableGame, 200, 100, DIM_X_FRAME, DIM_Y_FRAME);
@@ -59,7 +55,6 @@ public class NineCardSiegeView extends JFrame implements Observer, Constants {
         observableGame = obGame;
         observableGame.addObserver(this);
 
-        //todo
         createComponents();
         displayView();
 
@@ -104,12 +99,10 @@ public class NineCardSiegeView extends JFrame implements Observer, Constants {
         menuBar = new BarraMenus();
         pAwaitBeginning = new AwaitBeginningPanel(observableGame);
         pOngoingGame = new OngoingGamePanel(observableGame);
-        //TODO NEWS
 
     }
 
     private void displayView() {
-        //Setup View
         Container cp = getContentPane();
         setJMenuBar(menuBar);
 
@@ -121,9 +114,7 @@ public class NineCardSiegeView extends JFrame implements Observer, Constants {
 
         mainPanel.add(pAwaitBeginning);
         mainPanel.add(pOngoingGame);
-        //todo add outros paineis
 
-        //cp.setLayout(new BorderLayout());
         cp.add(Box.createVerticalGlue());
         cp.add(mainPanel);
         cp.add(Box.createVerticalGlue());
@@ -204,9 +195,10 @@ public class NineCardSiegeView extends JFrame implements Observer, Constants {
         public void actionPerformed(ActionEvent e) {
             String filename = null;
             int n;
+            boolean loaded = false, saved = false;
 
             FileNameExtensionFilter filter = new FileNameExtensionFilter("Game file only", "g", "game");
-            JFileChooser gestorFicheiros = new JFileChooser("");
+            JFileChooser gestorFicheiros = new JFileChooser("./data");
             gestorFicheiros.setFileFilter(filter);
 
             String cmd = e.getActionCommand();
@@ -234,9 +226,10 @@ public class NineCardSiegeView extends JFrame implements Observer, Constants {
                     if (n == JFileChooser.APPROVE_OPTION) {
                         filename = gestorFicheiros.getName(gestorFicheiros.getSelectedFile());
 
+                        loaded = observableGame.loadGame(filename);
                     }
 
-                    boolean loaded = observableGame.loadGame(filename);
+                    
                     
                     if(loaded)
                         JOptionPane.showMessageDialog(NineCardSiegeView.this, "Game was loaded sucessfully", "Load Game", JOptionPane.OK_OPTION, UIManager.getIcon("OptionPane.informationIcon"));
@@ -247,10 +240,9 @@ public class NineCardSiegeView extends JFrame implements Observer, Constants {
 
                     if (n == JFileChooser.APPROVE_OPTION) {
                         filename = gestorFicheiros.getName(gestorFicheiros.getSelectedFile());
+                        
+                        saved = observableGame.saveGame(filename);
                     }
-
-                    boolean saved = observableGame.saveGame(filename);
-                    
                     if(saved)
                         JOptionPane.showMessageDialog(NineCardSiegeView.this, "Game was saved sucessfully", "Save Game", JOptionPane.OK_OPTION, UIManager.getIcon("OptionPane.informationIcon"));
                 }
@@ -286,7 +278,7 @@ public class NineCardSiegeView extends JFrame implements Observer, Constants {
             setFocusable(false);
 
 //            opacity = 0.8;
-            setFont(fonte);
+            setFont(titleFont);
         }
 
 //        public void setOpacity(float opacity) {

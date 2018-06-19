@@ -5,6 +5,8 @@
  */
 package pkg9cs.ui.gui;
 
+import java.awt.Font;
+
 /**
  *
  * @author sarah
@@ -21,17 +23,20 @@ public interface Constants {
     static final int DIM_Y_MAIN_PANEL = DIM_Y_FRAME;
 
     static final int X_START_MAIN_PANEL = 0, Y_START_MAIN_PANEL = 0;
-    
+
     static final int DIM_X_BOARD_PANEL = 370;
     static final int DIM_Y_BOARD_PANEL = 535;
-    
+
     static final int DIM_X_CARD_PANEL = 225;
     static final int DIM_Y_CARD_PANEL = 325;
-    
+
     static final int DIM_X_DIE_PANEL = 100;
     static final int DIM_Y_DIE_PANEL = 100;
-    
+
     static final int DIM_X_OPTION_PANEL = DIM_X_MAIN_PANEL;
-    static final int DIM_Y_OPTION_PANEL = DIM_Y_MAIN_PANEL - DIM_Y_BOARD_PANEL;
+    static final int DIM_Y_OPTION_PANEL = DIM_Y_MAIN_PANEL - DIM_Y_BOARD_PANEL - 150;
+
+    static Font bigMessageFont = new Font("Book Antiqua", Font.BOLD, 32);
+    static Font detailMessageFont = new Font("Book Antiqua", Font.PLAIN, 18);
 
 }

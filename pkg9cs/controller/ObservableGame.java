@@ -379,6 +379,10 @@ public class ObservableGame extends Observable implements GameEnums{
     public int getDie() {
         return gameC.getDie();
     }
+
+    public int getNumberOfActions() {
+        return gameC.getNumberOfActions();
+    }
     
 
     public String printMSG() {
