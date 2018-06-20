@@ -9,7 +9,6 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JPanel;
 import pkg9cs.controller.ObservableGame;
-import pkg9cs.states.AwaitAction;
 import pkg9cs.states.AwaitAddActionPoint;
 
 /**

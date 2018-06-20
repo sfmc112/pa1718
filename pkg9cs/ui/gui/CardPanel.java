@@ -9,14 +9,10 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import pkg9cs.controller.ObservableGame;
@@ -85,7 +81,7 @@ class CardPanel extends JPanel implements Constants {
             g.drawImage(getCardBack(), 0, 0, getWidth(), getHeight(), this);
         } else {
             g.drawImage(getCardImage(cardIndex), 0, 0, getWidth(), getHeight(), this);
-            g.setColor(Color.red);
+            g.setColor(Color.blue);
 
             Graphics2D g2D = (Graphics2D) g;
             g2D.setStroke(new BasicStroke(10F));

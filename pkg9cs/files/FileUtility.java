@@ -15,7 +15,6 @@ import java.io.ObjectOutputStream;
 
 public class FileUtility {
 
-    public static final String FILE_TO_SAVE_GAME = "savedgame.bin";
 
     public static void saveGameToFile(String filename, Object o) throws IOException {
         ObjectOutputStream oout = null;

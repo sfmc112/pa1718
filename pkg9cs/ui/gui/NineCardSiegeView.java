@@ -39,7 +39,7 @@ public class NineCardSiegeView extends JFrame implements Observer, Constants {
 
     private ObservableGame observableGame;
 
-    private static Font titleFont=  new Font("Book Antiqua", Font.ITALIC, 32);
+    private static Font titleFont = new Font("Book Antiqua", Font.ITALIC, 32);
 
     private JMenuBar menuBar;
     private AwaitBeginningPanel pAwaitBeginning;
@@ -229,10 +229,9 @@ public class NineCardSiegeView extends JFrame implements Observer, Constants {
                         loaded = observableGame.loadGame(filename);
                     }
 
-                    
-                    
-                    if(loaded)
+                    if (loaded) {
                         JOptionPane.showMessageDialog(NineCardSiegeView.this, "Game was loaded sucessfully", "Load Game", JOptionPane.OK_OPTION, UIManager.getIcon("OptionPane.informationIcon"));
+                    }
                 }
                 break;
                 case "Save": {
@@ -240,11 +239,12 @@ public class NineCardSiegeView extends JFrame implements Observer, Constants {
 
                     if (n == JFileChooser.APPROVE_OPTION) {
                         filename = gestorFicheiros.getName(gestorFicheiros.getSelectedFile());
-                        
+
                         saved = observableGame.saveGame(filename);
                     }
-                    if(saved)
+                    if (saved) {
                         JOptionPane.showMessageDialog(NineCardSiegeView.this, "Game was saved sucessfully", "Save Game", JOptionPane.OK_OPTION, UIManager.getIcon("OptionPane.informationIcon"));
+                    }
                 }
                 break;
                 case "About": {

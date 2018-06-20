@@ -38,5 +38,5 @@ public interface Constants {
 
     static Font bigMessageFont = new Font("Book Antiqua", Font.BOLD, 32);
     static Font detailMessageFont = new Font("Book Antiqua", Font.PLAIN, 18);
-
+    static Font textFont = detailMessageFont;
 }

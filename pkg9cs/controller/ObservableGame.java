@@ -331,7 +331,8 @@ public class ObservableGame extends Observable implements GameEnums{
     public int getTurnNumber() {
         return gameC.getTurnNumber();
     }
-
+    
+    
     public boolean twoEnemiesOnCloseCombat() {
         return gameC.twoEnemiesOnCloseCombat();
     }

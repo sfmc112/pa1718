@@ -5,8 +5,6 @@
  */
 package pkg9cs.ui.gui;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -16,11 +14,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
 import pkg9cs.controller.ObservableGame;
 import pkg9cs.states.AwaitDrawCard;
-import pkg9cs.states.GameLost;
-import pkg9cs.states.GameWon;
 import pkg9cs.states.StartGame;
 
 /**
@@ -30,15 +25,12 @@ import pkg9cs.states.StartGame;
 public class OngoingGamePanel extends JPanel implements Observer, Constants {
 
     private ObservableGame observableGame;
-    
-    private static Font textFont=  new Font("Book Antiqua", Font.PLAIN, 18);
 
     private EnemyBoardPanel pEnemyBoard;
     private StatusBoardPanel pStatusBoard;
 
     private JLabel lTurnAndAP;
-    private JLabel lDieLabel;
-    private DiePanel pDie;
+    private FullDiePanel pFullDie;
 
     private CardPanel pCard;
     private JButton bDrawCard;
@@ -63,7 +55,7 @@ public class OngoingGamePanel extends JPanel implements Observer, Constants {
     public void update(Observable o, Object arg) {
         setVisible(!(observableGame.getState() instanceof StartGame));
 
-        lTurnAndAP.setText("Turn: " + observableGame.getTurnNumber() + "  AP: " + observableGame.getNumberOfActions());
+        lTurnAndAP.setText("Day " + observableGame.getDayNumber() + "  Turn: " + observableGame.getTurnNumber() + "  AP: " + observableGame.getNumberOfActions());
 
         bDrawCard.setEnabled(observableGame.getState() instanceof AwaitDrawCard);
     }
@@ -73,15 +65,12 @@ public class OngoingGamePanel extends JPanel implements Observer, Constants {
         pStatusBoard = new StatusBoardPanel(observableGame);
         lTurnAndAP = new JLabel("");
         pCard = new CardPanel(observableGame);
-        pDie = new DiePanel(observableGame);
         pOptions = new OptionPanel(observableGame);
-        lDieLabel = new JLabel("Die plus Modifiers");
-
+        pFullDie = new FullDiePanel(observableGame);
         bDrawCard = new JButton("Draw Card");
         bDrawCard.setEnabled(false);
         
         lTurnAndAP.setFont(textFont);
-        lDieLabel.setFont(textFont);
 
     }
 
@@ -99,16 +88,14 @@ public class OngoingGamePanel extends JPanel implements Observer, Constants {
 
         Box centerBox = Box.createVerticalBox();
 
-        //centerBox.add(Box.createVerticalGlue());
+
         centerBox.add(lTurnAndAP);
         lTurnAndAP.setAlignmentX(CENTER_ALIGNMENT);
         centerBox.add(pCard);
         centerBox.add(bDrawCard);
         bDrawCard.setAlignmentX(CENTER_ALIGNMENT);
         centerBox.add(Box.createVerticalGlue());
-        centerBox.add(lDieLabel);
-        lDieLabel.setAlignmentX(CENTER_ALIGNMENT);
-        centerBox.add(pDie);
+        centerBox.add(pFullDie);
         centerBox.add(Box.createVerticalGlue());
 
         Box mainCenterBox = Box.createHorizontalBox();

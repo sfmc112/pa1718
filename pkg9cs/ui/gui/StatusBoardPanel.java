@@ -8,8 +8,6 @@ package pkg9cs.ui.gui;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Observable;
-import java.util.Observer;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import pkg9cs.controller.ObservableGame;
@@ -53,13 +51,13 @@ class StatusBoardPanel extends JPanel implements Constants {
 
         //Draw Posições da Wall, Supply, Morale
         if (observableGame.getWallPos() == 0) {
-            g.drawImage(token, 160, 400, 25, 25, this);
+            g.drawImage(token, 150, 400, 25, 25, this);
         } else {
             g.drawImage(token, getWidth() / 8, (4 - observableGame.getWallPos()) * getHeight() / 6 + getWidth() / 10, 25, 25, this);
         }
 
         if (observableGame.getMoralePos() == 0) {
-            g.drawImage(token, 170, 400, 25, 25, this);
+            g.drawImage(token, 165, 400, 25, 25, this);
         } else {
             g.drawImage(token, 160, (4 - observableGame.getMoralePos()) * getHeight() / 6 + getWidth() / 10, 25, 25, this);
         }

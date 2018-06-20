@@ -8,8 +8,6 @@ package pkg9cs.ui.gui;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Observable;
-import java.util.Observer;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import pkg9cs.controller.ObservableGame;

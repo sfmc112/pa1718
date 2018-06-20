@@ -5,9 +5,7 @@
  */
 package pkg9cs.ui.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Graphics;
-import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Observable;

@@ -8,7 +8,6 @@ package pkg9cs;
 import pkg9cs.controller.GameController;
 import pkg9cs.controller.ObservableGame;
 import pkg9cs.ui.gui.NineCardSiegeView;
-import pkg9cs.ui.textui.TextUI;
 
 /**
  *

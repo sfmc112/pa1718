@@ -5,8 +5,6 @@
  */
 package pkg9cs.ui.gui;
 
-import java.awt.Color;
-import java.awt.GridLayout;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JPanel;
